@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+    
+    <entry>
+      <title><![CDATA[建立博客]]></title>
+      <url>/%E5%BB%BA%E7%AB%8B%E5%8D%9A%E5%AE%A2.html/</url>
+      <content type="html"><![CDATA[<p>由于诸多原因，我最终选择了hexo+github搭建博客，原因嘛有很多。但是markdown的编写方式和纯命令的编辑方式是我所喜爱的。<br><a id="more"></a><br>我不知道在其他人眼里git意味着什么，但是不知不觉中我觉得我思想发生了一些改变。喜欢上了一些高大上的程序员方式。<br>之前打算用yii2.0搭建博客，但是markdown插件弄了好久都没有弄出来，然后按照yii2.0博客程序也存在弊端；node.js搭建博客弄了弄，发现英文大多不太喜欢，而且服务器的配置太繁琐，不想hexo几行命令即可搞定。<br>不过我从头到尾都没有想过使用WordPress，原因很简单，没有轻量级的书写方式，不够简洁，我觉得博客的本质应该是写作。<br>专注于写作和学习，这才是我建立博客的主旨。</p>
+]]></content>
+      
+        
+    </entry>
+    
+  
+  
+</search>
