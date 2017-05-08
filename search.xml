@@ -3,6 +3,31 @@
   
     
     <entry>
+      <title><![CDATA[大话PHP设计模式]]></title>
+      <url>/2.html/</url>
+      <content type="html"><![CDATA[<p>这个是对慕课里面的《大话设计模式》里面的笔记总结，以至于对”设计模式”有所学习了解。<br><a id="more"></a></p>
+<h1 id="PHP面向对象高级特性"><a href="#PHP面向对象高级特性" class="headerlink" title="PHP面向对象高级特性"></a>PHP面向对象高级特性</h1><p>PSR-0规范<br> 1、命名空间必须与绝对路径一致<br> 2、类名首字母必须大写<br> 3、除入口文件外，其他”.php”必须只有一个类</p>
+<p>开发符合PSR-0规范的基础框架<br> 1、全部使用命名空间<br> 2、所有PHP文件必须自动载入，不能有include/require<br> 3、单一入口<br>sql_autoload_register()</p>
+]]></content>
+      
+        <categories>
+            
+            <category> PHP </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> PHP </tag>
+            
+            <tag> 设计模式 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[建立博客]]></title>
       <url>/1.html/</url>
       <content type="html"><![CDATA[<p>由于诸多原因，我最终选择了hexo+github搭建博客，原因嘛有很多。但是markdown的编写方式和纯命令的编辑方式是我所喜爱的。<br><a id="more"></a><br>我不知道在其他人眼里git意味着什么，但是不知不觉中我觉得我思想发生了一些改变。喜欢上了一些高大上的程序员方式。<br>之前打算用yii2.0搭建博客，但是markdown插件弄了好久都没有弄出来，然后按照yii2.0博客程序也存在弊端；node.js搭建博客弄了弄，发现英文大多不太喜欢，而且服务器的配置太繁琐，不想hexo几行命令即可搞定。<br>不过我从头到尾都没有想过使用WordPress，原因很简单，没有轻量级的书写方式，不够简洁，我觉得博客的本质应该是写作。<br>专注于写作和学习，这才是我建立博客的主旨。</p>
