@@ -5,7 +5,7 @@
     <entry>
       <title><![CDATA[git的常规使用]]></title>
       <url>/2.html/</url>
-      <content type="html"><![CDATA[<p>首先需要本地git与远程github相连接。采取SSH连接方式。</p>
+      <content type="html"><![CDATA[<p>首先需要本地git与远程github相连接。采取SSH连接方式。<br>此次教程对于git的使用做一个常规使用的总结，更多高级使用并未涉及。<br><a id="more"></a></p>
 <h3 id="配置git"><a href="#配置git" class="headerlink" title="配置git"></a>配置git</h3><h4 id="1-创建ssh-key"><a href="#1-创建ssh-key" class="headerlink" title="1. 创建ssh key"></a>1. 创建ssh key</h4><p>为了让github能够识别是我们自己上传文件，需要创建ssh key<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ssh-keygen -t rsa -C &quot;your_email@youreamil.com&quot;</div></pre></td></tr></table></figure></p>
 <p>这里的your_email@youremail.com是你的邮箱地址，在输入后会询问你是否保存创建的ssh key，点回车就好，然后要求输入你要设置的密码，如果直接回车表示不设密码。然后会提示你ssh key已经创建好。</p>
 <h4 id="2-将ssh写入github"><a href="#2-将ssh写入github" class="headerlink" title="2. 将ssh写入github"></a>2. 将ssh写入github</h4><p>在windows中生成的id_rsa.pub文件一般在C:\Users\windows用户名\.ssh目录下，打开隐藏文件即可看到。<br>复制出来，在github在点击头像，然后点击setting，在找到SSH and GPG keys，创建一个new ssh key，然后将刚刚复制的ssh key填入即可。</p>
