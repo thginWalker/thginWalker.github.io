@@ -49,9 +49,14 @@
 <h4 id="显示数据库"><a href="#显示数据库" class="headerlink" title="显示数据库"></a>显示数据库</h4><p>命令：<code>show databases;</code></p>
 <h4 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h4><p>命令:<code>drop database &lt;数据库名&gt;；</code></p>
 <h4 id="选择数据库"><a href="#选择数据库" class="headerlink" title="选择数据库"></a>选择数据库</h4><p>命令:<code>use &lt;数据库名&gt;；<code></code></code></p>
-<h4 id="显示数据表"><a href="#显示数据表" class="headerlink" title="显示数据表"></a>显示数据表</h4><p>=====================================</p>
-<p>   待完善<a href="http://www.cnblogs.com/zhangzhu/archive/2013/07/04/3172486.html" target="_blank" rel="external">http://www.cnblogs.com/zhangzhu/archive/2013/07/04/3172486.html</a></p>
-]]></content>
+<h4 id="显示数据表"><a href="#显示数据表" class="headerlink" title="显示数据表"></a>显示数据表</h4><p>命令:<code>show tables;</code></p>
+<h4 id="增加数据记录"><a href="#增加数据记录" class="headerlink" title="增加数据记录"></a>增加数据记录</h4><p> 命令:<code>insert into &lt;表名&gt;(字段名1,字段名2,…,字段名n) values(值1,值2,…,值n);</code></p>
+<h4 id="删除数据记录"><a href="#删除数据记录" class="headerlink" title="删除数据记录"></a>删除数据记录</h4><p> 命令:<code>delete from 表名 where 表达式;</code></p>
+<h4 id="修改数据记录"><a href="#修改数据记录" class="headerlink" title="修改数据记录"></a>修改数据记录</h4><p> 命令:<code>update from 表名 set 字段 = ‘新值’ where 表达式;</code></p>
+<h4 id="查询数据记录"><a href="#查询数据记录" class="headerlink" title="查询数据记录"></a>查询数据记录</h4><p> 命令:<code>select * from 表名 (where 表达式) ;</code></p>
+<p> 注：对于字段、索引和实例等其他复杂操作在此就不一一介绍了，以上就是在liunx操作mysql常用的命令了。</p>
+<hr>
+<h1 id="其他操作可借鉴-http-www-cnblogs-com-zhangzhu-archive-2013-07-04-3172486-html"><a href="#其他操作可借鉴-http-www-cnblogs-com-zhangzhu-archive-2013-07-04-3172486-html" class="headerlink" title="其他操作可借鉴:http://www.cnblogs.com/zhangzhu/archive/2013/07/04/3172486.html"></a>其他操作可借鉴:<a href="http://www.cnblogs.com/zhangzhu/archive/2013/07/04/3172486.html" target="_blank" rel="external">http://www.cnblogs.com/zhangzhu/archive/2013/07/04/3172486.html</a></h1>]]></content>
       
         <categories>
             
