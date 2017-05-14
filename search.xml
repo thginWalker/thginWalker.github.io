@@ -55,8 +55,8 @@
 <h4 id="修改数据记录"><a href="#修改数据记录" class="headerlink" title="修改数据记录"></a>修改数据记录</h4><p> 命令:<code>update from 表名 set 字段 = ‘新值’ where 表达式;</code></p>
 <h4 id="查询数据记录"><a href="#查询数据记录" class="headerlink" title="查询数据记录"></a>查询数据记录</h4><p> 命令:<code>select * from 表名 (where 表达式) ;</code></p>
 <p> 注：对于字段、索引和实例等其他复杂操作在此就不一一介绍了，以上就是在liunx操作mysql常用的命令了。</p>
-<hr>
-<h1 id="其他操作可借鉴-http-www-cnblogs-com-zhangzhu-archive-2013-07-04-3172486-html"><a href="#其他操作可借鉴-http-www-cnblogs-com-zhangzhu-archive-2013-07-04-3172486-html" class="headerlink" title="其他操作可借鉴:http://www.cnblogs.com/zhangzhu/archive/2013/07/04/3172486.html"></a>其他操作可借鉴:<a href="http://www.cnblogs.com/zhangzhu/archive/2013/07/04/3172486.html" target="_blank" rel="external">http://www.cnblogs.com/zhangzhu/archive/2013/07/04/3172486.html</a></h1>]]></content>
+<p><a href="http://www.cnblogs.com/zhangzhu/archive/2013/07/04/3172486.html" target="_blank" rel="external">其他操作可借鉴</a>  </p>
+]]></content>
       
         <categories>
             

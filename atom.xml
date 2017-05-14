@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.jb-hacker.top/"/>
-  <updated>2017-05-14T09:17:37.714Z</updated>
+  <updated>2017-05-14T09:22:40.754Z</updated>
   <id>http://www.jb-hacker.top/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://www.jb-hacker.top/4.html/"/>
     <id>http://www.jb-hacker.top/4.html/</id>
     <published>2017-05-12T16:00:00.000Z</published>
-    <updated>2017-05-14T09:17:37.714Z</updated>
+    <updated>2017-05-14T09:22:40.754Z</updated>
     
     <content type="html"><![CDATA[<p>mysql是一个关系型数据库管理系统，由于其开源免费，在web开发方面占有重要地位。<br><a id="more"></a><br>今天我们所说的是mysql的命令行模式，不同于常规的视图操作界面。</p>
 <h4 id="mysql服务相关"><a href="#mysql服务相关" class="headerlink" title="mysql服务相关"></a>mysql服务相关</h4><p>　　我们可以这样理解，mysql的正常运行离不开mysql服务的正常启动。所有对于这些我们必须掌握。</p>
@@ -72,8 +72,8 @@
 <h4 id="修改数据记录"><a href="#修改数据记录" class="headerlink" title="修改数据记录"></a>修改数据记录</h4><p> 命令:<code>update from 表名 set 字段 = ‘新值’ where 表达式;</code></p>
 <h4 id="查询数据记录"><a href="#查询数据记录" class="headerlink" title="查询数据记录"></a>查询数据记录</h4><p> 命令:<code>select * from 表名 (where 表达式) ;</code></p>
 <p> 注：对于字段、索引和实例等其他复杂操作在此就不一一介绍了，以上就是在liunx操作mysql常用的命令了。</p>
-<hr>
-<h1 id="其他操作可借鉴-http-www-cnblogs-com-zhangzhu-archive-2013-07-04-3172486-html"><a href="#其他操作可借鉴-http-www-cnblogs-com-zhangzhu-archive-2013-07-04-3172486-html" class="headerlink" title="其他操作可借鉴:http://www.cnblogs.com/zhangzhu/archive/2013/07/04/3172486.html"></a>其他操作可借鉴:<a href="http://www.cnblogs.com/zhangzhu/archive/2013/07/04/3172486.html" target="_blank" rel="external">http://www.cnblogs.com/zhangzhu/archive/2013/07/04/3172486.html</a></h1>]]></content>
+<p><a href="http://www.cnblogs.com/zhangzhu/archive/2013/07/04/3172486.html" target="_blank" rel="external">其他操作可借鉴</a>  </p>
+]]></content>
     
     <summary type="html">
     
