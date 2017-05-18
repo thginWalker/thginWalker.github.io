@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.jb-hacker.top/"/>
-  <updated>2017-05-18T11:48:38.633Z</updated>
+  <updated>2017-05-18T11:55:22.868Z</updated>
   <id>http://www.jb-hacker.top/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://www.jb-hacker.top/6.html/"/>
     <id>http://www.jb-hacker.top/6.html/</id>
     <published>2017-05-16T16:00:00.000Z</published>
-    <updated>2017-05-18T11:48:38.633Z</updated>
+    <updated>2017-05-18T11:55:22.868Z</updated>
     
     <content type="html"><![CDATA[<p>机缘巧合下参与了人工智能工作室项目”树莓派进行人脸识别”，因此可以好好研究一下Python了。<br><a id="more"></a><br>对于Python，只能既爱又恨了。爱的是Python的强大，恨的是可惜看了几本书没能学好Python的开发。原因也是有的，不敲代码看书就是没毛用。<br>不过这次”树莓派进行人脸识别”项目负责软件代码方面，所以必须认真理解代码学习Python。<br><a href="http://blog.csdn.net/jireren/article/details/52167791" target="_blank" rel="external">代码Demo参考</a><br>当然第一次接触这个Demo并没有认真理解清楚，所以我进行了以下的工作:</p>
 <ul>
