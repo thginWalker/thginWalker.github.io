@@ -13,7 +13,8 @@
 <li>Python time模块学习</li>
 <li>Python模块picamera</li>
 </ul>
-<h4 id="介绍树莓派"><a href="#介绍树莓派" class="headerlink" title="介绍树莓派"></a>介绍树莓派</h4><p><a href="http://baike.baidu.com/link?url=1WYrsq-uzPIqoXV6iZdRRLFdj-uLNZve6RJycGpVOM8pj6wbjaT6qkhRH1ZPMDB80il5YbXR4WruUZZJuOQkO_8U1t9AIeTnO823KkIK6fxAPPIY4c3dqMWgwpw06_PB" target="_blank" rel="external">借鉴</a><br>树莓派是一个职业信用卡大小的裸露电路板，它也是一个运行linux操作系统的完全可编程的PC系统。<br>当然在此，我们可以了解到可以完成大部分电脑能完成的事情:<code>编辑office文档</code>、<code>浏览网页</code>、<code>玩游戏</code>。<br>当然设置它的配件:<code>SD卡(预装系统)</code>、<code>USB键盘和鼠标</code>、<code>显示器</code>、<code>WiFi适配器(USB无线网卡)</code>…..其他就不说了，对硬件不感冒。<br>当然安装操作系统<br>准备工作和安装实战百科说的比较好哦！可以借鉴其他的。<br>启动成功的景象:<br><img src="http://g.hiphotos.baidu.com/baike/s%3D220/sign=4f8d023c5882b2b7a39f3ec601accb0a/5d6034a85edf8db125dae65c0823dd54564e7416.jpg" alt="启动图片"><br>不要说对树莓派没什么了解，说实话，在写这篇博客之前我也从未接触过它，不过并不担心我们对它的了解。</p>
+<h4 id="介绍树莓派"><a href="#介绍树莓派" class="headerlink" title="介绍树莓派"></a>介绍树莓派</h4><p><a href="http://baike.baidu.com/link?url=1WYrsq-uzPIqoXV6iZdRRLFdj-uLNZve6RJycGpVOM8pj6wbjaT6qkhRH1ZPMDB80il5YbXR4WruUZZJuOQkO_8U1t9AIeTnO823KkIK6fxAPPIY4c3dqMWgwpw06_PB" target="_blank" rel="external">借鉴</a><br>树莓派是一个职业信用卡大小的裸露电路板，它也是一个运行linux操作系统的完全可编程的PC系统。<br>当然在此，我们可以了解到可以完成大部分电脑能完成的事情:<code>编辑office文档</code>、<code>浏览网页</code>、<code>玩游戏</code>。<br>当然设置它的配件:<code>SD卡(预装系统)</code>、<code>USB键盘和鼠标</code>、<code>显示器</code>、<code>WiFi适配器(USB无线网卡)</code>…..其他就不说了，对硬件不感冒。<br>当然安装操作系统<br>准备工作和安装实战百科说的比较好哦！可以借鉴其他的。<br>启动成功的景象:</p>
+<p><img src="/6.html/5d6034a85edf8db125dae65c0823dd54564e7416.jpg" alt="启动图片"><br>不要说对树莓派没什么了解，说实话，在写这篇博客之前我也从未接触过它，不过并不担心我们对它的了解。</p>
 <h5 id="手把手教你如何用-OpenCV-Python-实现人脸识别"><a href="#手把手教你如何用-OpenCV-Python-实现人脸识别" class="headerlink" title="手把手教你如何用 OpenCV + Python 实现人脸识别"></a>手把手教你如何用 OpenCV + Python 实现人脸识别</h5><p><a href="http://www.leiphone.com/news/201704/rYdpAvh4SvgVPpRQ.html" target="_blank" rel="external">借鉴</a><br>这篇文章理解还是较简单的。无非三步:</p>
 <ul>
 <li>OpenCV的Python环境搭建</li>
