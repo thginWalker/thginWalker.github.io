@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.jb-hacker.top/"/>
-  <updated>2017-05-18T11:55:22.868Z</updated>
+  <updated>2017-05-19T05:07:25.163Z</updated>
   <id>http://www.jb-hacker.top/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://www.jb-hacker.top/6.html/"/>
     <id>http://www.jb-hacker.top/6.html/</id>
     <published>2017-05-16T16:00:00.000Z</published>
-    <updated>2017-05-18T11:55:22.868Z</updated>
+    <updated>2017-05-19T05:07:25.163Z</updated>
     
     <content type="html"><![CDATA[<p>机缘巧合下参与了人工智能工作室项目”树莓派进行人脸识别”，因此可以好好研究一下Python了。<br><a id="more"></a><br>对于Python，只能既爱又恨了。爱的是Python的强大，恨的是可惜看了几本书没能学好Python的开发。原因也是有的，不敲代码看书就是没毛用。<br>不过这次”树莓派进行人脸识别”项目负责软件代码方面，所以必须认真理解代码学习Python。<br><a href="http://blog.csdn.net/jireren/article/details/52167791" target="_blank" rel="external">代码Demo参考</a><br>当然第一次接触这个Demo并没有认真理解清楚，所以我进行了以下的工作:</p>
 <ul>
@@ -38,7 +38,7 @@
 <li>相关知识储备</li>
 <li>代码的实现人脸识别</li>
 </ul>
-<h5 id="OpenCV的Python环境搭建"><a href="#OpenCV的Python环境搭建" class="headerlink" title="OpenCV的Python环境搭建"></a>OpenCV的Python环境搭建</h5><p>[借鉴]（<a href="http://blog.csdn.net/marksinoberg/article/details/52442229）" target="_blank" rel="external">http://blog.csdn.net/marksinoberg/article/details/52442229）</a><br>对于菜鸟的我来说，先了解<code>OpenCV</code>要紧，没办法<code>百科</code>了个答案：<br>大概意思就是OpenCv是一个跨平台计算机视觉库。用C++编写实现的一些功能的。<br>笼统的说吧就是它可以进行<code>图像处理</code>和<code>视觉</code>操作，也就是让计算机有部分<code>视觉功能</code>吧!<br>当然今天我们主要使用<code>Python</code>来使用它。<br>首先只能安装OpenCV了，只能使用<code>pip</code>,什么还没安装，我也没有哦，看<a href="http://blog.csdn.net/u010128736/article/details/52713204" target="_blank" rel="external">借鉴</a>吧。</p>
+<h5 id="OpenCV的Python环境搭建"><a href="#OpenCV的Python环境搭建" class="headerlink" title="OpenCV的Python环境搭建"></a>OpenCV的Python环境搭建</h5><p><a href="http://blog.csdn.net/marksinoberg/article/details/52442229" target="_blank" rel="external">借鉴</a><br>对于菜鸟的我来说，先了解<code>OpenCV</code>要紧，没办法<code>百科</code>了个答案：<br>大概意思就是OpenCv是一个跨平台计算机视觉库。用C++编写实现的一些功能的。<br>笼统的说吧就是它可以进行<code>图像处理</code>和<code>视觉</code>操作，也就是让计算机有部分<code>视觉功能</code>吧!<br>当然今天我们主要使用<code>Python</code>来使用它。<br>首先只能安装OpenCV了，只能使用<code>pip</code>,什么还没安装，我也没有哦，看<a href="http://blog.csdn.net/u010128736/article/details/52713204" target="_blank" rel="external">借鉴</a>吧。</p>
 <h4 id="Python-OS模块常用功能中文图文详解"><a href="#Python-OS模块常用功能中文图文详解" class="headerlink" title="Python OS模块常用功能中文图文详解"></a>Python OS模块常用功能中文图文详解</h4><p><a href="http://www.iplaypy.com/module/os.html" target="_blank" rel="external">借鉴</a><br> OS模块在我的理解中他就类似于其他语言的文件处理模块吧，无非一些函数接口让你可以操作文件和目录，是不是很酷。<br> 对于os我先不多介绍，只说明程序中需要理解的代码和基础模块而已。<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">import os #导入os模块</div><div class="line"></div><div class="line">print os.getcwd()  #获取当前路径</div><div class="line"></div><div class="line">print os.listdir(&apos;/home/wwwroot&apos;) #列出目录下所有文件和文件夹</div><div class="line"></div><div class="line">print os.mkdir(&apos;heihei&apos;) #创建一个heihei的目录</div><div class="line">print os.rmdir(&apos;abc&apos;) #删除一个abc目录</div><div class="line"></div><div class="line">print os.rename(&apos;abc.txt&apos;,&apos;readme.txt&apos;) #重命名一个文件</div></pre></td></tr></table></figure></p>
 <p>话说和linux命令查这么像呢，不管了。</p>
 <h4 id="Python-time模块学习"><a href="#Python-time模块学习" class="headerlink" title="- Python time模块学习"></a>- Python time模块学习</h4><p><a href="http://python.jobbole.com/85491/" target="_blank" rel="external">借鉴</a><br>time模块是用于管理时间和日期的C库函数，这是因为它绑定到底层C实现，所有一些细节会基于具体的平台而不同。<br>说时间对于语言的时间我觉得就是烦，所有还是粗略了解。</p>
