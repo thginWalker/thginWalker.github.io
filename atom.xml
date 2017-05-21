@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.jb-hacker.top/"/>
-  <updated>2017-05-21T09:03:09.822Z</updated>
+  <updated>2017-05-21T12:14:25.915Z</updated>
   <id>http://www.jb-hacker.top/</id>
   
   <author>
@@ -14,6 +14,85 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>常用DOS命令</title>
+    <link href="http://www.jb-hacker.top/8.html/"/>
+    <id>http://www.jb-hacker.top/8.html/</id>
+    <published>2017-05-20T16:00:00.000Z</published>
+    <updated>2017-05-21T12:14:25.915Z</updated>
+    
+    <content type="html"><![CDATA[<p>就个人而言，DOS是我所一直喜欢的，至始至终。但是没有系统化、专业化的学习也许终究是可悲的。<br><a id="more"></a><br>很多DOS命令是学习黑客技术的基础，也就是说掌握这些基础知识是必不可少的。<br>也许对于下面的命令我是该好好了解下了:</p>
+<ul>
+<li>net命令</li>
+<li>远程登录telent命令</li>
+<li>文件传输ftp命令</li>
+<li>添加计划任务at命令(从win8起已经废除)改schtasks命令</li>
+<li>查看修改文件夹权限cacls命令</li>
+<li>回显echo命令</li>
+<li>命令行下的注册表操作</li>
+<li>查看当前系统用户情况query命令</li>
+<li>终止会话logoff命令</li>
+<li>物理网络查看ping命令</li>
+<li>网络配置查询ipconfig命令</li>
+<li>查看通信路由tracert命令</li>
+<li>DNS查看nslook up(不是内部或外部命令)</li>
+<li>地址解析arp命令</li>
+<li>诊断nbtstat命令</li>
+<li>netstat命令</li>
+<li>rcp命令</li>
+<li>rexec命令</li>
+<li>route命令</li>
+<li>rsh命令</li>
+<li>tftp命令</li>
+</ul>
+<h3 id="命令解析"><a href="#命令解析" class="headerlink" title="命令解析"></a>命令解析</h3><p>谁叫我也不太了解呢，只能一个个用来学习了。</p>
+<h4 id="net命令"><a href="#net命令" class="headerlink" title="net命令"></a>net命令</h4><p>net命令被称为功能强大的以命令行方式执行的感觉，它包含了管理网络环境、服务、用户、登录等windows 98/NT/2000中大部分重要的管理功能。</p>
+<p>使用它可以管理本地或者远程计算机的网络环境，以及各种服务程序的运行和配置。或者进行用户管理和登陆管理等。</p>
+<h5 id="net-view和net-use"><a href="#net-view和net-use" class="headerlink" title="net view和net use"></a>net view和net use</h5><p>其中最常用的是<code>net view</code>和<code>net use</code>，通过这两个命令，可以连接网络上开发了远程共享的系统，并且获得资料，这种远程共享本来是为便捷操作设计，但是很多网络管理员忽略了它的安全性，所有造成了很多不应该共享的信息的暴露，可以让入侵者轻易地获得计算机的隐私资料，具体的命令如下:<br>建立IPC空连接:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">net use \\ip地址 &quot;&quot; /user:&quot;&quot;</div></pre></td></tr></table></figure></p>
+<p>建立IPC连接:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">net use \\192.168.0.1\\ipc$ &quot;12345&quot;</div><div class="line">/user:admin</div></pre></td></tr></table></figure></p>
+<p>(假设IP为192.168.0.1,密码12345,用户名admin)<br>删除IPC连接:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">net use \\192.168.0.1\ipc$\del</div></pre></td></tr></table></figure></p>
+<p>当然对于这两个命令需要深入研究:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">net view \\ip           //查看开了那些共享</div><div class="line">net view x: \\ip\sharp  //把共享映射为本地X盘</div></pre></td></tr></table></figure></p>
+<h5 id="启动和关闭服务"><a href="#启动和关闭服务" class="headerlink" title="启动和关闭服务"></a>启动和关闭服务</h5><p>服务我就不多说了。<br>启动服务:<code>net start 服务名</code><br>关闭服务:<code>net stop 服务名</code></p>
+<h5 id="启动和关闭共享"><a href="#启动和关闭共享" class="headerlink" title="启动和关闭共享"></a>启动和关闭共享</h5><p>计算机内部的共享资源的操作<br>启动共享:<code>net share 共享名</code><br>关闭共享:<code>net share 共享名/del</code><br>查看共享:<code>net share</code></p>
+<h5 id="映射磁盘和删除映射磁盘"><a href="#映射磁盘和删除映射磁盘" class="headerlink" title="映射磁盘和删除映射磁盘"></a>映射磁盘和删除映射磁盘</h5><p>映射磁盘就是将其他的计算机盘符映射到本地磁盘<br>映射磁盘:<code>net use z:\192.168.0.1\c$</code><br>将受害者系统开放的默认共享C盘映射为自己的本地磁盘z，操作自己的z盘就想操作它的c盘。<br>注意:建立磁盘映射必须先建立IPC连接，要映射成的磁盘必须是本地不存在的盘符。<br>删除映射:<code>net use z:/del</code></p>
+<h5 id="查看远程系统的时间"><a href="#查看远程系统的时间" class="headerlink" title="查看远程系统的时间"></a>查看远程系统的时间</h5><p><code>net time\IP</code></p>
+<h5 id="添加和删除用户"><a href="#添加和删除用户" class="headerlink" title="添加和删除用户"></a>添加和删除用户</h5><p>查看用户:<code>net user</code><br>添加用户:<code>net user 用户名 密码 /add</code><br>删除用户:<code>net user 用户名 /del</code></p>
+<h5 id="添加和删除到管理员组"><a href="#添加和删除到管理员组" class="headerlink" title="添加和删除到管理员组"></a>添加和删除到管理员组</h5><p>添加用户:<code>net localgroup administrators 用户名 /add</code><br>删除用户:<code>net localgroup administrators 用户名 /del</code></p>
+<h5 id="激活和禁止guest账号"><a href="#激活和禁止guest账号" class="headerlink" title="激活和禁止guest账号"></a>激活和禁止guest账号</h5><p>激活guest:<code>net user guest /active:yes</code><br>禁止guest:<code>net user guest /del</code></p>
+<h4 id="远程登录telnet命令"><a href="#远程登录telnet命令" class="headerlink" title="远程登录telnet命令"></a>远程登录telnet命令</h4><p>这个命令是用来远程连接的，但是默认为关闭需要打开。<br>格式:telnet IP port<br>telnet 192.168.0.1 1234<br>连接到192.168.0.1的1234端口，telnet的默认端口是23<br>条件:受害者开启<code>23</code>端口并且不使用<code>NTLM</code>验证。</p>
+<h4 id="文件传输ftp命令"><a href="#文件传输ftp命令" class="headerlink" title="文件传输ftp命令"></a>文件传输ftp命令</h4><p>ftp进行文件的传输。<br>该命令最基本的是<code>ftp IP</code><br>在输入用户名和密码之后就可以使用get或者put来进行下载和上传操作。<br>使用disconnect断开连接，bye或者quit退出FTP。</p>
+<h4 id="添加计划任务at命令-从win8起已经废除-改schtasks命令"><a href="#添加计划任务at命令-从win8起已经废除-改schtasks命令" class="headerlink" title="添加计划任务at命令(从win8起已经废除)改schtasks命令"></a>添加计划任务at命令(从win8起已经废除)改schtasks命令</h4><p>注:这些命令都不完善，在此我只是提供关键字，更多操作需要时google即可。<br>安排命令和程序定期运行或在指定时间内运行。从计划表中添加和删除任务，按需要启动和停止任务，显示和更改计划任务。</p>
+<h5 id="创建新的计划任务"><a href="#创建新的计划任务" class="headerlink" title="创建新的计划任务"></a>创建新的计划任务</h5><p><code>schtasks /create</code></p>
+<h5 id="删除计划任务"><a href="#删除计划任务" class="headerlink" title="删除计划任务"></a>删除计划任务</h5><p><code>schtasks  /Delete</code>         </p>
+<h5 id="显示所有计划任务。"><a href="#显示所有计划任务。" class="headerlink" title="显示所有计划任务。"></a>显示所有计划任务。</h5><p><code>schtasks    /Query</code>    </p>
+<h5 id="更改计划任务属性。"><a href="#更改计划任务属性。" class="headerlink" title="更改计划任务属性。"></a>更改计划任务属性。</h5><p><code>schtasks    /Change</code>   </p>
+<h5 id="按需运行计划任务。"><a href="#按需运行计划任务。" class="headerlink" title="按需运行计划任务。"></a>按需运行计划任务。</h5><p><code>schtasks    /Run</code>   </p>
+<h5 id="中止当前正在运行的计划任务。"><a href="#中止当前正在运行的计划任务。" class="headerlink" title="中止当前正在运行的计划任务。"></a>中止当前正在运行的计划任务。</h5><p><code>schtasks   /End</code></p>
+<h5 id="显示与计划的任务名称相应的安全标识符。"><a href="#显示与计划的任务名称相应的安全标识符。" class="headerlink" title="显示与计划的任务名称相应的安全标识符。"></a>显示与计划的任务名称相应的安全标识符。</h5><p><code>schtasks    /ShowSid</code>       </p>
+<h4 id="查看修改文件夹权限cacls命令"><a href="#查看修改文件夹权限cacls命令" class="headerlink" title="查看修改文件夹权限cacls命令"></a>查看修改文件夹权限cacls命令</h4><p>注意:不推荐使用 Cacls，请使用 Icacls</p>
+<h4 id="回显echo命令"><a href="#回显echo命令" class="headerlink" title="回显echo命令"></a>回显echo命令</h4><p>也就是输出命令<br><code>echo “输出内容”</code></p>
+<h4 id="命令行下的注册表操作"><a href="#命令行下的注册表操作" class="headerlink" title="命令行下的注册表操作"></a>命令行下的注册表操作</h4><h4 id="查看当前系统用户情况query命令"><a href="#查看当前系统用户情况query命令" class="headerlink" title="查看当前系统用户情况query命令"></a>查看当前系统用户情况query命令</h4><p>使用<code>query user</code>可以查看当前系统的会话，比如查看是否有人使用远程终端登录服务器<br>使用<code>query</code>可以查看到某用户的<code>session</code>，然后通过<code>logoff</code>命令将其踢出去。</p>
+<h4 id="终止会话logoff命令"><a href="#终止会话logoff命令" class="headerlink" title="终止会话logoff命令"></a>终止会话logoff命令</h4><p>logoff用法help即可，然后通过<code>logoff</code>命令将其它管理员和用户踢出去。</p>
+<h4 id="物理网络查看ping命令"><a href="#物理网络查看ping命令" class="headerlink" title="物理网络查看ping命令"></a>物理网络查看ping命令</h4><p>命令ping我觉得最大的用处就是看远程计算机IP是否可以正常访问吧!<br>ping命令可以检测数据包在哪一个节点之后出现了问题，也可以判断对方是windows系统还是linux系统。(不过并不太可靠)<br>还是可以得到目的网站的IP地址。</p>
+<h4 id="网络配置查询ipconfig命令"><a href="#网络配置查询ipconfig命令" class="headerlink" title="网络配置查询ipconfig命令"></a>网络配置查询ipconfig命令</h4><p>使用ipconfig/all命令可以方便地查看网卡的MAC地址、主机的网络设置等，在向内网渗透的过程中，需要了解受害者的网络配置，可以使用ipconfig来查看。</p>
+<h4 id="查看通信路由tracert命令"><a href="#查看通信路由tracert命令" class="headerlink" title="查看通信路由tracert命令"></a>查看通信路由tracert命令</h4><p>tracert是路由跟踪程序，用于确定IP数据报访问目标所经过的路径。<br>具体功暂时我也不太清楚理解，以后补充！</p>
+<h4 id="DNS查看nslookup命令"><a href="#DNS查看nslookup命令" class="headerlink" title="DNS查看nslookup命令"></a>DNS查看nslookup命令</h4><p>使用nslookup可以查看主机的DNS服务器，nslookup最简单的用户用法就是查询域名</p>
+<h4 id="地址解析arp命令"><a href="#地址解析arp命令" class="headerlink" title="地址解析arp命令"></a>地址解析arp命令</h4><h4 id="诊断nbtstat命令"><a href="#诊断nbtstat命令" class="headerlink" title="诊断nbtstat命令"></a>诊断nbtstat命令</h4><h4 id="netstat命令"><a href="#netstat命令" class="headerlink" title="netstat命令"></a>netstat命令</h4><h4 id="rcp命令"><a href="#rcp命令" class="headerlink" title="rcp命令"></a>rcp命令</h4><h4 id="rexec命令"><a href="#rexec命令" class="headerlink" title="rexec命令"></a>rexec命令</h4><h4 id="route命令"><a href="#route命令" class="headerlink" title="route命令"></a>route命令</h4><h4 id="rsh命令"><a href="#rsh命令" class="headerlink" title="rsh命令"></a>rsh命令</h4><h4 id="tftp命令"><a href="#tftp命令" class="headerlink" title="tftp命令"></a>tftp命令</h4><p><strong>以上就是对常用DOS命令的小小见解。</strong></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;就个人而言，DOS是我所一直喜欢的，至始至终。但是没有系统化、专业化的学习也许终究是可悲的。&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="网络攻防" scheme="http://www.jb-hacker.top/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2/"/>
+    
+    
+      <category term="网络技术" scheme="http://www.jb-hacker.top/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/"/>
+    
+  </entry>
   
   <entry>
     <title>菜鸟使用树莓派进行简易人脸识别(一)</title>
