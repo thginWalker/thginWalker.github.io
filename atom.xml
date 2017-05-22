@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.jb-hacker.top/"/>
-  <updated>2017-05-21T12:14:25.915Z</updated>
+  <updated>2017-05-22T09:20:56.139Z</updated>
   <id>http://www.jb-hacker.top/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://www.jb-hacker.top/8.html/"/>
     <id>http://www.jb-hacker.top/8.html/</id>
     <published>2017-05-20T16:00:00.000Z</published>
-    <updated>2017-05-21T12:14:25.915Z</updated>
+    <updated>2017-05-22T09:20:56.139Z</updated>
     
     <content type="html"><![CDATA[<p>就个人而言，DOS是我所一直喜欢的，至始至终。但是没有系统化、专业化的学习也许终究是可悲的。<br><a id="more"></a><br>很多DOS命令是学习黑客技术的基础，也就是说掌握这些基础知识是必不可少的。<br>也许对于下面的命令我是该好好了解下了:</p>
 <ul>
@@ -50,7 +50,7 @@
 <h4 id="net命令"><a href="#net命令" class="headerlink" title="net命令"></a>net命令</h4><p>net命令被称为功能强大的以命令行方式执行的感觉，它包含了管理网络环境、服务、用户、登录等windows 98/NT/2000中大部分重要的管理功能。</p>
 <p>使用它可以管理本地或者远程计算机的网络环境，以及各种服务程序的运行和配置。或者进行用户管理和登陆管理等。</p>
 <h5 id="net-view和net-use"><a href="#net-view和net-use" class="headerlink" title="net view和net use"></a>net view和net use</h5><p>其中最常用的是<code>net view</code>和<code>net use</code>，通过这两个命令，可以连接网络上开发了远程共享的系统，并且获得资料，这种远程共享本来是为便捷操作设计，但是很多网络管理员忽略了它的安全性，所有造成了很多不应该共享的信息的暴露，可以让入侵者轻易地获得计算机的隐私资料，具体的命令如下:<br>建立IPC空连接:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">net use \\ip地址 &quot;&quot; /user:&quot;&quot;</div></pre></td></tr></table></figure></p>
-<p>建立IPC连接:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">net use \\192.168.0.1\\ipc$ &quot;12345&quot;</div><div class="line">/user:admin</div></pre></td></tr></table></figure></p>
+<p>建立IPC连接:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">net use \\192.168.0.1\\ipc$ &quot;12345&quot; /user:admin</div></pre></td></tr></table></figure></p>
 <p>(假设IP为192.168.0.1,密码12345,用户名admin)<br>删除IPC连接:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">net use \\192.168.0.1\ipc$\del</div></pre></td></tr></table></figure></p>
 <p>当然对于这两个命令需要深入研究:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">net view \\ip           //查看开了那些共享</div><div class="line">net view x: \\ip\sharp  //把共享映射为本地X盘</div></pre></td></tr></table></figure></p>
 <h5 id="启动和关闭服务"><a href="#启动和关闭服务" class="headerlink" title="启动和关闭服务"></a>启动和关闭服务</h5><p>服务我就不多说了。<br>启动服务:<code>net start 服务名</code><br>关闭服务:<code>net stop 服务名</code></p>
