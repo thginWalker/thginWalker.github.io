@@ -3,6 +3,55 @@
   
     
     <entry>
+      <title><![CDATA[Python文本如何转语音]]></title>
+      <url>/10.html/</url>
+      <content type="html"><![CDATA[<p>Python很强大，也许很多人不相信。但是真正了解到它时，我还是情不自禁的喜欢上了它。<br><a id="more"></a></p>
+<blockquote>
+<p>人生苦短，我用Python。</p>
+</blockquote>
+<p>发现我还是比较喜欢这句话吧，Python的模块和功能给我的感觉真的太强大了。<br>？？？？？？？？？？？？？？？？？？？？？？？？？？、</p>
+<p>文章明天修改</p>
+<p>、、、、、、、、、、、、、、、、、、、、、、、、、、</p>
+<p>python文本转语音<br><a href="http://blog.csdn.net/marksinoberg/article/details/52137547#%E5%87%86%E5%A4%87" target="_blank" rel="external">代码Demo参考</a><br>准备</p>
+<p>我测试使用的Python版本为2.7.10，如果你的版本是Python3.5的话，这里就不太适合了。<br>在windows上进行测试的话，这里有两种可选的方式：</p>
+<pre><code>pyttsx ：下载地址
+微软的Speech API ： 这个需要安装pywin32，下载地址
+</code></pre><p>使用Speech API<br>原理</p>
+<p>我们的想法是借助微软的语音接口，所以我们肯定是要进行调用 相关的接口。所以我们需要安装pywin32来帮助我们完成这一个底层的交互。<br>示例代码</p>
+<p>import win32com.client<br>speaker = win32com.client.Dispatch(“SAPI.SpVoice”)<br>speaker.Speak(“Hello, it works!”)</p>
+<pre><code>1
+2
+3
+
+1
+2
+3
+</code></pre><p>小总结</p>
+<p>是的，调用接口来实现语音功能就是这么简单，但是我们不得不来聊一聊这种方式的缺点。</p>
+<pre><code>对中文支持的不够好，仅仅是这一点，估计在中国没几个用它的了。
+
+还有就是语速不能很好的控制，详细的API介绍可以参照这里API参考
+</code></pre><p>pyttsx方式<br>原理</p>
+<p>pyttsx 是Python的一个关于文字转语音方面的很不错的库。我们还可以借助pyttsx来实现在线朗读rfc文件或者本地文件等等，最为关键的是，它对中文支持的还是不错的。</p>
+<p><strong>以上就是对图片压缩的小小见解。当然得知公司还是人才不少的。</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Python，语音 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[使用JS压缩用户上传图片]]></title>
       <url>/9.html/</url>
       <content type="html"><![CDATA[<p>虽然在”软件测试”部也就是”智慧校园”呆了很久，但我知道这并不是我想要的。无奈厚着脸皮接受一个小小的考验。<br><a id="more"></a><br>说实话，我相信<code>勇敢</code>总是有用的。这不又能学习新的知识了。虽然在某些方面。。。<br>而且证实了一点，公司大神就是多啊！<br><a href="http://blog.csdn.net/iefreer/article/details/53039848?locationNum=7&amp;fps=1" target="_blank" rel="external">代码Demo参考</a><br>对于图片压缩就我个人而言只是概念性问题。当然知识点就在那。</p>
