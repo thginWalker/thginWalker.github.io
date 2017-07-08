@@ -3,6 +3,30 @@
   
     
     <entry>
+      <title><![CDATA[将python转换成可执行程序exe]]></title>
+      <url>/14.html/</url>
+      <content type="html"><![CDATA[<p>python脚本很方便简洁，但是推广可能还是exe文件有市场吧！<br><a id="more"></a><br>学过很多解释性语言都有一种感觉，那就是快捷上手。给人感觉不错，但是还是对图形化程序念念不忘。</p>
+<h3 id="python脚本如何转为可执行程序"><a href="#python脚本如何转为可执行程序" class="headerlink" title="python脚本如何转为可执行程序"></a>python脚本如何转为可执行程序</h3><p>对于python脚本转换成有三个有名的程序:py2exe,pyinstaller(推荐),cxfreeze。</p>
+<h4 id="py2exe"><a href="#py2exe" class="headerlink" title="py2exe"></a>py2exe</h4><p>在windows下安装py2exe，直接使用pip即可:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install py2exe</div></pre></td></tr></table></figure></p>
+<p>然后在python文件前面写上注释:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># python file to exe in window</div><div class="line"># py2exe.py</div></pre></td></tr></table></figure></p>
+<p>只要执行命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python py2exe.py py 文件名</div></pre></td></tr></table></figure></p>
+<h4 id="pyinstaller-推荐"><a href="#pyinstaller-推荐" class="headerlink" title="pyinstaller(推荐)"></a>pyinstaller(推荐)</h4><p>网上对于pyinstaller的看法比py2exe的看法好多了，没办法我想肯定有它的道理。<br><a href="http://www.pyinstaller.org/" target="_blank" rel="external">官网</a><br>安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install pyinstaller</div></pre></td></tr></table></figure></p>
+<p>转换成exe<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pyinstaller python脚本文件名</div></pre></td></tr></table></figure></p>
+<p>然后生成的文件里面就有可执行文件了。</p>
+<h4 id="cxfreeze"><a href="#cxfreeze" class="headerlink" title="cxfreeze"></a>cxfreeze</h4><p>对于这个网上并没有太多描述，我想还是专注pyinstaller就可以了。<br><a href="http://cx-freeze.readthedocs.io/en/latest/index.html" target="_blank" rel="external">官网</a></p>
+<p><strong>我想先熟练某一种就是最好的吧！当然学习python常用模块刻不容缓</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Python </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[linux命令简单操作]]></title>
       <url>/12.html/</url>
       <content type="html"><![CDATA[<p>用户知道自己想要什么，也明白自己在做什么，并且会为自己的行为负责。<br><a id="more"></a><br>很多时候我也不知道为什么我需要学习linux，但是我知道学习linux也将会改变我对操作系统原有的一些想法和操作吧。</p>
@@ -518,7 +542,7 @@
       
         <categories>
             
-            <category> Liunx </category>
+            <category> Linux </category>
             
         </categories>
         
