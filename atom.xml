@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.jb-hacker.top/"/>
-  <updated>2017-07-08T06:54:00.075Z</updated>
+  <updated>2017-07-08T07:25:14.693Z</updated>
   <id>http://www.jb-hacker.top/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://www.jb-hacker.top/14.html/"/>
     <id>http://www.jb-hacker.top/14.html/</id>
     <published>2017-07-07T16:00:00.000Z</published>
-    <updated>2017-07-08T06:54:00.075Z</updated>
+    <updated>2017-07-08T07:25:14.693Z</updated>
     
     <content type="html"><![CDATA[<p>python脚本很方便简洁，但是推广可能还是exe文件有市场吧！<br><a id="more"></a><br>学过很多解释性语言都有一种感觉，那就是快捷上手。给人感觉不错，但是还是对图形化程序念念不忘。</p>
 <h3 id="python脚本如何转为可执行程序"><a href="#python脚本如何转为可执行程序" class="headerlink" title="python脚本如何转为可执行程序"></a>python脚本如何转为可执行程序</h3><p>对于python脚本转换成有三个有名的程序:py2exe,pyinstaller(推荐),cxfreeze。</p>
@@ -29,7 +29,9 @@
 <p>只要执行命令:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python py2exe.py py 文件名</div></pre></td></tr></table></figure></p>
 <h4 id="pyinstaller-推荐"><a href="#pyinstaller-推荐" class="headerlink" title="pyinstaller(推荐)"></a>pyinstaller(推荐)</h4><p>网上对于pyinstaller的看法比py2exe的看法好多了，没办法我想肯定有它的道理。<br><a href="http://www.pyinstaller.org/" target="_blank" rel="external">官网</a><br>安装<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install pyinstaller</div></pre></td></tr></table></figure></p>
 <p>转换成exe<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pyinstaller python脚本文件名</div></pre></td></tr></table></figure></p>
-<p>然后生成的文件里面就有可执行文件了。</p>
+<p>然后生成的文件里面就有可执行文件了。<br>文件夹路径在:<code>/dist/文件名/文件名.exe</code><br>注意:这种转换需要dll以及其他文件依赖，当然我们还是可以转换成一个独立的exe文件的。<br>加上一个参数<code>-F</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pyinstaller -F python脚本文件名</div></pre></td></tr></table></figure>
+<p>这样文件夹里面就只有单独的可执行文件了。</p>
 <h4 id="cxfreeze"><a href="#cxfreeze" class="headerlink" title="cxfreeze"></a>cxfreeze</h4><p>对于这个网上并没有太多描述，我想还是专注pyinstaller就可以了。<br><a href="http://cx-freeze.readthedocs.io/en/latest/index.html" target="_blank" rel="external">官网</a></p>
 <p><strong>我想先熟练某一种就是最好的吧！当然学习python常用模块刻不容缓</strong></p>
 ]]></content>
