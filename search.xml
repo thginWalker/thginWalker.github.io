@@ -3,7 +3,7 @@
   
     
     <entry>
-      <title><![CDATA[函数指针]]></title>
+      <title><![CDATA[C语言函数指针]]></title>
       <url>/15.html/</url>
       <content type="html"><![CDATA[<p>C语言的高级特性,关于指针的用法我想是不是应该认真了解下哦！<br><a id="more"></a><br>指针是C语言的灵魂。</p>
 <h3 id="函数指针定义形式"><a href="#函数指针定义形式" class="headerlink" title="函数指针定义形式"></a>函数指针定义形式</h3><p>定义形式:<br>类型名 (* 指针变量名)(参数类型1，参数类型2，…);<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">int (*pf)(int,char);</div></pre></td></tr></table></figure></p>
