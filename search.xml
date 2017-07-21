@@ -3,6 +3,56 @@
   
     
     <entry>
+      <title><![CDATA[函数指针]]></title>
+      <url>/15.html/</url>
+      <content type="html"><![CDATA[<p>C语言的高级特性,关于指针的用法我想是不是应该认真了解下哦！<br><a id="more"></a><br>指针是C语言的灵魂。</p>
+<h3 id="函数指针定义形式"><a href="#函数指针定义形式" class="headerlink" title="函数指针定义形式"></a>函数指针定义形式</h3><p>定义形式:<br>类型名 (* 指针变量名)(参数类型1，参数类型2，…);<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">int (*pf)(int,char);</div></pre></td></tr></table></figure></p>
+<h4 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h4><p>可以用一个原型匹配的函数的名字给一个函数指针赋值。<br>要通过函数指针调用它所指向的函数，写法为:<br>函数指针名(实参表);</p>
+<h4 id="实例代码"><a href="#实例代码" class="headerlink" title="实例代码"></a>实例代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#include&lt;stdio.h&gt;</div><div class="line">void PrintMin(int a,int b)</div><div class="line">&#123;</div><div class="line">    if(a&lt;b)</div><div class="line">        printf(&quot;%d&quot;,a);</div><div class="line">    else</div><div class="line">        printf(&quot;%d&quot;,b);</div><div class="line">&#125;</div><div class="line">int main()</div><div class="line">&#123;</div><div class="line">    void (* pf)(int, int);</div><div class="line">    int x = 4,y = 5;</div><div class="line">    pf = PrintMin;</div><div class="line">    pf(x,y);</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="函数指针和qsort库函数"><a href="#函数指针和qsort库函数" class="headerlink" title="函数指针和qsort库函数"></a>函数指针和qsort库函数</h3><p>C语言快速排序库函数:<br>void qsort(void <em>base,int nelem,unsigned int width,int( </em> pfCompare)(const void <em>,const void </em>));<br>可以对任意类型的数组进行排序<br>base:待排序数组的起始地址；<br>nelem:待排序数组的元素个数；<br>width:待排序数组的每个元素的大小(以字节为单位);<br>pfCompare:比较函数的地址</p>
+<p>注意:pfCompare需要自己编写<br>格式:int 函数名(const void <em> elem1,const void </em> elem2);</p>
+<p>排序就是一个不断比较并交换位置的过程。<br>比较函数编写规则:</p>
+<ul>
+<li>如果<em> elem1应该排在 </em> elem2前面，则函数返回值是负整数</li>
+<li>如果<em> elem1和 </em> elem2哪个排在前面都行，则函数返回0</li>
+<li>如果<em> elem1应该排在 </em> elem2后面，则函数返回值是正整数</li>
+</ul>
+<h4 id="代码实例"><a href="#代码实例" class="headerlink" title="代码实例"></a>代码实例</h4><p>调用qsort库函数，将一个unsigned int数组按照个位数从小到大进行排序。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">#include&lt;stdio.h&gt;</div><div class="line">#include&lt;stdlib.h&gt;</div><div class="line">int MyCompare(const void * elem1,const void *elem2)</div><div class="line">&#123;</div><div class="line">    unsigned int * p1,* p2;</div><div class="line">    p1 = (unsigned int *)elem1;//强制类型转换，&quot;elem1&quot;非法</div><div class="line">    p2 = (unsigned int *)elem2;//&quot;elem2&quot;非法</div><div class="line">    return (*p1 % 10) - (*p2 % 10);</div><div class="line">&#125;</div><div class="line">#define NUM 5</div><div class="line">int main()</div><div class="line">&#123;</div><div class="line">    unsigned int an[NUM] = &#123;8,123,11,10,4&#125;;</div><div class="line">    qsort(an,NUM,sizeof(unsigned int),MyCompare);</div><div class="line">    for(int i = 0;i &lt; NUM;i++)</div><div class="line">        printf(&quot;%d&quot;,an[i]);</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行结果:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">10 11 123 4 8</div></pre></td></tr></table></figure></p>
+<p><strong>完成coursera里面的课程设计，我想这既是机遇又是挑战</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> C语言 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[C语言命令行参数]]></title>
+      <url>/16.html/</url>
+      <content type="html"><![CDATA[<p>C语言的高级特性,如何利用main函数的两个参数。<br><a id="more"></a><br>读取程序运行的命令行参数。</p>
+<h3 id="命令行参数"><a href="#命令行参数" class="headerlink" title="命令行参数"></a>命令行参数</h3><p>函数原型:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">int main(int agrc,char * argv[])</div><div class="line">&#123;</div><div class="line">    ......</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>argc:代表启动程序时，命令行参数的格式。C/C++语言规定，可执行程序程序本身的文件名，也算一个命令行参数；因此，argc的值至少为1.<br>argv:指针数组，其中的每个元素都是一个char *类似的指针，该指针指向一个字符串，这个字符串里就存放着命令行参数。<br>例如，argv[0]指向的字符串就是第一个命令行参数，即可指向程序的文件名，argv[1]指向第二个命令行参数，argv[2]指向第三个命令行参数…….。</p>
+<h4 id="实例代码"><a href="#实例代码" class="headerlink" title="实例代码"></a>实例代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#include&lt;stdio.h&gt;</div><div class="line">int main(int argc,char * argv[])</div><div class="line">&#123;</div><div class="line">    for(int i = 0;i &lt; argc;i++)</div><div class="line">        printf(&quot;%s\n&quot;,argv[i]);</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>将上面的程序编译成sample.exe,然后在控制套窗口敲:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sample para1 para2 s.txt 5 &quot;hello world&quot;</div></pre></td></tr></table></figure></p>
+<p><strong>完成coursera里面的课程设计，我想这既是机遇又是挑战</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> C语言 </category>
+            
+        </categories>
+        
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[将python转换成可执行程序exe]]></title>
       <url>/14.html/</url>
       <content type="html"><![CDATA[<p>python脚本很方便简洁，但是推广可能还是exe文件有市场吧！<br><a id="more"></a><br>学过很多解释性语言都有一种感觉，那就是快捷上手。给人感觉不错，但是还是对图形化程序念念不忘。</p>
