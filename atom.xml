@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.jb-hacker.top/"/>
-  <updated>2017-10-28T12:04:33.716Z</updated>
+  <updated>2017-10-28T12:10:37.345Z</updated>
   <id>http://www.jb-hacker.top/</id>
   
   <author>
@@ -19,11 +19,11 @@
     <title></title>
     <link href="http://www.jb-hacker.top/24.html/"/>
     <id>http://www.jb-hacker.top/24.html/</id>
-    <published>2017-10-28T12:04:29.971Z</published>
-    <updated>2017-10-28T12:04:33.716Z</updated>
+    <published>2017-10-28T12:10:33.112Z</published>
+    <updated>2017-10-28T12:10:37.345Z</updated>
     
     <content type="html"><![CDATA[<p>title: 策略路由<br>date: 2017-10-28<br>categories: “网络攻防”<br>tags: [网络技术]</p>
-<h2 id="toc-true"><a href="#toc-true" class="headerlink" title="toc:true "></a>toc:true </h2><p>策略的作用你懂得。<br><a id="more"></a> </p>
+<h2 id="toc-true"><a href="#toc-true" class="headerlink" title="toc: true"></a>toc: true</h2><p>策略的作用你懂得。<br><a id="more"></a> </p>
 <h3 id="wsddsd"><a href="#wsddsd" class="headerlink" title="wsddsd"></a>wsddsd</h3><p>占个位置，学习软考策略路由还是需要熟练的。<br>也许对于下面的命令我是该好好了解下了:<br>啊飒飒是十三四所所</p>
 <ul>
 <li>net命令</li>
@@ -40,7 +40,7 @@
     <summary type="html">
     
       &lt;p&gt;title: 策略路由&lt;br&gt;date: 2017-10-28&lt;br&gt;categories: “网络攻防”&lt;br&gt;tags: [网络技术]&lt;/p&gt;
-&lt;h2 id=&quot;toc-true&quot;&gt;&lt;a href=&quot;#toc-true&quot; class=&quot;headerlink&quot; title=&quot;toc:true &quot;&gt;&lt;/a&gt;toc:true &lt;/h2&gt;&lt;p&gt;策略的作用你懂得。&lt;br&gt;&lt;/p&gt;
+&lt;h2 id=&quot;toc-true&quot;&gt;&lt;a href=&quot;#toc-true&quot; class=&quot;headerlink&quot; title=&quot;toc: true&quot;&gt;&lt;/a&gt;toc: true&lt;/h2&gt;&lt;p&gt;策略的作用你懂得。&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -51,11 +51,11 @@
     <title></title>
     <link href="http://www.jb-hacker.top/23.html/"/>
     <id>http://www.jb-hacker.top/23.html/</id>
-    <published>2017-10-28T12:04:13.894Z</published>
-    <updated>2017-10-28T12:04:17.527Z</updated>
+    <published>2017-10-28T12:10:12.427Z</published>
+    <updated>2017-10-28T12:10:16.740Z</updated>
     
     <content type="html"><![CDATA[<p>title: 访问控制列表ACL<br>date: 2017-10-28<br>categories: “网络攻防”<br>tags: [网络技术]</p>
-<h2 id="toc-true"><a href="#toc-true" class="headerlink" title="toc:true"></a>toc:true</h2><p>控制的作用你懂得。<br><a id="more"></a><br>占个位置，学习软考ACL还是需要熟练的。<br>也许对于下面的命令我是该好好了解下了:<br>啊飒飒是十三四所所</p>
+<h2 id="toc-true"><a href="#toc-true" class="headerlink" title="toc: true"></a>toc: true</h2><p>控制的作用你懂得。<br><a id="more"></a><br>占个位置，学习软考ACL还是需要熟练的。<br>也许对于下面的命令我是该好好了解下了:<br>啊飒飒是十三四所所</p>
 <ul>
 <li>net命令</li>
 <li>远程登录telent命令</li>
@@ -71,7 +71,7 @@
     <summary type="html">
     
       &lt;p&gt;title: 访问控制列表ACL&lt;br&gt;date: 2017-10-28&lt;br&gt;categories: “网络攻防”&lt;br&gt;tags: [网络技术]&lt;/p&gt;
-&lt;h2 id=&quot;toc-true&quot;&gt;&lt;a href=&quot;#toc-true&quot; class=&quot;headerlink&quot; title=&quot;toc:true&quot;&gt;&lt;/a&gt;toc:true&lt;/h2&gt;&lt;p&gt;控制的作用你懂得。&lt;br&gt;&lt;/p&gt;
+&lt;h2 id=&quot;toc-true&quot;&gt;&lt;a href=&quot;#toc-true&quot; class=&quot;headerlink&quot; title=&quot;toc: true&quot;&gt;&lt;/a&gt;toc: true&lt;/h2&gt;&lt;p&gt;控制的作用你懂得。&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -82,11 +82,11 @@
     <title></title>
     <link href="http://www.jb-hacker.top/22.html/"/>
     <id>http://www.jb-hacker.top/22.html/</id>
-    <published>2017-10-28T12:03:57.510Z</published>
-    <updated>2017-10-28T12:04:01.413Z</updated>
+    <published>2017-10-28T12:09:57.166Z</published>
+    <updated>2017-10-28T12:10:00.511Z</updated>
     
     <content type="html"><![CDATA[<p>title: IPv6配置与部署<br>date: 2017-10-28<br>categories: “网络攻防”<br>tags: [网络技术]</p>
-<h2 id="toc-true"><a href="#toc-true" class="headerlink" title="toc:true"></a>toc:true</h2><p>IPv6是大势所趋，提前学习IPv6是最明智的选择。<br><a id="more"></a><br>占个位置，学习软考IPv6还是需要熟练的。<br>也许对于下面的命令我是该好好了解下了:<br>啊飒飒是十三四所所</p>
+<h2 id="toc-true"><a href="#toc-true" class="headerlink" title="toc: true"></a>toc: true</h2><p>IPv6是大势所趋，提前学习IPv6是最明智的选择。<br><a id="more"></a><br>占个位置，学习软考IPv6还是需要熟练的。<br>也许对于下面的命令我是该好好了解下了:<br>啊飒飒是十三四所所</p>
 <ul>
 <li>net命令</li>
 <li>远程登录telent命令</li>
@@ -102,7 +102,7 @@
     <summary type="html">
     
       &lt;p&gt;title: IPv6配置与部署&lt;br&gt;date: 2017-10-28&lt;br&gt;categories: “网络攻防”&lt;br&gt;tags: [网络技术]&lt;/p&gt;
-&lt;h2 id=&quot;toc-true&quot;&gt;&lt;a href=&quot;#toc-true&quot; class=&quot;headerlink&quot; title=&quot;toc:true&quot;&gt;&lt;/a&gt;toc:true&lt;/h2&gt;&lt;p&gt;IPv6是大势所趋，提前学习IPv6是最明智的选择。&lt;br&gt;&lt;/p&gt;
+&lt;h2 id=&quot;toc-true&quot;&gt;&lt;a href=&quot;#toc-true&quot; class=&quot;headerlink&quot; title=&quot;toc: true&quot;&gt;&lt;/a&gt;toc: true&lt;/h2&gt;&lt;p&gt;IPv6是大势所趋，提前学习IPv6是最明智的选择。&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -113,11 +113,11 @@
     <title></title>
     <link href="http://www.jb-hacker.top/21.html/"/>
     <id>http://www.jb-hacker.top/21.html/</id>
-    <published>2017-10-28T12:03:40.581Z</published>
-    <updated>2017-10-28T12:03:44.577Z</updated>
+    <published>2017-10-28T12:09:39.617Z</published>
+    <updated>2017-10-28T12:09:43.789Z</updated>
     
     <content type="html"><![CDATA[<p>title: 配置广域网接入<br>date: 2017-10-28<br>categories: “网络攻防”<br>tags: [网络技术]</p>
-<h2 id="toc-true"><a href="#toc-true" class="headerlink" title="toc:true "></a>toc:true </h2><p>涉及知识点ISDN、PPP、DDR，以及帧中继。<br><a id="more"></a><br>占个位置，学习软考ISDN、PPP、DDR，以及帧中继还是需要熟练的。<br>也许对于下面的命令我是该好好了解下了:<br>啊飒飒是十三四所所</p>
+<h2 id="toc-true"><a href="#toc-true" class="headerlink" title="toc: true"></a>toc: true</h2><p>涉及知识点ISDN、PPP、DDR，以及帧中继。<br><a id="more"></a><br>占个位置，学习软考ISDN、PPP、DDR，以及帧中继还是需要熟练的。<br>也许对于下面的命令我是该好好了解下了:<br>啊飒飒是十三四所所</p>
 <ul>
 <li>net命令</li>
 <li>远程登录telent命令</li>
@@ -133,7 +133,7 @@
     <summary type="html">
     
       &lt;p&gt;title: 配置广域网接入&lt;br&gt;date: 2017-10-28&lt;br&gt;categories: “网络攻防”&lt;br&gt;tags: [网络技术]&lt;/p&gt;
-&lt;h2 id=&quot;toc-true&quot;&gt;&lt;a href=&quot;#toc-true&quot; class=&quot;headerlink&quot; title=&quot;toc:true &quot;&gt;&lt;/a&gt;toc:true &lt;/h2&gt;&lt;p&gt;涉及知识点ISDN、PPP、DDR，以及帧中继。&lt;br&gt;&lt;/p&gt;
+&lt;h2 id=&quot;toc-true&quot;&gt;&lt;a href=&quot;#toc-true&quot; class=&quot;headerlink&quot; title=&quot;toc: true&quot;&gt;&lt;/a&gt;toc: true&lt;/h2&gt;&lt;p&gt;涉及知识点ISDN、PPP、DDR，以及帧中继。&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -144,11 +144,11 @@
     <title></title>
     <link href="http://www.jb-hacker.top/20.html/"/>
     <id>http://www.jb-hacker.top/20.html/</id>
-    <published>2017-10-28T12:03:19.821Z</published>
-    <updated>2017-10-28T12:03:24.253Z</updated>
+    <published>2017-10-28T12:09:19.893Z</published>
+    <updated>2017-10-28T12:09:23.711Z</updated>
     
     <content type="html"><![CDATA[<p>title: 内部网关协议IGP简介<br>date: 2017-10-28<br>categories: “网络攻防”<br>tags: [网络技术]</p>
-<h2 id="toc-true"><a href="#toc-true" class="headerlink" title="toc:true"></a>toc:true</h2><p>内部网关协议是在一个自治系统内运行的路由选择协议。<br><a id="more"></a><br>也许对于下面的命令我是该好好了解下了:<br>啊飒飒是十三四所所</p>
+<h2 id="toc-true"><a href="#toc-true" class="headerlink" title="toc: true"></a>toc: true</h2><p>内部网关协议是在一个自治系统内运行的路由选择协议。<br><a id="more"></a><br>也许对于下面的命令我是该好好了解下了:<br>啊飒飒是十三四所所</p>
 <ul>
 <li>net命令</li>
 <li>远程登录telent命令</li>
@@ -164,7 +164,7 @@
     <summary type="html">
     
       &lt;p&gt;title: 内部网关协议IGP简介&lt;br&gt;date: 2017-10-28&lt;br&gt;categories: “网络攻防”&lt;br&gt;tags: [网络技术]&lt;/p&gt;
-&lt;h2 id=&quot;toc-true&quot;&gt;&lt;a href=&quot;#toc-true&quot; class=&quot;headerlink&quot; title=&quot;toc:true&quot;&gt;&lt;/a&gt;toc:true&lt;/h2&gt;&lt;p&gt;内部网关协议是在一个自治系统内运行的路由选择协议。&lt;br&gt;&lt;/p&gt;
+&lt;h2 id=&quot;toc-true&quot;&gt;&lt;a href=&quot;#toc-true&quot; class=&quot;headerlink&quot; title=&quot;toc: true&quot;&gt;&lt;/a&gt;toc: true&lt;/h2&gt;&lt;p&gt;内部网关协议是在一个自治系统内运行的路由选择协议。&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -175,11 +175,11 @@
     <title></title>
     <link href="http://www.jb-hacker.top/19.html/"/>
     <id>http://www.jb-hacker.top/19.html/</id>
-    <published>2017-10-28T12:03:03.594Z</published>
-    <updated>2017-10-28T12:03:07.704Z</updated>
+    <published>2017-10-28T12:09:00.836Z</published>
+    <updated>2017-10-28T12:09:04.698Z</updated>
     
     <content type="html"><![CDATA[<p>title: 网络的常用设备及介绍<br>date: 2017-10-28<br>categories: “网络攻防”<br>tags: [网络技术]</p>
-<h2 id="toc-true"><a href="#toc-true" class="headerlink" title="toc:true"></a>toc:true</h2><p>网络设置是互联网正常运行的硬件基础。了解这些设置的运行原理对于理解网络大有益处。<br><a id="more"></a><br>也许对于下面的命令我是该好好了解下了:<br>啊飒飒是十三四所所</p>
+<h2 id="toc-true"><a href="#toc-true" class="headerlink" title="toc: true"></a>toc: true</h2><p>网络设置是互联网正常运行的硬件基础。了解这些设置的运行原理对于理解网络大有益处。<br><a id="more"></a><br>也许对于下面的命令我是该好好了解下了:<br>啊飒飒是十三四所所</p>
 <ul>
 <li>net命令</li>
 <li>远程登录telent命令</li>
@@ -195,38 +195,7 @@
     <summary type="html">
     
       &lt;p&gt;title: 网络的常用设备及介绍&lt;br&gt;date: 2017-10-28&lt;br&gt;categories: “网络攻防”&lt;br&gt;tags: [网络技术]&lt;/p&gt;
-&lt;h2 id=&quot;toc-true&quot;&gt;&lt;a href=&quot;#toc-true&quot; class=&quot;headerlink&quot; title=&quot;toc:true&quot;&gt;&lt;/a&gt;toc:true&lt;/h2&gt;&lt;p&gt;网络设置是互联网正常运行的硬件基础。了解这些设置的运行原理对于理解网络大有益处。&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="http://www.jb-hacker.top/18.html/"/>
-    <id>http://www.jb-hacker.top/18.html/</id>
-    <published>2017-10-28T12:02:44.293Z</published>
-    <updated>2017-10-28T12:02:51.163Z</updated>
-    
-    <content type="html"><![CDATA[<p>title: 路由器的基本配置<br>date: 2017-10-28<br>categories: “网络攻防”<br>tags: [网络技术]</p>
-<h2 id="toc-true"><a href="#toc-true" class="headerlink" title="toc:true"></a>toc:true</h2><p>路由器是工作在网络层的重要网络互连设备，是互连网络的核心框架。<br><a id="more"></a><br>assa也许对于下面的命令我是该好好了解下了:<br>啊飒飒是十三四所所</p>
-<ul>
-<li>net命令</li>
-<li>远程登录telent命令</li>
-<li>文件传输ftp命令</li>
-<li>添加计划任务at命令(从win8起已经废除)改schtasks命令</li>
-<li>查看修改文件夹权限cacls命令</li>
-<li>回显echo命令</li>
-<li>命令行下的注册表操作</li>
-<li>查看当前系统用户情况query命令wqqwwqqw<br>占个位置，学习软考路由器的基本配置命令可是需要学会的哦!<br>  <strong>以上就是对路由器设备的小小见解。</strong></li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;title: 路由器的基本配置&lt;br&gt;date: 2017-10-28&lt;br&gt;categories: “网络攻防”&lt;br&gt;tags: [网络技术]&lt;/p&gt;
-&lt;h2 id=&quot;toc-true&quot;&gt;&lt;a href=&quot;#toc-true&quot; class=&quot;headerlink&quot; title=&quot;toc:true&quot;&gt;&lt;/a&gt;toc:true&lt;/h2&gt;&lt;p&gt;路由器是工作在网络层的重要网络互连设备，是互连网络的核心框架。&lt;br&gt;&lt;/p&gt;
+&lt;h2 id=&quot;toc-true&quot;&gt;&lt;a href=&quot;#toc-true&quot; class=&quot;headerlink&quot; title=&quot;toc: true&quot;&gt;&lt;/a&gt;toc: true&lt;/h2&gt;&lt;p&gt;网络设置是互联网正常运行的硬件基础。了解这些设置的运行原理对于理解网络大有益处。&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -252,6 +221,39 @@
 <li>查看当前系统用户情况query命令wqqwwqqw</li>
 </ul>
 <p><strong>以上就是对交换机配置的小小见解。</strong></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;就个人而言，DOS是我所一直喜欢的，至始至终。但是没有系统化、专业化的学习也许终究是可悲的。&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="网络攻防" scheme="http://www.jb-hacker.top/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2/"/>
+    
+    
+      <category term="网络技术" scheme="http://www.jb-hacker.top/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>路由器的基本配置</title>
+    <link href="http://www.jb-hacker.top/18.html/"/>
+    <id>http://www.jb-hacker.top/18.html/</id>
+    <published>2017-10-27T16:00:00.000Z</published>
+    <updated>2017-10-28T12:08:40.719Z</updated>
+    
+    <content type="html"><![CDATA[<p>就个人而言，DOS是我所一直喜欢的，至始至终。但是没有系统化、专业化的学习也许终究是可悲的。<br><a id="more"></a><br>assa也许对于下面的命令我是该好好了解下了:<br>啊飒飒是十三四所所</p>
+<ul>
+<li>net命令</li>
+<li>远程登录telent命令</li>
+<li>文件传输ftp命令</li>
+<li>添加计划任务at命令(从win8起已经废除)改schtasks命令</li>
+<li>查看修改文件夹权限cacls命令</li>
+<li>回显echo命令</li>
+<li>命令行下的注册表操作</li>
+<li>查看当前系统用户情况query命令wqqwwqqw<br>占个位置，学习软考路由器的基本配置命令可是需要学会的哦!<br>  <strong>以上就是对路由器设备的小小见解。</strong></li>
+</ul>
 ]]></content>
     
     <summary type="html">
