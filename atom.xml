@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.jb-hacker.top/"/>
-  <updated>2017-10-28T12:10:37.345Z</updated>
+  <updated>2017-10-28T12:14:43.732Z</updated>
   <id>http://www.jb-hacker.top/</id>
   
   <author>
@@ -14,6 +14,37 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://www.jb-hacker.top/19.html/"/>
+    <id>http://www.jb-hacker.top/19.html/</id>
+    <published>2017-10-28T12:14:34.546Z</published>
+    <updated>2017-10-28T12:14:43.732Z</updated>
+    
+    <content type="html"><![CDATA[<p>title: 网络常用设置及介绍<br>date: 2017-10-28<br>categories: “网络攻防”<br>tags: [网络技术]</p>
+<h2 id="toc-true"><a href="#toc-true" class="headerlink" title="toc: true"></a>toc: true</h2><p>网络设置是互联网正常运行的硬件基础。了解这些设置的运行原理对于理解网络大有益处。<br><a id="more"></a><br>也许对于下面的命令我是该好好了解下了:<br>啊飒飒是十三四所所</p>
+<ul>
+<li>net命令</li>
+<li>远程登录telent命令</li>
+<li>文件传输ftp命令</li>
+<li>添加计划任务at命令(从win8起已经废除)改schtasks命令</li>
+<li>查看修改文件夹权限cacls命令</li>
+<li>回显echo命令</li>
+<li>命令行下的注册表操作</li>
+<li>查看当前系统用户情况query命令wqqwwqqw<br>占个位置，学习软考 网络的常用设备可是需要学会的哦!<br>  <strong>以上就是对网络的常用设备的小小见解。</strong></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;title: 网络常用设置及介绍&lt;br&gt;date: 2017-10-28&lt;br&gt;categories: “网络攻防”&lt;br&gt;tags: [网络技术]&lt;/p&gt;
+&lt;h2 id=&quot;toc-true&quot;&gt;&lt;a href=&quot;#toc-true&quot; class=&quot;headerlink&quot; title=&quot;toc: true&quot;&gt;&lt;/a&gt;toc: true&lt;/h2&gt;&lt;p&gt;网络设置是互联网正常运行的硬件基础。了解这些设置的运行原理对于理解网络大有益处。&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title></title>
@@ -165,37 +196,6 @@
     
       &lt;p&gt;title: 内部网关协议IGP简介&lt;br&gt;date: 2017-10-28&lt;br&gt;categories: “网络攻防”&lt;br&gt;tags: [网络技术]&lt;/p&gt;
 &lt;h2 id=&quot;toc-true&quot;&gt;&lt;a href=&quot;#toc-true&quot; class=&quot;headerlink&quot; title=&quot;toc: true&quot;&gt;&lt;/a&gt;toc: true&lt;/h2&gt;&lt;p&gt;内部网关协议是在一个自治系统内运行的路由选择协议。&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="http://www.jb-hacker.top/19.html/"/>
-    <id>http://www.jb-hacker.top/19.html/</id>
-    <published>2017-10-28T12:09:00.836Z</published>
-    <updated>2017-10-28T12:09:04.698Z</updated>
-    
-    <content type="html"><![CDATA[<p>title: 网络的常用设备及介绍<br>date: 2017-10-28<br>categories: “网络攻防”<br>tags: [网络技术]</p>
-<h2 id="toc-true"><a href="#toc-true" class="headerlink" title="toc: true"></a>toc: true</h2><p>网络设置是互联网正常运行的硬件基础。了解这些设置的运行原理对于理解网络大有益处。<br><a id="more"></a><br>也许对于下面的命令我是该好好了解下了:<br>啊飒飒是十三四所所</p>
-<ul>
-<li>net命令</li>
-<li>远程登录telent命令</li>
-<li>文件传输ftp命令</li>
-<li>添加计划任务at命令(从win8起已经废除)改schtasks命令</li>
-<li>查看修改文件夹权限cacls命令</li>
-<li>回显echo命令</li>
-<li>命令行下的注册表操作</li>
-<li>查看当前系统用户情况query命令wqqwwqqw<br>占个位置，学习软考 网络的常用设备可是需要学会的哦!<br>  <strong>以上就是对网络的常用设备的小小见解。</strong></li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;title: 网络的常用设备及介绍&lt;br&gt;date: 2017-10-28&lt;br&gt;categories: “网络攻防”&lt;br&gt;tags: [网络技术]&lt;/p&gt;
-&lt;h2 id=&quot;toc-true&quot;&gt;&lt;a href=&quot;#toc-true&quot; class=&quot;headerlink&quot; title=&quot;toc: true&quot;&gt;&lt;/a&gt;toc: true&lt;/h2&gt;&lt;p&gt;网络设置是互联网正常运行的硬件基础。了解这些设置的运行原理对于理解网络大有益处。&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
