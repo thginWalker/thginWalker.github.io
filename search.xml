@@ -4,6 +4,17 @@
     
     <entry>
       <title></title>
+      <url>/17.html/</url>
+      <content type="html"><![CDATA[<p>title: 交换机的基本配置<br>date: 2017-10-28<br>categories: “网络攻防” </p>
+<h2 id="toc-true"><a href="#toc-true" class="headerlink" title="toc:true "></a>toc:true </h2><p>交换机是一种具有简化、低价、高性能和高端口密集特点的交换产品。<br><a id="more"></a> </p>
+<p>   占个位置，学习软考交换机的基本配置命令可是需要学会的哦!<br>    <strong>以上就是对交换机设备的小小见解。</strong></p>
+]]></content>
+      
+        
+    </entry>
+    
+    <entry>
+      <title></title>
       <url>/24.html/</url>
       <content type="html"><![CDATA[<p>title: 策略路由<br>date: 2017-10-28<br>categories: “网络攻防”<br>tags: [网络技术]</p>
 <h2 id="toc-true"><a href="#toc-true" class="headerlink" title="toc:true "></a>toc:true </h2><p>策略的作用你懂得。<br><a id="more"></a> </p>
@@ -70,33 +81,6 @@
 <h2 id="toc-true"><a href="#toc-true" class="headerlink" title="toc:true"></a>toc:true</h2><p>路由器是工作在网络层的重要网络互连设备，是互连网络的核心框架。<br><a id="more"></a><br>占个位置，学习软考路由器的基本配置命令可是需要学会的哦!<br>    <strong>以上就是对路由器设备的小小见解。</strong></p>
 ]]></content>
       
-        
-    </entry>
-    
-    <entry>
-      <title></title>
-      <url>/17.html/</url>
-      <content type="html"><![CDATA[<p>title: 交换机的基本配置<br>date: 2017-10-28<br>categories: “网络攻防”<br>tags: [网络技术]</p>
-<h2 id="toc-true"><a href="#toc-true" class="headerlink" title="toc:true "></a>toc:true </h2><p>交换机是一种具有简化、低价、高性能和高端口密集特点的交换产品。<br><a id="more"></a> </p>
-<p>   占个位置，学习软考交换机的基本配置命令可是需要学会的哦!<br>    <strong>以上就是对交换机设备的小小见解。</strong></p>
-]]></content>
-      
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[C语rrttr]]></title>
-      <url>/25.html/</url>
-      <content type="html"><![CDATA[<p>C语言的高级特性,关于指针的用法我想是不是应该认真了解下哦！<br><a id="more"></a><br>指针是C语言的灵魂。</p>
-<p><strong>完成coursera里面的课程设计，我想这既是机遇又是挑战</strong></p>
-]]></content>
-      
-        <categories>
-            
-            <category> C语言 </category>
-            
-        </categories>
-        
         
     </entry>
     
