@@ -160,18 +160,11 @@
     <entry>
       <title><![CDATA[交换机的基本配置]]></title>
       <url>/17.html/</url>
-      <content type="html"><![CDATA[<p>就个人而言，DOS是我所一直喜欢的，至始至终。但是没有系统化、专业化的学习也许终究是可悲的。<br><a id="more"></a><br>也许对于下面的命令我是该好好了解下了:<br>啊飒飒是十三四所所</p>
-<ul>
-<li>net命令</li>
-<li>远程登录telent命令</li>
-<li>文件传输ftp命令</li>
-<li>添加计划任务at命令(从win8起已经废除)改schtasks命令</li>
-<li>查看修改文件夹权限cacls命令</li>
-<li>回显echo命令</li>
-<li>命令行下的注册表操作</li>
-<li>查看当前系统用户情况query命令wqqwwqqw</li>
-</ul>
-<p><strong>以上就是对交换机配置的小小见解。</strong></p>
+      <content type="html"><![CDATA[<p>什么是交换机？交换机的作用是什么？以及交换机的基本配置有哪些？这些是我们需要思考的。(注意:我们这里所说的是二层交换机)<br><a id="more"></a><br>交换机是软考的必考点，但是理论看多了就有些迷茫，不明白底层的一些含义及想法。</p>
+<h2 id="简介交换机"><a href="#简介交换机" class="headerlink" title="简介交换机"></a>简介交换机</h2><p>交换机也叫交换式集线器，作用和集线器大题相同。但是为何集线器远远没有交换机出名呢？<br>这源于它们俩的特性不同，集线器采用共享带宽，而交换机采用独占带宽。所以交换机能获得的带宽，至于原理笔者也不能理解。</p>
+<h2 id="交换机作用"><a href="#交换机作用" class="headerlink" title="交换机作用"></a>交换机作用</h2><p>交换机的作用是用来连接局域网(LAN)内的多个节点，用于局域网内的数据交换，因此它主要运用于组建局域网使用。<br>交换机有许多接口，不同的接口可以连接不同的主机，因此我们可以轻易的理解到交换机使相应的主机处于同一个局域网中。</p>
+<h2 id="交换机分类"><a href="#交换机分类" class="headerlink" title="交换机分类"></a>交换机分类</h2><p>按适用范围划分：接入层交换机、汇聚层交换机、核心层交换机</p>
+<h2 id="常用配置命令"><a href="#常用配置命令" class="headerlink" title="常用配置命令"></a>常用配置命令</h2><h3 id="配置enable口令、密码和主机名"><a href="#配置enable口令、密码和主机名" class="headerlink" title="配置enable口令、密码和主机名"></a>配置enable口令、密码和主机名</h3><h3 id="配置IP地址、默认网关、域名和域名服务器"><a href="#配置IP地址、默认网关、域名和域名服务器" class="headerlink" title="配置IP地址、默认网关、域名和域名服务器"></a>配置IP地址、默认网关、域名和域名服务器</h3><h3 id="配置端口属性"><a href="#配置端口属性" class="headerlink" title="配置端口属性"></a>配置端口属性</h3><h3 id="配置和查看MAC地址表"><a href="#配置和查看MAC地址表" class="headerlink" title="配置和查看MAC地址表"></a>配置和查看MAC地址表</h3><h2 id="配置和管理VLAN"><a href="#配置和管理VLAN" class="headerlink" title="配置和管理VLAN"></a>配置和管理VLAN</h2><h2 id="生成树协议配置"><a href="#生成树协议配置" class="headerlink" title="生成树协议配置"></a>生成树协议配置</h2><p><strong>以上就是对交换机配置的小小见解。</strong></p>
 ]]></content>
       
         <categories>
