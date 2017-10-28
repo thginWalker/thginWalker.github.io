@@ -76,7 +76,17 @@
     <entry>
       <title><![CDATA[交换机的基本配置]]></title>
       <url>/17.html/</url>
-      <content type="html"><![CDATA[<p>就个人而言，DOS是我所一直喜欢的，至始至终。但是没有系统化、专业化的学习也许终究是可悲的。<br><a id="more"></a></p>
+      <content type="html"><![CDATA[<p>就个人而言，DOS是我所一直喜欢的，至始至终。但是没有系统化、专业化的学习也许终究是可悲的。<br><a id="more"></a><br>也许对于下面的命令我是该好好了解下了:<br>啊飒飒是十三四所所</p>
+<ul>
+<li>net命令</li>
+<li>远程登录telent命令</li>
+<li>文件传输ftp命令</li>
+<li>添加计划任务at命令(从win8起已经废除)改schtasks命令</li>
+<li>查看修改文件夹权限cacls命令</li>
+<li>回显echo命令</li>
+<li>命令行下的注册表操作</li>
+<li>查看当前系统用户情况query命令wqqwwqqw</li>
+</ul>
 <p><strong>以上就是对交换机配置的小小见解。</strong></p>
 ]]></content>
       
