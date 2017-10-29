@@ -83,24 +83,28 @@
     <link href="http://www.jb-hacker.top/23.html/"/>
     <id>http://www.jb-hacker.top/23.html/</id>
     <published>2017-10-27T16:00:00.000Z</published>
-    <updated>2017-10-28T12:18:25.848Z</updated>
+    <updated>2017-10-29T08:50:48.920Z</updated>
     
-    <content type="html"><![CDATA[<p>就个人而言，DOS是我所一直喜欢的，至始至终。但是没有系统化、专业化的学习也许终究是可悲的。<br><a id="more"></a><br>assa也许对于下面的命令我是该好好了解下了:<br>啊飒飒是十三四所所</p>
+    <content type="html"><![CDATA[<p>为什么需要ACL，无非是进行访问控制罢了。这种技术从路由器逐步推广到交换机上进行使用。<br><a id="more"></a><br>ACL对入站或出站的通信进行过滤。ACL的局限性是不能对路由器本身发出的通信进行过滤，因此在路由器上执行ping或trace、route命令，或者通过路由器远程连接(telnet)另外一个网络设备，应用于路由器端口的ACL命令不能过滤这些通信。<br>ACL基本原则:</p>
 <ul>
-<li>net命令</li>
-<li>远程登录telent命令</li>
-<li>文件传输ftp命令</li>
-<li>添加计划任务at命令(从win8起已经废除)改schtasks命令</li>
-<li>查看修改文件夹权限cacls命令</li>
-<li>回显echo命令</li>
-<li>命令行下的注册表操作</li>
-<li>查看当前系统用户情况query命令wqqwwqqw<br>占个位置，学习软考路由器的基本配置命令可是需要学会的哦!<br>  <strong>以上就是对路由器设备的小小见解。</strong></li>
+<li>先匹配原则</li>
+<li>排序原则</li>
+<li>默认丢弃原则<br>我们知道ACL分为标准ACL和扩展ACL。</li>
 </ul>
+<h2 id="标准ACL"><a href="#标准ACL" class="headerlink" title="标准ACL"></a>标准ACL</h2><p>标准编号范围:1~99,1300~1999。<br>命令格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Router(config)#access-list 编号 permit|deny 单个IP|&#123;网络地址 反掩码&#125;</div></pre></td></tr></table></figure></p>
+<p>激活ACL命令(进入端口应用ACL)<br>in表示进入端口的分组(入站)，out表示端口输出的分组(出站)。<br>我们可以这样理解，在针对配置的设备来说，该端口经过该设备传送即为入站，反之端口远离该设备即为出站。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Router(config)#interface 端口号</div><div class="line">Router(config-if)#ip access-group acl编号 in|out</div></pre></td></tr></table></figure></p>
+<p>通配符掩码的例子<br>| IP地址 | 通配符掩码 | 匹配 |<br>|::|::|<br>| 0.0.0.0 | 255.255.255.255 | 匹配任何地址(关键字any) |<br>| 172.16.1.1| 0.0.0.0 | 匹配host 172.16.1.1(匹配单个主机) |</p>
+<p>标准ACL默认配置<br><code>access-list 编号 deny any</code></p>
+<h2 id="扩展ACL"><a href="#扩展ACL" class="headerlink" title="扩展ACL"></a>扩展ACL</h2><p>标准编号范围:1~99,1300~1999。<br>命令格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Router(config)#access-list 编号 permit|deny 协议类型 源网络地址 反掩码 [控制信息]目的地址 反掩码 [控制信息] [log]</div></pre></td></tr></table></figure></p>
+<p>协议类型:tcp、udp、icmp、ip<br>对于TCP和UDP协议如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Router(config)#access-list 编号 permit|deny tcp|udp 源网络地址 反掩码 目的地址 反掩码 [操作符 端口|关键字] [established] [log]</div></pre></td></tr></table></figure></p>
+<p>激活ACL命令同标准ACL一致<br>实例配置:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Router#conf t</div><div class="line">Router(config)#access-list 100 permit tcp any 172.16.0.0 0.0.255.255 established log</div><div class="line">Router(config)#access-list 100 permit udp host 172.16.1.1 eq dns log</div><div class="line">Router(config)#access-list 100 permit tcp 172.17.0.0 0.0.255.255 host 172.16.1.2 eq telnet log</div><div class="line">Router(config)#access-list 100 permit icmp any 172.16.0.0 0.255.255.255 echo-reply log</div><div class="line">Router(config)#access-list 100 deny ip any any log</div><div class="line">Router(config)#interface ethernet0</div><div class="line">Router(config-if)#ip access-group 100 in</div></pre></td></tr></table></figure></p>
+<p>标准ACL默认配置<br><code>access-list 编号 deny ip any any</code></p>
+<p><strong>以上就是我对ACL的小小见解。</strong></p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;就个人而言，DOS是我所一直喜欢的，至始至终。但是没有系统化、专业化的学习也许终究是可悲的。&lt;br&gt;&lt;/p&gt;
+      &lt;p&gt;为什么需要ACL，无非是进行访问控制罢了。这种技术从路由器逐步推广到交换机上进行使用。&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
