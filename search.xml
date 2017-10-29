@@ -495,11 +495,7 @@
 <li>地址解析arp命令</li>
 <li>诊断nbtstat命令</li>
 <li>netstat命令</li>
-<li>rcp命令</li>
-<li>rexec命令</li>
 <li>route命令</li>
-<li>rsh命令</li>
-<li>tftp命令</li>
 </ul>
 <h3 id="命令解析"><a href="#命令解析" class="headerlink" title="命令解析"></a>命令解析</h3><p>谁叫我也不太了解呢，只能一个个用来学习了。</p>
 <h4 id="net命令"><a href="#net命令" class="headerlink" title="net命令"></a>net命令</h4><p>net命令被称为功能强大的以命令行方式执行的感觉，它包含了管理网络环境、服务、用户、登录等windows 98/NT/2000中大部分重要的管理功能。</p>
@@ -532,8 +528,12 @@
 <h4 id="物理网络查看ping命令"><a href="#物理网络查看ping命令" class="headerlink" title="物理网络查看ping命令"></a>物理网络查看ping命令</h4><p>命令ping我觉得最大的用处就是看远程计算机IP是否可以正常访问吧!<br>ping命令可以检测数据包在哪一个节点之后出现了问题，也可以判断对方是windows系统还是linux系统。(不过并不太可靠)<br>还是可以得到目的网站的IP地址。</p>
 <h4 id="网络配置查询ipconfig命令"><a href="#网络配置查询ipconfig命令" class="headerlink" title="网络配置查询ipconfig命令"></a>网络配置查询ipconfig命令</h4><p>使用ipconfig/all命令可以方便地查看网卡的MAC地址、主机的网络设置等，在向内网渗透的过程中，需要了解受害者的网络配置，可以使用ipconfig来查看。</p>
 <h4 id="查看通信路由tracert命令"><a href="#查看通信路由tracert命令" class="headerlink" title="查看通信路由tracert命令"></a>查看通信路由tracert命令</h4><p>tracert是路由跟踪程序，用于确定IP数据报访问目标所经过的路径。<br>具体功暂时我也不太清楚理解，以后补充！</p>
-<h4 id="DNS查看nslookup命令"><a href="#DNS查看nslookup命令" class="headerlink" title="DNS查看nslookup命令"></a>DNS查看nslookup命令</h4><p>使用nslookup可以查看主机的DNS服务器，nslookup最简单的用户用法就是查询域名</p>
-<h4 id="地址解析arp命令"><a href="#地址解析arp命令" class="headerlink" title="地址解析arp命令"></a>地址解析arp命令</h4><h4 id="诊断nbtstat命令"><a href="#诊断nbtstat命令" class="headerlink" title="诊断nbtstat命令"></a>诊断nbtstat命令</h4><h4 id="netstat命令"><a href="#netstat命令" class="headerlink" title="netstat命令"></a>netstat命令</h4><h4 id="rcp命令"><a href="#rcp命令" class="headerlink" title="rcp命令"></a>rcp命令</h4><h4 id="rexec命令"><a href="#rexec命令" class="headerlink" title="rexec命令"></a>rexec命令</h4><h4 id="route命令"><a href="#route命令" class="headerlink" title="route命令"></a>route命令</h4><h4 id="rsh命令"><a href="#rsh命令" class="headerlink" title="rsh命令"></a>rsh命令</h4><h4 id="tftp命令"><a href="#tftp命令" class="headerlink" title="tftp命令"></a>tftp命令</h4><p><strong>以上就是对常用DOS命令的小小见解。</strong></p>
+<h4 id="DNS查看nslookup命令"><a href="#DNS查看nslookup命令" class="headerlink" title="DNS查看nslookup命令"></a>DNS查看nslookup命令</h4><p>使用nslookup可以查看主机的DNS服务器，nslookup最简单的用户用法就是查询域名。</p>
+<h4 id="地址解析arp命令"><a href="#地址解析arp命令" class="headerlink" title="地址解析arp命令"></a>地址解析arp命令</h4><p>用于显示和修改地址解析协议缓存表的内容，缓存表项是IP地址与网卡地址对。</p>
+<h4 id="诊断nbtstat命令"><a href="#诊断nbtstat命令" class="headerlink" title="诊断nbtstat命令"></a>诊断nbtstat命令</h4><p>显示协议统计和当前使用 NBI 的 TCP/IP 连接，包括本地计算机和远程计算机的NetBIOS名称表，以及NetBIOS名字缓存。</p>
+<h4 id="netstat命令"><a href="#netstat命令" class="headerlink" title="netstat命令"></a>netstat命令</h4><p>显示TCP连接、计算机正在监听的端口、以太网统计信息、IP路由表、IPv4统计信息(包括IP、ICMP、TCP和UDP)和IPv6统计信息(包括IPv6、ICMPv6、TCP over IPv6和UDP over IPv6)等协议。</p>
+<h4 id="route命令"><a href="#route命令" class="headerlink" title="route命令"></a>route命令</h4><p>显示和修改本地的路由表。</p>
+<p><strong>以上就是对常用DOS命令的小小见解。</strong></p>
 ]]></content>
       
         <categories>
