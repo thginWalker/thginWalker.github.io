@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.jb-hacker.top/"/>
-  <updated>2017-10-29T04:46:34.041Z</updated>
+  <updated>2017-10-29T06:12:30.875Z</updated>
   <id>http://www.jb-hacker.top/</id>
   
   <author>
@@ -16,128 +16,24 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>网络常用设备及介绍</title>
-    <link href="http://www.jb-hacker.top/19.html/"/>
-    <id>http://www.jb-hacker.top/19.html/</id>
+    <title>配置广域网接入</title>
+    <link href="http://www.jb-hacker.top/20.html/"/>
+    <id>http://www.jb-hacker.top/20.html/</id>
     <published>2017-10-27T16:00:00.000Z</published>
-    <updated>2017-10-29T04:46:34.041Z</updated>
+    <updated>2017-10-29T06:12:30.875Z</updated>
     
-    <content type="html"><![CDATA[<p>我们能够理解即使虚拟的网络也需要底层的物理设备作为承载！<br><a id="more"></a></p>
-<h2 id="中继器"><a href="#中继器" class="headerlink" title="中继器"></a>中继器</h2><p>处于物理层的中继器，作用比较单一，对接收信号进行再生和发送。它不会解释和改变接收到的数字信息。<br>但是在以太网中中继器的数量是有限的，最多使用4个中继器，即5个网段，3个网段接PC，这就是<code>5-4-3规则</code>。</p>
-<h2 id="集线器"><a href="#集线器" class="headerlink" title="集线器"></a>集线器</h2><p>即Hub，工作原理同中继器一致，简单来说是一个多端口中继器，它把一个端口上收到的数据广播发生到其他所有的端口上。</p>
-<h2 id="网桥"><a href="#网桥" class="headerlink" title="网桥"></a>网桥</h2><p>工作与数据链路层，用于连接两个局域网段。它通过分析数据帧的地址字段，来决定是否把收到的帧转发给另一个网段。网桥用于局域网互联。</p>
-<h2 id="交换机"><a href="#交换机" class="headerlink" title="交换机"></a>交换机</h2><p>多端口网桥，每一个端口都可以连接一个局域网。(二层交换机用于局域网互联)</p>
-<h2 id="路由器"><a href="#路由器" class="headerlink" title="路由器"></a>路由器</h2><p>常用于广域网互联，通过逻辑地址(IP地址)转发网络间的信息，完成异构网络之间的互通互联。但是只能连接使用相同网络层协议的子网。</p>
-<h2 id="网关"><a href="#网关" class="headerlink" title="网关"></a>网关</h2><p>工作于4-7层，是最复杂的网络互联设备了，用于连接网络上执行不同协议的子网。</p>
-<p><strong>以上就是对网络设备的小小见解。</strong></p>
+    <content type="html"><![CDATA[<p>如果想访问其他远程网络，就必须是个广域网(WAN)接入服务了。<br><a id="more"></a></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>WAN与LAN使用的连接方式和布线标准不大相同。广域网中路由器和交换机的连接方式主要有<code>串行连接</code>、<code>ISDN BRI</code>和<code>DSL</code>连接的。<br>这里主要介绍软考所涉及的<code>ISDN</code>、<code>PPP</code>和<code>DDR</code>、<code>帧中继</code>等相关配置。<br>(针对此配置笔者了解甚少，多看书中实例理解)</p>
+<h2 id="配置ISDN"><a href="#配置ISDN" class="headerlink" title="配置ISDN"></a>配置ISDN</h2><p>相关配置命令<br>| 命令 | 功能 |<br>|:—–:|:—-:|<br>| isdn switch-type 交换机类型 | 设置交换机类型 |<br>| interface bri 0 | 接口BRI设置 |<br>| encapsulation ppp | 设置PPP封装 |<br>| dialer map protocol 下一跳地址 [name 域名] [broadcast] [拨号串] | 设置协议地址与电话号码的映射 |<br>| ppp multilink   |  启动PPP多连接 |<br>| dialer load-threshold <em>load</em> | 设置启动另一个B通道的阀值 |<br>| show isdn {active | history | memory | services | status [dsl | interface-type number] | }|显示ISDN的有关信息 |</p>
+<p>摘抄书中部分配置信息:<br>配置R1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">R1(config)#isdn switch-tyoe basic-net3</div><div class="line">R1(config)#interface bri 0</div><div class="line">R1(config-if)#ip address 192.168.1.1 255.255.255.0</div><div class="line">R1(config-if)#encapsulation ppp</div><div class="line">R1(config-if)#dialer string 80000002</div><div class="line">R1(config-if)#dialer-group 1</div><div class="line">R1(config-if)#no shutdown exit</div><div class="line">R1(config)#exit</div><div class="line">R1(config)#dialer-list l protocol ip permit</div><div class="line">R1(config)#end</div><div class="line">R1#</div></pre></td></tr></table></figure></p>
+<h2 id="PPP和DDR"><a href="#PPP和DDR" class="headerlink" title="PPP和DDR"></a>PPP和DDR</h2><p>PPP(点对点协议)、DDR(按需拨号路由)，DDR技术和PPP技术一样对于ISDN的配置是非常重要的，在实际应用中ISDN、PPP和DDR这三项技术经常综合使用。<br>(针对此配置笔者了解甚少，多看书中实例理解)<br>相关配置命令<br>| 命令 | 功能 |<br>|:—–:|:—-:|<br>| encapsulation ppp | 设置PPP封装 |<br>| ppp authentication {chap | chap pap | pap chap | pap} [if-needed] [list-name | default] [callin]| 设置认证方法 |<br>| username <em>name</em> password secret | 指定口令|<br>| clockrate speed | 设置DCE段线路速度|<br>| ppp multilink | 启动PPP多连接 |<br>| dialer load-thresold load| 设置启动另一个B通道的阀值|<br>| show isdn {active | history | memory | services | status [dsl | interface-type number] | }|显示ISDN的有关信息 |<br>摘抄书中部分配置信息:<br>配置R1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">username R2 password 0 cisco</div><div class="line">isdn switch-type basic-net3</div><div class="line">!</div><div class="line">encapsulation ppp</div><div class="line">dialer idle-timeout 300</div><div class="line">dialer map ip 192.168.1.2 name R2 broadcast 80000002</div><div class="line">dialer load-threshold 128</div><div class="line">dialer-group 1</div><div class="line">no cdp enable</div><div class="line">ppp authentication chap </div><div class="line">ppp multilink</div><div class="line">！</div><div class="line">ip route 10.1.2.0 255.255.255.0 192.168.1.2</div><div class="line">!</div><div class="line">dialer-list 1 protocol ip permit</div><div class="line">...</div><div class="line">end</div></pre></td></tr></table></figure></p>
+<h2 id="配置帧中继"><a href="#配置帧中继" class="headerlink" title="配置帧中继"></a>配置帧中继</h2><p>帧中继是一种高性能的WAN协议，运行在物理层和数据链路层，它是X.25的简化版本。<br>至于帧中继为何重要，从历年的软考真题就能明白一二了。<br>帧中继的相关配置命令<br>| 命令 | 功能 |<br>|:—–:|:—-:|<br>| encapsulation frame-relay [ietf] | 设置Frame Relay封装 |<br>| frame-relay lmi-type {ansi |cisco | q9330a}| 设置Frame Relay LMI类型 |<br>| interface interface-type interface-number subinterface-number [ frame-relay map protocol protocol-address dlci [broadcast] | 映射协议地址与DLCI |<br>| frame-relay interface-dlci dlci [broadcast] | 设置FR DLCI编号|<br>摘抄书中部分配置信息:<br>配置R1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">encapsulation frame-relay (简写encap frame-reply)</div><div class="line">clockrate 64000</div><div class="line">frame-relay lmi-type cisco</div><div class="line">no frame-replay inverse-arp (关闭帧中继逆向ARP)</div></pre></td></tr></table></figure></p>
+<p><strong>以上就是对广域网接入的小小见解。</strong></p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;我们能够理解即使虚拟的网络也需要底层的物理设备作为承载！&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="网络攻防" scheme="http://www.jb-hacker.top/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2/"/>
-    
-    
-      <category term="网络技术" scheme="http://www.jb-hacker.top/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>策略路由</title>
-    <link href="http://www.jb-hacker.top/24.html/"/>
-    <id>http://www.jb-hacker.top/24.html/</id>
-    <published>2017-10-27T16:00:00.000Z</published>
-    <updated>2017-10-28T12:18:42.184Z</updated>
-    
-    <content type="html"><![CDATA[<p>就个人而言，DOS是我所一直喜欢的，至始至终。但是没有系统化、专业化的学习也许终究是可悲的。<br><a id="more"></a><br>assa也许对于下面的命令我是该好好了解下了:<br>啊飒飒是十三四所所</p>
-<ul>
-<li>net命令</li>
-<li>远程登录telent命令</li>
-<li>文件传输ftp命令</li>
-<li>添加计划任务at命令(从win8起已经废除)改schtasks命令</li>
-<li>查看修改文件夹权限cacls命令</li>
-<li>回显echo命令</li>
-<li>命令行下的注册表操作</li>
-<li>查看当前系统用户情况query命令wqqwwqqw<br>占个位置，学习软考路由器的基本配置命令可是需要学会的哦!<br>  <strong>以上就是对路由器设备的小小见解。</strong></li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;就个人而言，DOS是我所一直喜欢的，至始至终。但是没有系统化、专业化的学习也许终究是可悲的。&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="网络攻防" scheme="http://www.jb-hacker.top/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2/"/>
-    
-    
-      <category term="网络技术" scheme="http://www.jb-hacker.top/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>访问控制列表ACL</title>
-    <link href="http://www.jb-hacker.top/23.html/"/>
-    <id>http://www.jb-hacker.top/23.html/</id>
-    <published>2017-10-27T16:00:00.000Z</published>
-    <updated>2017-11-04T08:07:44.540Z</updated>
-    
-    <content type="html"><![CDATA[<p>为什么需要ACL，无非是进行访问控制罢了。这种技术从路由器逐步推广到交换机上进行使用。<br><a id="more"></a><br>ACL对入站或出站的通信进行过滤。ACL的局限性是不能对路由器本身发出的通信进行过滤，因此在路由器上执行ping或trace、route命令，或者通过路由器远程连接(telnet)另外一个网络设备，应用于路由器端口的ACL命令不能过滤这些通信。<br>ACL基本原则:</p>
-<ul>
-<li>先匹配原则</li>
-<li>排序原则</li>
-<li>默认丢弃原则<br>我们知道ACL分为标准ACL和扩展ACL。</li>
-</ul>
-<h2 id="标准ACL"><a href="#标准ACL" class="headerlink" title="标准ACL"></a>标准ACL</h2><p>标准编号范围:1~99,1300~1999。<br>命令格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Router(config)#access-list 编号 permit|deny 单个IP|&#123;网络地址 反掩码&#125;</div></pre></td></tr></table></figure></p>
-<p>激活ACL命令(进入端口应用ACL)<br>in表示进入端口的分组(入站)，out表示端口输出的分组(出站)。<br>我们可以这样理解，在针对配置的设备来说，该端口经过该设备传送即为入站，反之端口远离该设备即为出站。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Router(config)#interface 端口号</div><div class="line">Router(config-if)#ip access-group acl编号 in|out</div></pre></td></tr></table></figure></p>
-<p>通配符掩码的例子<br>| IP地址 | 通配符掩码 | 匹配 |<br>|:————-:|:————-:|<br>| 0.0.0.0 | 255.255.255.255 | 匹配任何地址(关键字any) |<br>| 172.16.1.1| 0.0.0.0 | 匹配host 172.16.1.1(匹配单个主机) |</p>
-<p>标准ACL默认配置<br><code>access-list 编号 deny any</code></p>
-<h2 id="扩展ACL"><a href="#扩展ACL" class="headerlink" title="扩展ACL"></a>扩展ACL</h2><p>标准编号范围:1~99,1300~1999。<br>命令格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Router(config)#access-list 编号 permit|deny 协议类型 源网络地址 反掩码 [控制信息]目的地址 反掩码 [控制信息] [log]</div></pre></td></tr></table></figure></p>
-<p>协议类型:tcp、udp、icmp、ip<br>对于TCP和UDP协议如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Router(config)#access-list 编号 permit|deny tcp|udp 源网络地址 反掩码 目的地址 反掩码 [操作符 端口|关键字] [established] [log]</div></pre></td></tr></table></figure></p>
-<p>激活ACL命令同标准ACL一致<br>实例配置:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Router#conf t</div><div class="line">Router(config)#access-list 100 permit tcp any 172.16.0.0 0.0.255.255 established log</div><div class="line">Router(config)#access-list 100 permit udp host 172.16.1.1 eq dns log</div><div class="line">Router(config)#access-list 100 permit tcp 172.17.0.0 0.0.255.255 host 172.16.1.2 eq telnet log</div><div class="line">Router(config)#access-list 100 permit icmp any 172.16.0.0 0.255.255.255 echo-reply log</div><div class="line">Router(config)#access-list 100 deny ip any any log</div><div class="line">Router(config)#interface ethernet0</div><div class="line">Router(config-if)#ip access-group 100 in</div></pre></td></tr></table></figure></p>
-<p>标准ACL默认配置<br><code>access-list 编号 deny ip any any</code></p>
-<p><strong>以上就是我对ACL的小小见解。</strong></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;为什么需要ACL，无非是进行访问控制罢了。这种技术从路由器逐步推广到交换机上进行使用。&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="网络攻防" scheme="http://www.jb-hacker.top/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2/"/>
-    
-    
-      <category term="网络技术" scheme="http://www.jb-hacker.top/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>IPv6配置与部署</title>
-    <link href="http://www.jb-hacker.top/22.html/"/>
-    <id>http://www.jb-hacker.top/22.html/</id>
-    <published>2017-10-27T16:00:00.000Z</published>
-    <updated>2017-10-28T12:18:05.623Z</updated>
-    
-    <content type="html"><![CDATA[<p>就个人而言，DOS是我所一直喜欢的，至始至终。但是没有系统化、专业化的学习也许终究是可悲的。<br><a id="more"></a><br>assa也许对于下面的命令我是该好好了解下了:<br>啊飒飒是十三四所所</p>
-<ul>
-<li>net命令</li>
-<li>远程登录telent命令</li>
-<li>文件传输ftp命令</li>
-<li>添加计划任务at命令(从win8起已经废除)改schtasks命令</li>
-<li>查看修改文件夹权限cacls命令</li>
-<li>回显echo命令</li>
-<li>命令行下的注册表操作</li>
-<li>查看当前系统用户情况query命令wqqwwqqw<br>占个位置，学习软考路由器的基本配置命令可是需要学会的哦!<br>  <strong>以上就是对路由器设备的小小见解。</strong></li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;就个人而言，DOS是我所一直喜欢的，至始至终。但是没有系统化、专业化的学习也许终究是可悲的。&lt;br&gt;&lt;/p&gt;
+      &lt;p&gt;如果想访问其他远程网络，就必须是个广域网(WAN)接入服务了。&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -186,6 +82,36 @@
   </entry>
   
   <entry>
+    <title>网络常用设备及介绍</title>
+    <link href="http://www.jb-hacker.top/19.html/"/>
+    <id>http://www.jb-hacker.top/19.html/</id>
+    <published>2017-10-27T16:00:00.000Z</published>
+    <updated>2017-10-29T04:46:34.041Z</updated>
+    
+    <content type="html"><![CDATA[<p>我们能够理解即使虚拟的网络也需要底层的物理设备作为承载！<br><a id="more"></a></p>
+<h2 id="中继器"><a href="#中继器" class="headerlink" title="中继器"></a>中继器</h2><p>处于物理层的中继器，作用比较单一，对接收信号进行再生和发送。它不会解释和改变接收到的数字信息。<br>但是在以太网中中继器的数量是有限的，最多使用4个中继器，即5个网段，3个网段接PC，这就是<code>5-4-3规则</code>。</p>
+<h2 id="集线器"><a href="#集线器" class="headerlink" title="集线器"></a>集线器</h2><p>即Hub，工作原理同中继器一致，简单来说是一个多端口中继器，它把一个端口上收到的数据广播发生到其他所有的端口上。</p>
+<h2 id="网桥"><a href="#网桥" class="headerlink" title="网桥"></a>网桥</h2><p>工作与数据链路层，用于连接两个局域网段。它通过分析数据帧的地址字段，来决定是否把收到的帧转发给另一个网段。网桥用于局域网互联。</p>
+<h2 id="交换机"><a href="#交换机" class="headerlink" title="交换机"></a>交换机</h2><p>多端口网桥，每一个端口都可以连接一个局域网。(二层交换机用于局域网互联)</p>
+<h2 id="路由器"><a href="#路由器" class="headerlink" title="路由器"></a>路由器</h2><p>常用于广域网互联，通过逻辑地址(IP地址)转发网络间的信息，完成异构网络之间的互通互联。但是只能连接使用相同网络层协议的子网。</p>
+<h2 id="网关"><a href="#网关" class="headerlink" title="网关"></a>网关</h2><p>工作于4-7层，是最复杂的网络互联设备了，用于连接网络上执行不同协议的子网。</p>
+<p><strong>以上就是对网络设备的小小见解。</strong></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;我们能够理解即使虚拟的网络也需要底层的物理设备作为承载！&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="网络攻防" scheme="http://www.jb-hacker.top/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2/"/>
+    
+    
+      <category term="网络技术" scheme="http://www.jb-hacker.top/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/"/>
+    
+  </entry>
+  
+  <entry>
     <title>交换机的基本配置</title>
     <link href="http://www.jb-hacker.top/17.html/"/>
     <id>http://www.jb-hacker.top/17.html/</id>
@@ -219,35 +145,6 @@
     <summary type="html">
     
       &lt;p&gt;什么是交换机？交换机的作用是什么？以及交换机的基本配置有哪些？这些是我需要思考的。(注意:我们这里所说的是二层交换机)&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="网络攻防" scheme="http://www.jb-hacker.top/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2/"/>
-    
-    
-      <category term="网络技术" scheme="http://www.jb-hacker.top/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>配置广域网接入</title>
-    <link href="http://www.jb-hacker.top/20.html/"/>
-    <id>http://www.jb-hacker.top/20.html/</id>
-    <published>2017-10-27T16:00:00.000Z</published>
-    <updated>2017-10-29T06:12:30.875Z</updated>
-    
-    <content type="html"><![CDATA[<p>如果想访问其他远程网络，就必须是个广域网(WAN)接入服务了。<br><a id="more"></a></p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>WAN与LAN使用的连接方式和布线标准不大相同。广域网中路由器和交换机的连接方式主要有<code>串行连接</code>、<code>ISDN BRI</code>和<code>DSL</code>连接的。<br>这里主要介绍软考所涉及的<code>ISDN</code>、<code>PPP</code>和<code>DDR</code>、<code>帧中继</code>等相关配置。<br>(针对此配置笔者了解甚少，多看书中实例理解)</p>
-<h2 id="配置ISDN"><a href="#配置ISDN" class="headerlink" title="配置ISDN"></a>配置ISDN</h2><p>相关配置命令<br>| 命令 | 功能 |<br>|:—–:|:—-:|<br>| isdn switch-type 交换机类型 | 设置交换机类型 |<br>| interface bri 0 | 接口BRI设置 |<br>| encapsulation ppp | 设置PPP封装 |<br>| dialer map protocol 下一跳地址 [name 域名] [broadcast] [拨号串] | 设置协议地址与电话号码的映射 |<br>| ppp multilink   |  启动PPP多连接 |<br>| dialer load-threshold <em>load</em> | 设置启动另一个B通道的阀值 |<br>| show isdn {active | history | memory | services | status [dsl | interface-type number] | }|显示ISDN的有关信息 |</p>
-<p>摘抄书中部分配置信息:<br>配置R1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">R1(config)#isdn switch-tyoe basic-net3</div><div class="line">R1(config)#interface bri 0</div><div class="line">R1(config-if)#ip address 192.168.1.1 255.255.255.0</div><div class="line">R1(config-if)#encapsulation ppp</div><div class="line">R1(config-if)#dialer string 80000002</div><div class="line">R1(config-if)#dialer-group 1</div><div class="line">R1(config-if)#no shutdown exit</div><div class="line">R1(config)#exit</div><div class="line">R1(config)#dialer-list l protocol ip permit</div><div class="line">R1(config)#end</div><div class="line">R1#</div></pre></td></tr></table></figure></p>
-<h2 id="PPP和DDR"><a href="#PPP和DDR" class="headerlink" title="PPP和DDR"></a>PPP和DDR</h2><p>PPP(点对点协议)、DDR(按需拨号路由)，DDR技术和PPP技术一样对于ISDN的配置是非常重要的，在实际应用中ISDN、PPP和DDR这三项技术经常综合使用。<br>(针对此配置笔者了解甚少，多看书中实例理解)<br>相关配置命令<br>| 命令 | 功能 |<br>|:—–:|:—-:|<br>| encapsulation ppp | 设置PPP封装 |<br>| ppp authentication {chap | chap pap | pap chap | pap} [if-needed] [list-name | default] [callin]| 设置认证方法 |<br>| username <em>name</em> password secret | 指定口令|<br>| clockrate speed | 设置DCE段线路速度|<br>| ppp multilink | 启动PPP多连接 |<br>| dialer load-thresold load| 设置启动另一个B通道的阀值|<br>| show isdn {active | history | memory | services | status [dsl | interface-type number] | }|显示ISDN的有关信息 |<br>摘抄书中部分配置信息:<br>配置R1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">username R2 password 0 cisco</div><div class="line">isdn switch-type basic-net3</div><div class="line">!</div><div class="line">encapsulation ppp</div><div class="line">dialer idle-timeout 300</div><div class="line">dialer map ip 192.168.1.2 name R2 broadcast 80000002</div><div class="line">dialer load-threshold 128</div><div class="line">dialer-group 1</div><div class="line">no cdp enable</div><div class="line">ppp authentication chap </div><div class="line">ppp multilink</div><div class="line">！</div><div class="line">ip route 10.1.2.0 255.255.255.0 192.168.1.2</div><div class="line">!</div><div class="line">dialer-list 1 protocol ip permit</div><div class="line">...</div><div class="line">end</div></pre></td></tr></table></figure></p>
-<h2 id="配置帧中继"><a href="#配置帧中继" class="headerlink" title="配置帧中继"></a>配置帧中继</h2><p>帧中继是一种高性能的WAN协议，运行在物理层和数据链路层，它是X.25的简化版本。<br>至于帧中继为何重要，从历年的软考真题就能明白一二了。<br>帧中继的相关配置命令<br>| 命令 | 功能 |<br>|:—–:|:—-:|<br>| encapsulation frame-relay [ietf] | 设置Frame Relay封装 |<br>| frame-relay lmi-type {ansi |cisco | q9330a}| 设置Frame Relay LMI类型 |<br>| interface interface-type interface-number subinterface-number [ frame-relay map protocol protocol-address dlci [broadcast] | 映射协议地址与DLCI |<br>| frame-relay interface-dlci dlci [broadcast] | 设置FR DLCI编号|<br>摘抄书中部分配置信息:<br>配置R1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">encapsulation frame-relay (简写encap frame-reply)</div><div class="line">clockrate 64000</div><div class="line">frame-relay lmi-type cisco</div><div class="line">no frame-replay inverse-arp (关闭帧中继逆向ARP)</div></pre></td></tr></table></figure></p>
-<p><strong>以上就是对广域网接入的小小见解。</strong></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;如果想访问其他远程网络，就必须是个广域网(WAN)接入服务了。&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -848,6 +745,144 @@
       <category term="mysql" scheme="http://www.jb-hacker.top/tags/mysql/"/>
     
       <category term="php" scheme="http://www.jb-hacker.top/tags/php/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>vim的简单使用</title>
+    <link href="http://www.jb-hacker.top/3.html/"/>
+    <id>http://www.jb-hacker.top/3.html/</id>
+    <published>2017-05-09T16:00:00.000Z</published>
+    <updated>2017-07-08T06:18:01.540Z</updated>
+    
+    <content type="html"><![CDATA[<p>vim是一个类似于vi的著名的功能强大、高度可定制的文本编辑器，在vi的基础上改进和增加了很多特性。vim是自由软件。<br><a id="more"></a><br>其实vim有着很强悍的操作语法，但是在这我只是介绍一些常用能解决文章的基本操作，原因很简单：适合新手！</p>
+<h4 id="vi的基本概念"><a href="#vi的基本概念" class="headerlink" title="vi的基本概念"></a>vi的基本概念</h4><p>　　基本上vi可以分为三种状态，分别是命令模式、插入模式和底行模式，各模式的功能区分如下：</p>
+<ul>
+<li>命令行模式</li>
+</ul>
+<p>　　控制屏幕光标的移动，字符、字或行的删除，移动复制某区段及进入插入模式下，<br>或者到底行模式。</p>
+<ul>
+<li><p>插入模式<br>　　只有在插入模式下，才可以做文字输入，按「ESC」键可回到命令行模式。</p>
+</li>
+<li><p>底行模式</p>
+</li>
+</ul>
+<p>将文件保存或退出vi，也可以设置编辑环境，如寻找字符串、列出行号……等。<br>不过一般我们在使用时把vi简化成两个模式，就是将底行模式也算入命令行模式。</p>
+<ul>
+<li><p>进命令行模式<br>在进入插入模式后，你只要按[Esc]就可以从插入模式进入命令行模型了。</p>
+</li>
+<li><p>进入插入模式<br>刚开始打开vim，你必须按i才能进入插入模式。</p>
+</li>
+<li><p>进入底行模式<br>在使用底行模式之前，请记住先按「ESC」键确定您已经处于命令行模式下后，再按「：」冒号即可进入底行模式。</p>
+</li>
+</ul>
+<h4 id="vim的常规操作"><a href="#vim的常规操作" class="headerlink" title="vim的常规操作"></a>vim的常规操作</h4><ul>
+<li>列出行号</li>
+</ul>
+<p>　「set nu」：输入「set nu」后，会在文件中的每一行前面列出行号。</p>
+<ul>
+<li>跳到文件中的某一行</li>
+</ul>
+<p>　「#」：「#」号表示一个数字，在冒号后输入一个数字，再按回车键就会跳到该行了，<br>如输入数字15，再回车，就会跳到文章的第15行。</p>
+<ul>
+<li>查找字符</li>
+</ul>
+<p>　「/关键字」：先按「/」键，再输入您想寻找的字符，如果第一次找的关键字不是您想<br>要的，可以一直按「n」会往后寻找到您要的关键字为止。</p>
+<p>　「?关键字」：先按「?」键，再输入您想寻找的字符，如果第一次找的关键字不是您想<br>要的，可以一直按「n」会往前寻找到您要的关键字为止。</p>
+<ul>
+<li>保存文件</li>
+</ul>
+<p>　「w」：在冒号输入字母「w」就可以将文件保存起来。</p>
+<ul>
+<li><p>保存并退出<br>　按ESC键 跳到命令模式，然后：<br>　:w   保存文件但不退出vi<br>　:w file 将修改另外保存到file中，不退出vi<br>　:w!   强制保存，不推出vi<br>　:wq  保存文件并退出vi（常用）<br>　:wq! 强制保存文件，并退出vi（常用）<br>　q:  不保存文件，退出vi<br>　:q! 不保存文件，强制退出vi<br>　:e! 放弃所有修改，从上次保存文件开始再编辑</p>
+</li>
+<li><p>离开vi</p>
+</li>
+</ul>
+<p>　「q」：按「q」就是退出，如果无法离开vi，可以在「q」后跟一个「!」强制离开vi。</p>
+<p>　「wq」：一般建议离开时，搭配「w」一起使用，这样在退出的时候还可以保存文件。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;vim是一个类似于vi的著名的功能强大、高度可定制的文本编辑器，在vi的基础上改进和增加了很多特性。vim是自由软件。&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://www.jb-hacker.top/categories/Linux/"/>
+    
+    
+      <category term="vim" scheme="http://www.jb-hacker.top/tags/vim/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>git的常规使用</title>
+    <link href="http://www.jb-hacker.top/2.html/"/>
+    <id>http://www.jb-hacker.top/2.html/</id>
+    <published>2017-05-08T16:00:00.000Z</published>
+    <updated>2017-07-07T08:41:52.367Z</updated>
+    
+    <content type="html"><![CDATA[<p>首先需要本地git与远程github相连接。采取SSH连接方式。<br>此次教程对于git的使用做一个常规使用的总结，更多高级使用并未涉及。<br><a id="more"></a></p>
+<h3 id="配置git"><a href="#配置git" class="headerlink" title="配置git"></a>配置git</h3><h4 id="创建ssh-key"><a href="#创建ssh-key" class="headerlink" title="创建ssh key"></a>创建ssh key</h4><p>为了让github能够识别是我们自己上传文件，需要创建ssh key<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ssh-keygen -t rsa -C &quot;your_email@youreamil.com&quot;</div></pre></td></tr></table></figure></p>
+<p>这里的your_email@youremail.com是你的邮箱地址，在输入后会询问你是否保存创建的ssh key，点回车就好，然后要求输入你要设置的密码，如果直接回车表示不设密码。然后会提示你ssh key已经创建好。</p>
+<h4 id="将ssh写入github"><a href="#将ssh写入github" class="headerlink" title="将ssh写入github"></a>将ssh写入github</h4><p>在windows中生成的id_rsa.pub文件一般在C:\Users\windows用户名\.ssh目录下，打开隐藏文件即可看到。<br>复制出来，在github在点击头像，然后点击setting，在找到SSH and GPG keys，创建一个new ssh key，然后将刚刚复制的ssh key填入即可。</p>
+<h4 id="验证是否连接成功"><a href="#验证是否连接成功" class="headerlink" title="验证是否连接成功"></a>验证是否连接成功</h4><p>在终端输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh -T git@github.com</div></pre></td></tr></table></figure></p>
+<p>如果回车看到：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">You’ve successfully authenticated, but GitHub does not provide shell access 。</div></pre></td></tr></table></figure></p>
+<p>表示已成功连上github。</p>
+<h4 id="设置username和email"><a href="#设置username和email" class="headerlink" title="设置username和email"></a>设置username和email</h4><p>在把本项目上传到github之前还需要分别输入设置username和email，因为github每次commit都会记录他们。所以分别输入如下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user.name &quot;your name&quot;</div><div class="line">$ git config --global user.email &quot;your_email@youremail.com&quot;</div></pre></td></tr></table></figure></p>
+<h3 id="以下为后期常用命令"><a href="#以下为后期常用命令" class="headerlink" title="以下为后期常用命令"></a>以下为后期常用命令</h3><h4 id="进入项目，在终端运行"><a href="#进入项目，在终端运行" class="headerlink" title="进入项目，在终端运行"></a>进入项目，在终端运行</h4><p>这是初始化git项目的必须命令，在此路径下会生成一个.git的隐藏文件夹，下面记录着git的一系列相关文件；这是第一步操作。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git init</div></pre></td></tr></table></figure></p>
+<h4 id="添加远程地址"><a href="#添加远程地址" class="headerlink" title="添加远程地址"></a>添加远程地址</h4><p>在与github连接成功后，如何才能让相应的项目上传到对应的仓库呢？这里就需要添加远程地址，从而让我们的本地项目顺利到达对应的仓库。实现远程与本地相连接。</p>
+<p>打开终端，输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git remote add origin git@github.com:yourName/yourRepo.git</div></pre></td></tr></table></figure></p>
+<h3 id="上传项目"><a href="#上传项目" class="headerlink" title="上传项目"></a>上传项目</h3><h4 id="将远程库与本地库合并"><a href="#将远程库与本地库合并" class="headerlink" title="将远程库与本地库合并"></a>将远程库与本地库合并</h4><p>(注:pull=fetch +merge )：(刚刚添加时本地没有说明文件)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git pull --rebase origin master</div></pre></td></tr></table></figure></p>
+<h4 id="然后上传所有"><a href="#然后上传所有" class="headerlink" title="然后上传所有"></a>然后上传所有</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git add .</div></pre></td></tr></table></figure>
+<h4 id="添加注释并上传到缓存区"><a href="#添加注释并上传到缓存区" class="headerlink" title="添加注释并上传到缓存区"></a>添加注释并上传到缓存区</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git commit -m  &apos;本次提交注释&apos;</div></pre></td></tr></table></figure>
+<p>提交并上传代码，第一次提交加上’-u’,后面提交可以省略。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push -u origin master</div></pre></td></tr></table></figure></p>
+<h3 id="以后提交"><a href="#以后提交" class="headerlink" title="以后提交"></a>以后提交</h3><ul>
+<li><p>上传所有</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git add .</div></pre></td></tr></table></figure>
+</li>
+<li><p>添加注释并上传到缓存区</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git commit -m  &apos;本次提交注释&apos;</div></pre></td></tr></table></figure>
+</li>
+<li><p>提交并上传代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin master</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如此往复即可。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;首先需要本地git与远程github相连接。采取SSH连接方式。&lt;br&gt;此次教程对于git的使用做一个常规使用的总结，更多高级使用并未涉及。&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://www.jb-hacker.top/categories/PHP/"/>
+    
+    
+      <category term="git" scheme="http://www.jb-hacker.top/tags/git/"/>
+    
+      <category term="github" scheme="http://www.jb-hacker.top/tags/github/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>建立博客</title>
+    <link href="http://www.jb-hacker.top/1.html/"/>
+    <id>http://www.jb-hacker.top/1.html/</id>
+    <published>2017-05-05T16:00:00.000Z</published>
+    <updated>2017-05-13T08:50:33.751Z</updated>
+    
+    <content type="html"><![CDATA[<p>由于诸多原因，我最终选择了hexo+github搭建博客，原因嘛有很多。但是markdown的编写方式和纯命令的编辑方式是我所喜爱的。<br><a id="more"></a><br>我不知道在其他人眼里git意味着什么，但是不知不觉中我觉得我思想发生了一些改变。喜欢上了一些高大上的程序员方式。<br>之前打算用yii2.0搭建博客，但是markdown插件弄了好久都没有弄出来，然后按照yii2.0博客程序也存在弊端；node.js搭建博客弄了弄，使用了Ghost博客程序也不太喜欢，发现英文大多不太喜欢，而且服务器的配置太繁琐，不想hexo几行命令即可搞定。<br>不过我从头到尾都没有想过使用WordPress，原因很简单，没有轻量级的书写方式，不够简洁，我觉得博客的本质应该是写作。<br>专注于写作和学习，这才是我建立博客的主旨。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;由于诸多原因，我最终选择了hexo+github搭建博客，原因嘛有很多。但是markdown的编写方式和纯命令的编辑方式是我所喜爱的。&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
     
   </entry>
   
