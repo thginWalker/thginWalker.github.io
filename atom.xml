@@ -83,7 +83,7 @@
     <link href="http://www.jb-hacker.top/23.html/"/>
     <id>http://www.jb-hacker.top/23.html/</id>
     <published>2017-10-27T16:00:00.000Z</published>
-    <updated>2017-10-29T08:50:48.920Z</updated>
+    <updated>2017-11-04T08:07:44.540Z</updated>
     
     <content type="html"><![CDATA[<p>为什么需要ACL，无非是进行访问控制罢了。这种技术从路由器逐步推广到交换机上进行使用。<br><a id="more"></a><br>ACL对入站或出站的通信进行过滤。ACL的局限性是不能对路由器本身发出的通信进行过滤，因此在路由器上执行ping或trace、route命令，或者通过路由器远程连接(telnet)另外一个网络设备，应用于路由器端口的ACL命令不能过滤这些通信。<br>ACL基本原则:</p>
 <ul>
@@ -93,7 +93,7 @@
 </ul>
 <h2 id="标准ACL"><a href="#标准ACL" class="headerlink" title="标准ACL"></a>标准ACL</h2><p>标准编号范围:1~99,1300~1999。<br>命令格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Router(config)#access-list 编号 permit|deny 单个IP|&#123;网络地址 反掩码&#125;</div></pre></td></tr></table></figure></p>
 <p>激活ACL命令(进入端口应用ACL)<br>in表示进入端口的分组(入站)，out表示端口输出的分组(出站)。<br>我们可以这样理解，在针对配置的设备来说，该端口经过该设备传送即为入站，反之端口远离该设备即为出站。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Router(config)#interface 端口号</div><div class="line">Router(config-if)#ip access-group acl编号 in|out</div></pre></td></tr></table></figure></p>
-<p>通配符掩码的例子<br>| IP地址 | 通配符掩码 | 匹配 |<br>|::|::|<br>| 0.0.0.0 | 255.255.255.255 | 匹配任何地址(关键字any) |<br>| 172.16.1.1| 0.0.0.0 | 匹配host 172.16.1.1(匹配单个主机) |</p>
+<p>通配符掩码的例子<br>| IP地址 | 通配符掩码 | 匹配 |<br>|:————-:|:————-:|<br>| 0.0.0.0 | 255.255.255.255 | 匹配任何地址(关键字any) |<br>| 172.16.1.1| 0.0.0.0 | 匹配host 172.16.1.1(匹配单个主机) |</p>
 <p>标准ACL默认配置<br><code>access-list 编号 deny any</code></p>
 <h2 id="扩展ACL"><a href="#扩展ACL" class="headerlink" title="扩展ACL"></a>扩展ACL</h2><p>标准编号范围:1~99,1300~1999。<br>命令格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Router(config)#access-list 编号 permit|deny 协议类型 源网络地址 反掩码 [控制信息]目的地址 反掩码 [控制信息] [log]</div></pre></td></tr></table></figure></p>
 <p>协议类型:tcp、udp、icmp、ip<br>对于TCP和UDP协议如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Router(config)#access-list 编号 permit|deny tcp|udp 源网络地址 反掩码 目的地址 反掩码 [操作符 端口|关键字] [established] [log]</div></pre></td></tr></table></figure></p>
