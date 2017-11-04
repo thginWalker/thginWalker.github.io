@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.jb-hacker.top/"/>
-  <updated>2017-10-29T06:12:30.875Z</updated>
+  <updated>2017-10-29T04:46:34.041Z</updated>
   <id>http://www.jb-hacker.top/</id>
   
   <author>
@@ -14,72 +14,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>配置广域网接入</title>
-    <link href="http://www.jb-hacker.top/20.html/"/>
-    <id>http://www.jb-hacker.top/20.html/</id>
-    <published>2017-10-27T16:00:00.000Z</published>
-    <updated>2017-10-29T06:12:30.875Z</updated>
-    
-    <content type="html"><![CDATA[<p>如果想访问其他远程网络，就必须是个广域网(WAN)接入服务了。<br><a id="more"></a></p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>WAN与LAN使用的连接方式和布线标准不大相同。广域网中路由器和交换机的连接方式主要有<code>串行连接</code>、<code>ISDN BRI</code>和<code>DSL</code>连接的。<br>这里主要介绍软考所涉及的<code>ISDN</code>、<code>PPP</code>和<code>DDR</code>、<code>帧中继</code>等相关配置。<br>(针对此配置笔者了解甚少，多看书中实例理解)</p>
-<h2 id="配置ISDN"><a href="#配置ISDN" class="headerlink" title="配置ISDN"></a>配置ISDN</h2><p>相关配置命令<br>| 命令 | 功能 |<br>|:—–:|:—-:|<br>| isdn switch-type 交换机类型 | 设置交换机类型 |<br>| interface bri 0 | 接口BRI设置 |<br>| encapsulation ppp | 设置PPP封装 |<br>| dialer map protocol 下一跳地址 [name 域名] [broadcast] [拨号串] | 设置协议地址与电话号码的映射 |<br>| ppp multilink   |  启动PPP多连接 |<br>| dialer load-threshold <em>load</em> | 设置启动另一个B通道的阀值 |<br>| show isdn {active | history | memory | services | status [dsl | interface-type number] | }|显示ISDN的有关信息 |</p>
-<p>摘抄书中部分配置信息:<br>配置R1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">R1(config)#isdn switch-tyoe basic-net3</div><div class="line">R1(config)#interface bri 0</div><div class="line">R1(config-if)#ip address 192.168.1.1 255.255.255.0</div><div class="line">R1(config-if)#encapsulation ppp</div><div class="line">R1(config-if)#dialer string 80000002</div><div class="line">R1(config-if)#dialer-group 1</div><div class="line">R1(config-if)#no shutdown exit</div><div class="line">R1(config)#exit</div><div class="line">R1(config)#dialer-list l protocol ip permit</div><div class="line">R1(config)#end</div><div class="line">R1#</div></pre></td></tr></table></figure></p>
-<h2 id="PPP和DDR"><a href="#PPP和DDR" class="headerlink" title="PPP和DDR"></a>PPP和DDR</h2><p>PPP(点对点协议)、DDR(按需拨号路由)，DDR技术和PPP技术一样对于ISDN的配置是非常重要的，在实际应用中ISDN、PPP和DDR这三项技术经常综合使用。<br>(针对此配置笔者了解甚少，多看书中实例理解)<br>相关配置命令<br>| 命令 | 功能 |<br>|:—–:|:—-:|<br>| encapsulation ppp | 设置PPP封装 |<br>| ppp authentication {chap | chap pap | pap chap | pap} [if-needed] [list-name | default] [callin]| 设置认证方法 |<br>| username <em>name</em> password secret | 指定口令|<br>| clockrate speed | 设置DCE段线路速度|<br>| ppp multilink | 启动PPP多连接 |<br>| dialer load-thresold load| 设置启动另一个B通道的阀值|<br>| show isdn {active | history | memory | services | status [dsl | interface-type number] | }|显示ISDN的有关信息 |<br>摘抄书中部分配置信息:<br>配置R1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">username R2 password 0 cisco</div><div class="line">isdn switch-type basic-net3</div><div class="line">!</div><div class="line">encapsulation ppp</div><div class="line">dialer idle-timeout 300</div><div class="line">dialer map ip 192.168.1.2 name R2 broadcast 80000002</div><div class="line">dialer load-threshold 128</div><div class="line">dialer-group 1</div><div class="line">no cdp enable</div><div class="line">ppp authentication chap </div><div class="line">ppp multilink</div><div class="line">！</div><div class="line">ip route 10.1.2.0 255.255.255.0 192.168.1.2</div><div class="line">!</div><div class="line">dialer-list 1 protocol ip permit</div><div class="line">...</div><div class="line">end</div></pre></td></tr></table></figure></p>
-<h2 id="配置帧中继"><a href="#配置帧中继" class="headerlink" title="配置帧中继"></a>配置帧中继</h2><p>帧中继是一种高性能的WAN协议，运行在物理层和数据链路层，它是X.25的简化版本。<br>至于帧中继为何重要，从历年的软考真题就能明白一二了。<br>帧中继的相关配置命令<br>| 命令 | 功能 |<br>|:—–:|:—-:|<br>| encapsulation frame-relay [ietf] | 设置Frame Relay封装 |<br>| frame-relay lmi-type {ansi |cisco | q9330a}| 设置Frame Relay LMI类型 |<br>| interface interface-type interface-number subinterface-number [ frame-relay map protocol protocol-address dlci [broadcast] | 映射协议地址与DLCI |<br>| frame-relay interface-dlci dlci [broadcast] | 设置FR DLCI编号|<br>摘抄书中部分配置信息:<br>配置R1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">encapsulation frame-relay (简写encap frame-reply)</div><div class="line">clockrate 64000</div><div class="line">frame-relay lmi-type cisco</div><div class="line">no frame-replay inverse-arp (关闭帧中继逆向ARP)</div></pre></td></tr></table></figure></p>
-<p><strong>以上就是对广域网接入的小小见解。</strong></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;如果想访问其他远程网络，就必须是个广域网(WAN)接入服务了。&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="网络攻防" scheme="http://www.jb-hacker.top/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2/"/>
-    
-    
-      <category term="网络技术" scheme="http://www.jb-hacker.top/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>路由器的基本配置</title>
-    <link href="http://www.jb-hacker.top/18.html/"/>
-    <id>http://www.jb-hacker.top/18.html/</id>
-    <published>2017-10-27T16:00:00.000Z</published>
-    <updated>2017-10-29T03:32:51.371Z</updated>
-    
-    <content type="html"><![CDATA[<p>路由器是网络异种网络互联与多个子网互联的重要设备。简单来说，路由器可以将不同的局域网进行互联和通信。<br><a id="more"></a></p>
-<h3 id="路由器疑点"><a href="#路由器疑点" class="headerlink" title="路由器疑点"></a>路由器疑点</h3><p>相比大家都路由器设备并不陌生，日常生活随处可见。<br>明明处于三层的路由器设备为何运用会比交换机普遍呢？<br>家庭日常使用的路由器为何需要连接不同子网呢？<br>当我们使用路由器上网时我们应当处于同一个局域网中？<br>这些疑惑笔者日后定会前来解答。</p>
-<h3 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h3><h5 id="配置IP地址"><a href="#配置IP地址" class="headerlink" title="配置IP地址"></a>配置IP地址</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Rouer&gt;enable</div><div class="line">Router#config t</div><div class="line">Router(config)#interface fastethernet0/1</div><div class="line">Router(config-if)#ip address 192.168.1.11 255.255.255.0</div><div class="line">Router(config-if)no shutdown</div><div class="line">Router(config-if)#end</div><div class="line">Router#show running-config</div></pre></td></tr></table></figure>
-<h5 id="配置终端服务器"><a href="#配置终端服务器" class="headerlink" title="配置终端服务器"></a>配置终端服务器</h5><p>对于大型网络需要使用多个路由器和交换设备，如果对于每一个设备进行一一通过控制台端口配置是很麻烦的，所以产生终端服务器(路由器功能的一种)来实现用一台PC同时访问多个网络设备。<br>在此呢笔者不进行阐述了，无非是通过切换对每一个设备进行配置罢了。</p>
-<h5 id="配置静态路由"><a href="#配置静态路由" class="headerlink" title="配置静态路由"></a>配置静态路由</h5><p>我们可以理解路由器不是直连的网络不能相互连通，但是我们可以人为的指定一条路径告诉路由器如何访问。<br>笔者疑惑的是静态路由是否只能间隔一个路由设备才能使用，由于实验的欠缺，在此立个flag。</p>
-<h6 id="IPv4静态路由"><a href="#IPv4静态路由" class="headerlink" title="IPv4静态路由"></a>IPv4静态路由</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">R2#config t</div><div class="line">R2(config)#ip route 192.168.1.0 255.255.255.0 10.1.1.1</div><div class="line">R2(config)#end</div></pre></td></tr></table></figure>
-<h6 id="IPv6静态路由"><a href="#IPv6静态路由" class="headerlink" title="IPv6静态路由"></a>IPv6静态路由</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">R2#config t</div><div class="line">R2(config)#ip 2005:CCCC::/64 Serial0/2/0</div><div class="line">R2(config)#end</div></pre></td></tr></table></figure>
-<h3 id="路由协议"><a href="#路由协议" class="headerlink" title="路由协议"></a>路由协议</h3><p>我们仔细想想，为什么需要路由协议？无非是告诉路由器如何选择路由线路，因此产生了<code>距离矢量</code>、<code>链路状态</code>、<code>平衡混合</code>等选择方式的协议了。<br>原本根据路由选择协议的应用范围，可划分为内部网关协议、外部网关协议和核心网关协议(软考未涉及)三大类。</p>
-<h4 id="内部网关协议"><a href="#内部网关协议" class="headerlink" title="内部网关协议"></a>内部网关协议</h4><p>我们可以理解在自治系统内部进行选择的路由协议。</p>
-<h5 id="RIP协议"><a href="#RIP协议" class="headerlink" title="RIP协议"></a>RIP协议</h5><p>用跳数来作为唯一的度量值。<br>| 命令 | 功能 |<br>|:—–: | :——: |<br>| router rip |指定使用RIP协议 |<br>| version {1|2} |指定RIP版本 |<br>| network 网络地址 |指定相连的网段 |<br>| show ip route |查看路由表信息 |<br>| show ip route rip |查看RIP协议的路由信息 |<br>| show ip protocol |查看路由协议的配置信息 |<br>至于配置案例在此就不叙述了。</p>
-<h5 id="IGRP协议"><a href="#IGRP协议" class="headerlink" title="IGRP协议"></a>IGRP协议</h5><p>与RIP协议配置不同的是，IGRP需要配置链路的带宽，毕竟带宽也是IGRP协议的度量值之一。<br>| 命令 | 功能 |<br>|:—–: | :——: |<br>| router igrp 自治系统号 |指定使用IGRP协议 |<br>| network 网络地址 |指定相连的网段 |<br>| show ip route |查看路由表信息 |<br>| show ip route igrp |查看IGRP协议的路由信息 |<br>至于配置案例在此就不叙述了。<br>需要注意的是:使用IGRP协议，所涉及的路由器的自治系统号必须相同，否则彼此的路由信息将不被互相传递和学习。(自治系统号使用数字即可)</p>
-<h5 id="OSPF协议"><a href="#OSPF协议" class="headerlink" title="OSPF协议"></a>OSPF协议</h5><p>通过链路状态(接口状态)来建立路由关系，适合大型网络使用。<br>| 命令 | 功能 |<br>|:—–: | :——: |<br>| router ospf 进程ID |指定使用OSPF协议 |<br>| network 网络地址 反掩码 area 区域号 |指定相连的网段 |<br>| show ip route |查看路由表信息 |<br>| show ip route ospf |查看OSPF协议的路由信息 |<br>至于配置案例在此就不叙述了。<br>需要注意的是:使用OSPF协议，每台路由器的OSPF所使用的进程号并不需要一致。(进程号使用数字即可)</p>
-<h5 id="EIGRP协议"><a href="#EIGRP协议" class="headerlink" title="EIGRP协议"></a>EIGRP协议</h5><p>EIGRP是增强版的IGRP协议，它属于平衡混合协议。它的相关命令与IFGRP类似。(软考对于EIPGRP知识点涉及较少)<br>| 命令 | 功能 |<br>|:—–: | :——: |<br>| router eigrp 自治系统号 |指定使用EIGRP协议 |<br>| network 网络地址 [反掩码] |指定相连的网段 |<br>| no auto-summay |关闭自动汇总功能 |<br>| show ip route eigrp |查看EIGRP协议的路由信息 |<br>至于配置案例在此就不叙述了。<br>需要注意的是:<br>    使用EIGRP协议，一般都需要关闭自动汇总功能。<br>    在这EIGRP使用的是反掩码，如果使用的是主网地址(A、B、C类的网络，就是掩码为8、16、24位的)可以省略反掩码。<br>(涉及反掩码的协议:OSPF、EIGRP、ACL)</p>
-<h4 id="外部网关协议"><a href="#外部网关协议" class="headerlink" title="外部网关协议"></a>外部网关协议</h4><p>BGP:路径向量协议，在BGP路径选择信息中都带有AS号码的序列，它指出一个路由已通过的路径。<br>BGP把TCP当作它的传送协议，端口号179，这样就能给个保证它所有的传送是可靠的。<br>它本身是属于网路层协议。</p>
-<p><strong>以上就是对路由器协议的小小见解。</strong></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;路由器是网络异种网络互联与多个子网互联的重要设备。简单来说，路由器可以将不同的局域网进行互联和通信。&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="网络攻防" scheme="http://www.jb-hacker.top/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2/"/>
-    
-    
-      <category term="网络技术" scheme="http://www.jb-hacker.top/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/"/>
-    
-  </entry>
   
   <entry>
     <title>网络常用设备及介绍</title>
@@ -156,6 +90,62 @@
   </entry>
   
   <entry>
+    <title>配置广域网接入</title>
+    <link href="http://www.jb-hacker.top/20.html/"/>
+    <id>http://www.jb-hacker.top/20.html/</id>
+    <published>2017-10-27T16:00:00.000Z</published>
+    <updated>2017-10-29T06:12:30.875Z</updated>
+    
+    <content type="html"><![CDATA[<p>如果想访问其他远程网络，就必须是个广域网(WAN)接入服务了。<br><a id="more"></a></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>WAN与LAN使用的连接方式和布线标准不大相同。广域网中路由器和交换机的连接方式主要有<code>串行连接</code>、<code>ISDN BRI</code>和<code>DSL</code>连接的。<br>这里主要介绍软考所涉及的<code>ISDN</code>、<code>PPP</code>和<code>DDR</code>、<code>帧中继</code>等相关配置。<br>(针对此配置笔者了解甚少，多看书中实例理解)</p>
+<h2 id="配置ISDN"><a href="#配置ISDN" class="headerlink" title="配置ISDN"></a>配置ISDN</h2><p>相关配置命令<br>| 命令 | 功能 |<br>|:—–:|:—-:|<br>| isdn switch-type 交换机类型 | 设置交换机类型 |<br>| interface bri 0 | 接口BRI设置 |<br>| encapsulation ppp | 设置PPP封装 |<br>| dialer map protocol 下一跳地址 [name 域名] [broadcast] [拨号串] | 设置协议地址与电话号码的映射 |<br>| ppp multilink   |  启动PPP多连接 |<br>| dialer load-threshold <em>load</em> | 设置启动另一个B通道的阀值 |<br>| show isdn {active | history | memory | services | status [dsl | interface-type number] | }|显示ISDN的有关信息 |</p>
+<p>摘抄书中部分配置信息:<br>配置R1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">R1(config)#isdn switch-tyoe basic-net3</div><div class="line">R1(config)#interface bri 0</div><div class="line">R1(config-if)#ip address 192.168.1.1 255.255.255.0</div><div class="line">R1(config-if)#encapsulation ppp</div><div class="line">R1(config-if)#dialer string 80000002</div><div class="line">R1(config-if)#dialer-group 1</div><div class="line">R1(config-if)#no shutdown exit</div><div class="line">R1(config)#exit</div><div class="line">R1(config)#dialer-list l protocol ip permit</div><div class="line">R1(config)#end</div><div class="line">R1#</div></pre></td></tr></table></figure></p>
+<h2 id="PPP和DDR"><a href="#PPP和DDR" class="headerlink" title="PPP和DDR"></a>PPP和DDR</h2><p>PPP(点对点协议)、DDR(按需拨号路由)，DDR技术和PPP技术一样对于ISDN的配置是非常重要的，在实际应用中ISDN、PPP和DDR这三项技术经常综合使用。<br>(针对此配置笔者了解甚少，多看书中实例理解)<br>相关配置命令<br>| 命令 | 功能 |<br>|:—–:|:—-:|<br>| encapsulation ppp | 设置PPP封装 |<br>| ppp authentication {chap | chap pap | pap chap | pap} [if-needed] [list-name | default] [callin]| 设置认证方法 |<br>| username <em>name</em> password secret | 指定口令|<br>| clockrate speed | 设置DCE段线路速度|<br>| ppp multilink | 启动PPP多连接 |<br>| dialer load-thresold load| 设置启动另一个B通道的阀值|<br>| show isdn {active | history | memory | services | status [dsl | interface-type number] | }|显示ISDN的有关信息 |<br>摘抄书中部分配置信息:<br>配置R1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">username R2 password 0 cisco</div><div class="line">isdn switch-type basic-net3</div><div class="line">!</div><div class="line">encapsulation ppp</div><div class="line">dialer idle-timeout 300</div><div class="line">dialer map ip 192.168.1.2 name R2 broadcast 80000002</div><div class="line">dialer load-threshold 128</div><div class="line">dialer-group 1</div><div class="line">no cdp enable</div><div class="line">ppp authentication chap </div><div class="line">ppp multilink</div><div class="line">！</div><div class="line">ip route 10.1.2.0 255.255.255.0 192.168.1.2</div><div class="line">!</div><div class="line">dialer-list 1 protocol ip permit</div><div class="line">...</div><div class="line">end</div></pre></td></tr></table></figure></p>
+<h2 id="配置帧中继"><a href="#配置帧中继" class="headerlink" title="配置帧中继"></a>配置帧中继</h2><p>帧中继是一种高性能的WAN协议，运行在物理层和数据链路层，它是X.25的简化版本。<br>至于帧中继为何重要，从历年的软考真题就能明白一二了。<br>帧中继的相关配置命令<br>| 命令 | 功能 |<br>|:—–:|:—-:|<br>| encapsulation frame-relay [ietf] | 设置Frame Relay封装 |<br>| frame-relay lmi-type {ansi |cisco | q9330a}| 设置Frame Relay LMI类型 |<br>| interface interface-type interface-number subinterface-number [ frame-relay map protocol protocol-address dlci [broadcast] | 映射协议地址与DLCI |<br>| frame-relay interface-dlci dlci [broadcast] | 设置FR DLCI编号|<br>摘抄书中部分配置信息:<br>配置R1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">encapsulation frame-relay (简写encap frame-reply)</div><div class="line">clockrate 64000</div><div class="line">frame-relay lmi-type cisco</div><div class="line">no frame-replay inverse-arp (关闭帧中继逆向ARP)</div></pre></td></tr></table></figure></p>
+<p><strong>以上就是对广域网接入的小小见解。</strong></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;如果想访问其他远程网络，就必须是个广域网(WAN)接入服务了。&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="网络攻防" scheme="http://www.jb-hacker.top/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2/"/>
+    
+    
+      <category term="网络技术" scheme="http://www.jb-hacker.top/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C语言命令行参数</title>
+    <link href="http://www.jb-hacker.top/16.html/"/>
+    <id>http://www.jb-hacker.top/16.html/</id>
+    <published>2017-07-20T16:00:00.000Z</published>
+    <updated>2017-07-21T06:40:35.976Z</updated>
+    
+    <content type="html"><![CDATA[<p>C语言的高级特性,如何利用main函数的两个参数。<br><a id="more"></a><br>读取程序运行的命令行参数。</p>
+<h3 id="命令行参数"><a href="#命令行参数" class="headerlink" title="命令行参数"></a>命令行参数</h3><p>函数原型:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">int main(int agrc,char * argv[])</div><div class="line">&#123;</div><div class="line">    ......</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>argc:代表启动程序时，命令行参数的格式。C/C++语言规定，可执行程序程序本身的文件名，也算一个命令行参数；因此，argc的值至少为1.<br>argv:指针数组，其中的每个元素都是一个char *类似的指针，该指针指向一个字符串，这个字符串里就存放着命令行参数。<br>例如，argv[0]指向的字符串就是第一个命令行参数，即可指向程序的文件名，argv[1]指向第二个命令行参数，argv[2]指向第三个命令行参数…….。</p>
+<h4 id="实例代码"><a href="#实例代码" class="headerlink" title="实例代码"></a>实例代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#include&lt;stdio.h&gt;</div><div class="line">int main(int argc,char * argv[])</div><div class="line">&#123;</div><div class="line">    for(int i = 0;i &lt; argc;i++)</div><div class="line">        printf(&quot;%s\n&quot;,argv[i]);</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>将上面的程序编译成sample.exe,然后在控制套窗口敲:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sample para1 para2 s.txt 5 &quot;hello world&quot;</div></pre></td></tr></table></figure></p>
+<p><strong>完成coursera里面的课程设计，我想这既是机遇又是挑战</strong></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;C语言的高级特性,如何利用main函数的两个参数。&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="C语言" scheme="http://www.jb-hacker.top/categories/C%E8%AF%AD%E8%A8%80/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>C语言函数指针</title>
     <link href="http://www.jb-hacker.top/15.html/"/>
     <id>http://www.jb-hacker.top/15.html/</id>
@@ -182,33 +172,6 @@
     <summary type="html">
     
       &lt;p&gt;C语言的高级特性,关于指针的用法我想是不是应该认真了解下哦！&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="C语言" scheme="http://www.jb-hacker.top/categories/C%E8%AF%AD%E8%A8%80/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>C语言命令行参数</title>
-    <link href="http://www.jb-hacker.top/16.html/"/>
-    <id>http://www.jb-hacker.top/16.html/</id>
-    <published>2017-07-20T16:00:00.000Z</published>
-    <updated>2017-07-21T06:40:35.976Z</updated>
-    
-    <content type="html"><![CDATA[<p>C语言的高级特性,如何利用main函数的两个参数。<br><a id="more"></a><br>读取程序运行的命令行参数。</p>
-<h3 id="命令行参数"><a href="#命令行参数" class="headerlink" title="命令行参数"></a>命令行参数</h3><p>函数原型:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">int main(int agrc,char * argv[])</div><div class="line">&#123;</div><div class="line">    ......</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>argc:代表启动程序时，命令行参数的格式。C/C++语言规定，可执行程序程序本身的文件名，也算一个命令行参数；因此，argc的值至少为1.<br>argv:指针数组，其中的每个元素都是一个char *类似的指针，该指针指向一个字符串，这个字符串里就存放着命令行参数。<br>例如，argv[0]指向的字符串就是第一个命令行参数，即可指向程序的文件名，argv[1]指向第二个命令行参数，argv[2]指向第三个命令行参数…….。</p>
-<h4 id="实例代码"><a href="#实例代码" class="headerlink" title="实例代码"></a>实例代码</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#include&lt;stdio.h&gt;</div><div class="line">int main(int argc,char * argv[])</div><div class="line">&#123;</div><div class="line">    for(int i = 0;i &lt; argc;i++)</div><div class="line">        printf(&quot;%s\n&quot;,argv[i]);</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>将上面的程序编译成sample.exe,然后在控制套窗口敲:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sample para1 para2 s.txt 5 &quot;hello world&quot;</div></pre></td></tr></table></figure></p>
-<p><strong>完成coursera里面的课程设计，我想这既是机遇又是挑战</strong></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;C语言的高级特性,如何利用main函数的两个参数。&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
