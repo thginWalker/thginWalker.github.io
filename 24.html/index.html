@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Web倒是可以给梦想者一个启示，你能够拥有梦想，而且梦想能够实现，网络是离你梦想最近的地方!"><title>策略路由 | 小小博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">策略路由</h1><a id="logo" href="/.">小小博客</a><p class="description">每天进步一点点。</p></div><div id="nav-menu"><a href="/"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/life/"><i class="fa fa-video-camera"> 生活</i></a><a href="/special/"><i class="fa fa-file-pdf-o"> 专题</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">策略路由</h1><div class="post-meta">Oct 28, 2017<span> | </span><span class="category"><a href="/categories/网络攻防/">网络攻防</a></span><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span></div><div class="clear"><div id="toc" class="toc-article"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-route-map命令"><span class="toc-number">1.</span> <span class="toc-text">1. route-map命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-match命令"><span class="toc-number">2.</span> <span class="toc-text">2. match命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-set命令"><span class="toc-number">3.</span> <span class="toc-text">3. set命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-在接口上应用策略路由命令"><span class="toc-number">4.</span> <span class="toc-text">4. 在接口上应用策略路由命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-查看路由策略命令"><span class="toc-number">5.</span> <span class="toc-text">5. 查看路由策略命令</span></a></li></ol></div></div><div class="post-content"><p>在我认为策略路由是一种强化控制方式，就默认而言直接路由、静态路由、默认路由和各种动态协议所生成的路由条目，路由器远可以将数据分组从其源地址转发到目的地址。<br>但是人们的强权意识觉得这远远是不够的，因此策略路由(Policy Based Routing,PBR)就用来对分组的转发和路由的传播进行精准控制。<br><a id="more"></a><br>在此呢笔者仅仅介绍涉及路由映射表的命令。当然书中的实例对于理解大有帮助。</p>
+<h2 id="1-route-map命令"><a href="#1-route-map命令" class="headerlink" title="1. route-map命令"></a>1. route-map命令</h2><p>创建一个路由映射表(定义路由图)</p>
+<blockquote>
+<p>route-map 映射表名称 [permit | deny] 路由映射表的序列号</p>
+</blockquote>
+<p>使用<code>no route-map 映射表名称 [permit | deny] 路由映射表的序列号</code>删除指定的路由映射表</p>
+<h2 id="2-match命令"><a href="#2-match命令" class="headerlink" title="2. match命令"></a>2. match命令</h2><p>用于指定分组所需要匹配的条件(定义匹配条件)<br>1) match ip address</p>
+<blockquote>
+<p>match ip address {acl编号 | 名称}</p>
+</blockquote>
+<p>2) match length </p>
+<blockquote>
+<p>match length 最小长度 最大长度</p>
+</blockquote>
+<h2 id="3-set命令"><a href="#3-set命令" class="headerlink" title="3. set命令"></a>3. set命令</h2><p>指定对匹配的分组进行转发的方式和规则(定义转发规则)<br>1) set ip next-hop</p>
+<blockquote>
+<p>set ip next-hop 下一跳地址</p>
+</blockquote>
+<p>2) set interface</p>
+<blockquote>
+<p>set interface 指定接口</p>
+</blockquote>
+<p>3) set ip default next-hop</p>
+<blockquote>
+<p>set interface 默认下一跳转发地址</p>
+</blockquote>
+<p>4) set default interface</p>
+<blockquote>
+<p>set default interface 指定接口</p>
+</blockquote>
+<h2 id="4-在接口上应用策略路由命令"><a href="#4-在接口上应用策略路由命令" class="headerlink" title="4. 在接口上应用策略路由命令"></a>4. 在接口上应用策略路由命令</h2><p>(应用于接口上)<br>ip policy route-map</p>
+<blockquote>
+<p>ip policy route-map 映射表名称/标记</p>
+</blockquote>
+<p>对本地路由器产生的分组应用策略路由，需要使用:</p>
+<blockquote>
+<p>ip local policy route-map 映射表名称/标记</p>
+</blockquote>
+<h2 id="5-查看路由策略命令"><a href="#5-查看路由策略命令" class="headerlink" title="5. 查看路由策略命令"></a>5. 查看路由策略命令</h2><p>(验证策略路由)<br>1) show route-map</p>
+<blockquote>
+<p>show route-map [映射表名称 | all]</p>
+</blockquote>
+<p>2) show ip policy</p>
+<blockquote>
+<p>show ip policy 地图名称</p>
+</blockquote>
+<p>3) debug ip policy</p>
+<blockquote>
+<p>debug ip policy</p>
+</blockquote>
+<p>实例在此省略，详细见课本。</p>
+<p><strong>以上就是对策略路由的小小见解。</strong></p>
+</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://www.jb-hacker.top/24.html/" data-id="cjc4axlo4000i6cnovy9swc2p" class="article-share-link">分享</a><div class="tags"><a href="/tags/网络技术/">网络技术</a></div><div class="post-nav"><a href="/华为命令配置专题.html/" class="pre">华为命令配置专题</a><a href="/20.html/" class="next">配置广域网接入</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C语言/">C语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PHP/">PHP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/网络攻防/">网络攻防</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/php/" style="font-size: 15px;">php</a> <a href="/tags/Python，语音/" style="font-size: 15px;">Python，语音</a> <a href="/tags/网络技术/" style="font-size: 15px;">网络技术</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/人工智能/" style="font-size: 15px;">人工智能</a> <a href="/tags/JavaScript/" style="font-size: 15px;">JavaScript</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/华为命令配置专题.html/">华为命令配置专题</a></li><li class="post-list-item"><a class="post-list-link" href="/24.html/">策略路由</a></li><li class="post-list-item"><a class="post-list-link" href="/20.html/">配置广域网接入</a></li><li class="post-list-item"><a class="post-list-link" href="/18.html/">路由器的基本配置</a></li><li class="post-list-item"><a class="post-list-link" href="/21.html/">IPSec的相关配置</a></li><li class="post-list-item"><a class="post-list-link" href="/23.html/">访问控制列表ACL</a></li><li class="post-list-item"><a class="post-list-link" href="/19.html/">网络常用设备及介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/17.html/">交换机的基本配置</a></li><li class="post-list-item"><a class="post-list-link" href="/22.html/">IPv6配置与部署</a></li><li class="post-list-item"><a class="post-list-link" href="/15.html/">C语言函数指针</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/thginWalker" title="github" target="_blank">github</a><ul></ul><a href="http://blog.csdn.net/xz2585458279" title="CSDN" target="_blank">CSDN</a><ul></ul><a href="https://stoneqi.github.io/" title="石头杨的小站" target="_blank">石头杨的小站</a><ul></ul><a href="http://sunxiaoning.me/" title="小宁博客" target="_blank">小宁博客</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">小小博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

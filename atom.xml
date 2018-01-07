@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.jb-hacker.top/"/>
-  <updated>2017-10-29T04:46:34.041Z</updated>
+  <updated>2018-01-07T04:51:15.100Z</updated>
   <id>http://www.jb-hacker.top/</id>
   
   <author>
@@ -14,6 +14,702 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>华为命令配置专题</title>
+    <link href="http://www.jb-hacker.top/%E5%8D%8E%E4%B8%BA%E5%91%BD%E4%BB%A4%E9%85%8D%E7%BD%AE%E4%B8%93%E9%A2%98.html/"/>
+    <id>http://www.jb-hacker.top/华为命令配置专题.html/</id>
+    <published>2017-11-03T16:00:00.000Z</published>
+    <updated>2018-01-07T04:51:15.100Z</updated>
+    
+    <content type="html"><![CDATA[<p>学习网络的同学都能明白，思科视乎一家独大，但是在发展的潮流中华为也紧跟不舍，所以对于我们学习华为命令的配置也变得重要了。<br><a id="more"></a></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>华为虽然对于交换机、路由器的配置和思科不大相同，但是我们能够理解的是不同的只是形式，其内部协议、原理也不过尔尔而已。<br>(针对此配置笔者了解甚少，多看书中实例理解)</p>
+<h2 id="命令视图"><a href="#命令视图" class="headerlink" title="命令视图"></a>命令视图</h2><ol>
+<li><p>用户视图(查看交换机简单运行状态和统计信息)</p>
+<blockquote>
+<p><quidway>:        与交换机建立连接即进入</quidway></p>
+</blockquote>
+</li>
+<li><p>系统视图(配置系统参数)</p>
+<blockquote>
+<p>[Quidway]:       在用户视图下键入system-view</p>
+</blockquote>
+</li>
+<li><p>以太网视图(配置以太网端口参数)</p>
+<blockquote>
+<p>[Quidway-Ethernet0/1]:       在系统视图下键入interface ethernet 0/1</p>
+</blockquote>
+</li>
+</ol>
+<ol>
+<li><p>VLAN视图(配置VLAN参数)</p>
+<blockquote>
+<p>[Quidway-Vlan1]:       在系统视图下键入vlan 123</p>
+</blockquote>
+</li>
+<li><p>VLAN接口视图(配置VLAN和VLAN汇聚对应的IP接口参数)</p>
+<blockquote>
+<p>[Quidway-Vlan1-interface]:       在系统视图下键入interface vlan-interface 123</p>
+</blockquote>
+</li>
+<li><p>本地用户视图(配置本地用户参数)</p>
+<blockquote>
+<p>[Quidway-luser-user1]:       在系统视图下键入local-user-user1</p>
+</blockquote>
+</li>
+<li><p>用户界面视图(配置用户界面参数)</p>
+<blockquote>
+<p>[Quidway-ui0]:       在系统视图下键入user-interface</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="VLAN配置方法"><a href="#VLAN配置方法" class="headerlink" title="VLAN配置方法"></a>VLAN配置方法</h2><p>『配置环境参数』<br>SwitchA端口E0/1属于VLAN2、E0/2属于VLAN3<br>『组网需求』<br>把交换机端口E0/1就让到VLAN2、E0/2加入到VLAN3<br>数据配置步骤<br>『VLAN配置流程』</p>
+<ol>
+<li>缺省情况下所有端口都属于VLAN1，并且端口是access端口，一个access端口智能属于一个vlan;</li>
+<li>如果端口是access端口，则把端口加入到另外一个vlan的同时，系统自动把该端口从原来的vlan中删除掉；</li>
+<li>除了VLAN1，如果VLAN XX不存在，在系统视图下键入VLAN XX，则创建VLAN XX并进入VLAN XX视图；如果VLAN XX已经参照，则进入VLAN视图。</li>
+</ol>
+<p>解析<br>【SwitchA相关配置】</p>
+<ul>
+<li><p>方法一:</p>
+<ol>
+<li><p>创建(进入)vlan 2</p>
+<blockquote>
+<p> [SwitchA]vlan 2</p>
+</blockquote>
+</li>
+<li><p>将端口E0/1加入到vlan 2</p>
+<blockquote>
+<p> [SwitchA-vlan2]port ethernet 0/1</p>
+</blockquote>
+</li>
+<li><p>创建(进入)vlan 3</p>
+<blockquote>
+<p>[SwitchA-vlan2]vlan 3</p>
+</blockquote>
+</li>
+<li><p>将端口E0/2加入到vlan3</p>
+<blockquote>
+<p>[SwitchA-vlan3]port ethernet 0/2</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><p>方法二</p>
+<ol>
+<li><p>创建(进入)vlan 2</p>
+<blockquote>
+<p> [SwitchA]vlan 2</p>
+</blockquote>
+</li>
+<li><p>进入端口E0/1视图</p>
+<blockquote>
+<p> [SwitchA]interface ethernet 0/1</p>
+</blockquote>
+</li>
+<li><p>指定端口E0/1属于vlan2</p>
+<blockquote>
+<p>[SwitchA-ethernet]port access vlan 2</p>
+</blockquote>
+</li>
+<li><p>创建(进入)vlan 3</p>
+<blockquote>
+<p> [SwitchA]vlan 3</p>
+</blockquote>
+</li>
+<li><p>进入端口E0/1视图</p>
+<blockquote>
+<p> [SwitchA]interface ethernet 0/2</p>
+</blockquote>
+</li>
+<li><p>指定端口E0/1属于vlan3</p>
+<blockquote>
+<p>[SwitchA-ethernet]port access vlan 3</p>
+</blockquote>
+</li>
+</ol>
+<p>测试验证</p>
+</li>
+<li><p>使用命令<code>disp cur</code>可以看到端口E0/1属于vlan2、E0/2属于vlan3；</p>
+</li>
+<li>使用<code>display interface Ethernet 0/1</code>可以看到端口为access端口、PVID为2；</li>
+<li>使用<code>display interface Ethernet 0/2</code>可以看到端口为access端口、PVID为3</li>
+</ul>
+<h2 id="交换机IP地址配置"><a href="#交换机IP地址配置" class="headerlink" title="交换机IP地址配置"></a>交换机IP地址配置</h2><p>功能需求及组网说明<br>『配置环境参数』<br>三层交换机SwitchA有两个端口ethernet0/1、ethernet0/2，分别属于vlan 2、vlan 3；<br>以vlan 2的三层接口地址分别是1.0.0.1/24作为PC1的网关；<br>以vlan 3的三层接口地址分别是2.0.0.1/24作为PC1的网关；<br>『组网需求』(此部分为本实验重点联系内容)<br>PC1和PC2通过三层接口互通</p>
+<p>解析<br>『SwitchA相关配置』</p>
+<ol>
+<li><p>创建(进入)vlan2</p>
+<blockquote>
+<p>[Quidway]vlan 2</p>
+</blockquote>
+</li>
+<li><p>将端口E0/1加入到vlan2</p>
+<blockquote>
+<p>[Quidway-vlan2]port ethernet 0/1</p>
+</blockquote>
+</li>
+<li><p>进入vlan2的虚接口</p>
+<blockquote>
+<p>[Quidway-vlan2]interface vlan 2</p>
+</blockquote>
+</li>
+<li><p>在vlan2的虚接口上配置</p>
+<blockquote>
+<p>[Quidway-Vlan-interface2]ip address 1.0.0.1 255.255.255.0</p>
+</blockquote>
+</li>
+<li><p>创建(进入)vlan3</p>
+<blockquote>
+<p>[Quidway]vlan 3</p>
+</blockquote>
+</li>
+<li><p>将E0/2加入到vlan3</p>
+<blockquote>
+<p>[QUidway-Vlan3]port ethernet 0/2</p>
+</blockquote>
+</li>
+<li><p>进入vlan3的虚接口</p>
+<blockquote>
+<p>[QUidway-Vlan3]interface vlan 3</p>
+</blockquote>
+</li>
+<li><p>在vlan3的虚接口上配置IP地址</p>
+<blockquote>
+<p>[QUidway-Vlan-interface3]ip address 2.0.0.1 255.255.255.0</p>
+</blockquote>
+</li>
+</ol>
+<p>测试验证</p>
+<ul>
+<li>PC1和PC2都可以ping同自己的网关</li>
+<li>PC1和PC2都可以相互ping通</li>
+</ul>
+<h2 id="端口trunk配置"><a href="#端口trunk配置" class="headerlink" title="端口trunk配置"></a>端口trunk配置</h2><p>内容<br>『配置环境参数』</p>
+<ul>
+<li>SwitchA端口E0/1属于vlan10，E0/2属于van20，E0/3与SwitchB端口E0/3互连</li>
+<li>SwitchB端口E0/1属于vlan10，E0/2属于van20，E0/3与SwitchA端口E0/3互连<br>『组网需求』</li>
+<li>要求SwitchA的vlan10的PC与SwitchB的vlan10的PC互通</li>
+<li>要求SwitchA的vlan20的PC与SwitchB的vlan20的PC互通</li>
+</ul>
+<p>解析<br>数据配置步骤<br>『SwitchA相关配置』</p>
+<ol>
+<li><p>创建(进入)vlan10</p>
+<blockquote>
+<p>[SwitchA]vlan 10</p>
+</blockquote>
+</li>
+<li><p>将E0/1加入到vlan10</p>
+<blockquote>
+<p>[SwitchA-vlan10]port Ethernet 0/1</p>
+</blockquote>
+</li>
+<li><p>创建(进入)vlan20</p>
+<blockquote>
+<p>[SwitchA]vlan 20</p>
+</blockquote>
+</li>
+<li><p>将E0/2加入到vlan20</p>
+<blockquote>
+<p>[SwitchA-vlan20]port Ethernet 0/2</p>
+</blockquote>
+</li>
+<li><p>实际当中一般将上行端口设置成trunk属性，允许vlan透传</p>
+<blockquote>
+<p>[SwitchA-Ethernet0/3]port link-type trunk</p>
+</blockquote>
+</li>
+<li><p>允许所有的vlan从E0/3端口透传通过，也可以指定具体的vlan值</p>
+<blockquote>
+<p>[SwitchA-Ethernet0/3]port trunk permit vlan all</p>
+</blockquote>
+</li>
+</ol>
+<p>『SwitchB相关配置』</p>
+<ol>
+<li><p>创建(进入)vlan10</p>
+<blockquote>
+<p>[SwitchB]vlan 10</p>
+</blockquote>
+</li>
+<li><p>将E0/1加入到vlan10</p>
+<blockquote>
+<p>[SwitchB-vlan10]port Ethernet 0/1</p>
+</blockquote>
+</li>
+<li><p>创建(进入)vlan20</p>
+<blockquote>
+<p>[SwitchB]vlan 20</p>
+</blockquote>
+</li>
+<li><p>将E0/2加入到vlan20</p>
+<blockquote>
+<p>[SwitchB-vlan20]port Ethernet 0/2</p>
+</blockquote>
+</li>
+<li><p>实际当中一般将上行端口设置成trunk属性，允许vlan透传</p>
+<blockquote>
+<p>[SwitchB-Ethernet0/3]port link-type trunk</p>
+</blockquote>
+</li>
+<li><p>允许所有的vlan从E0/3端口透传通过，也可以指定具体的vlan值</p>
+<blockquote>
+<p>[SwitchB-Ethernet0/3]port trunk permit vlan all</p>
+</blockquote>
+</li>
+</ol>
+<p>【补充说明】</p>
+<ul>
+<li>如果一个端口是trunk端口，则该端口可以属于多个vlan；</li>
+<li>缺省情况下trunk端口的PVID为1，可以在端口模式下通过命令port trunk vlan vlanid 来修改端口的PVID；</li>
+<li>如果从trunk转发出去的数据报文的vlan id和端口的PVID一致，则该报文的VLAN会被剥去，这点在配置trunk端口时需要注意；</li>
+<li>一台交换机上如果已经设置了某个端口为hybrid端口，则不可以再把另外的端口设置为trunk端口；</li>
+<li>一般情况下最好指定端口允许通过哪些具体的VLAN，不要设置允许所有的VLAN通过。</li>
+</ul>
+<p>测试验证</p>
+<ol>
+<li>SwitchA vlan10内的PC可以与SwitchB vlan10内的PC互通</li>
+<li>SwitchA vlan20内的PC可以与SwitchB vlan20内的PC互通</li>
+<li>SwitchA vlan10内的PC不能与SwitchB vlan20内的PC互通</li>
+<li>SwitchA vlan20内的PC不能与SwitchB vlan10内的PC互通</li>
+</ol>
+<h2 id="端口汇聚配置"><a href="#端口汇聚配置" class="headerlink" title="端口汇聚配置"></a>端口汇聚配置</h2><p> 内容<br>『配置环境参数』</p>
+<ol>
+<li>交换机SwitchA和SwitchB通过以太网口实现互连。</li>
+<li>SwitchA用于互连的端口为e0/1和e0/2，SwitchB用于互连的端口为e0/1和e/2。</li>
+</ol>
+<p>『组网需求』<br>增加SwitchA的SwitchB的互连链路的带宽，并且能够实现链路备份，使用端口汇聚 数据配置步骤<br>解析<br>【SwitchA交换机配置】</p>
+<ol>
+<li><p>进入端口E0/1</p>
+<blockquote>
+<p>[SwitchA]interface Ethernet 0/1</p>
+</blockquote>
+</li>
+<li><p>汇聚端口必须关注在全双工模式</p>
+<blockquote>
+<p>[SwitchA-Ethernet0/1]duplex full</p>
+</blockquote>
+</li>
+<li><p>汇聚的端口速率要求相同，但不能是自适应</p>
+<blockquote>
+<p>[SwitchA-Ethernet0/2]speed 100</p>
+</blockquote>
+</li>
+<li><p>进入端口E0/2</p>
+<blockquote>
+<p>[SwitchA]interface Ethernet 0/2</p>
+</blockquote>
+</li>
+<li><p>汇聚端口必须关注在全双工模式</p>
+<blockquote>
+<p>[SwitchA-Ethernet0/2]duplex full</p>
+</blockquote>
+</li>
+<li><p>汇聚的端口速率要求相同，但不能是自适应</p>
+<blockquote>
+<p>[SwitchA-Ethernet0/2]speed 100</p>
+</blockquote>
+</li>
+<li><p>根据源和目的MAC进行端口选择汇聚</p>
+<blockquote>
+<p>[SwitchA]link-aggergation Ethernet 0/1 to Ethernet 0/2 both</p>
+</blockquote>
+</li>
+</ol>
+<p>【SwitchB交换机配置】</p>
+<blockquote>
+<p>[SwitchB]interface Ethernet 0/1<br>[SwitchB-Ethernet0/1]duplex full<br>[SwitchB-Ethernet0/2]speed 100<br>[SwitchB]interface Ethernet 0/2<br>[SwitchB-Ethernet0/2]duplex full<br>[SwitchB-Ethernet0/2]speed 100<br>[SwitchB]link-aggergation Ethernet 0/1 to Ethernet 0/2 both</p>
+</blockquote>
+<p>【补充说明】</p>
+<ul>
+<li>同一个汇聚组中成员端口的链接类型与注端口的链路类型保存一致，即如果主端口为Trunk端口，则成员端口也为Trunk端口；<br>如主端口的链路类型改为Access端口，则成员端口的链路类型也变为Access端口。</li>
+<li>不同的产品对端口汇聚是的起始端口号要去各有不同，请对照《操作手册》进行配置。</li>
+</ul>
+<h2 id="端口镜像配置"><a href="#端口镜像配置" class="headerlink" title="端口镜像配置"></a>端口镜像配置</h2><p>内容<br>『环境配置参数』</p>
+<ol>
+<li>PC1接在交换机E0/1端口，IP地址1.1.1.1/24</li>
+<li>PC2接在交换机E0/2端口，IP地址2.2.2.2/24</li>
+<li>E0/24为交换机上行端口</li>
+<li>Server接在交换机E0/8端口，盖端口作为镜像端口</li>
+</ol>
+<p>『组网需求』</p>
+<ol>
+<li>通过交换机端口镜像的功能使用server对两台pc的业务报文进行监控。<br>根据Qidway交换机不同型号，镜像有不同方式进行配置:基于端口的进行 基于断句的镜像十八辈镜像端口的进出数据报文完全拷贝一份到镜像端口，这样来进行流量观测或者故障定位。</li>
+</ol>
+<p>基于流的镜像 基于流镜像的交换机针对某些流进行镜像，每个连接都有两个方向的数据流，对于交换机来说这两个数据流是要分开镜像的。</p>
+<p>S2008/S2016/S2026/S2403H/S3026等交换机支持的都是基于端口的镜像<br>8016交换机支持基于端口的镜像<br>3500/3026E/3026F/2050支持基于流的镜像<br>5516/6505/6503/6506R支持对入端口流量进行镜像</p>
+<p>解析<br>数据配置步骤<br>以Quidway S3026C为例，通过基于二层流的镜像进行配置：</p>
+<ol>
+<li><p>定义一个ACL</p>
+<blockquote>
+<p>[SwitchA]acl num 200</p>
+</blockquote>
+</li>
+<li><p>定义一个规则从E0/1发送至其它所有端口的数据包</p>
+<blockquote>
+<p>[SwitchA]rule 0 permir ingress interface Ethernet0/1 egress interface Ethernet 0/2</p>
+</blockquote>
+</li>
+<li><p>定义一个规则从其它所有端口到E0/1端口的数据包</p>
+<blockquote>
+<p>[SwitchA]rule 1 permir ingress interface Ethernet0/2 egress interface Ethernet 0/1</p>
+</blockquote>
+</li>
+</ol>
+<ol>
+<li>将符合上述ACL的数据包镜像到E0/8<blockquote>
+<p>[SwitchA]mirrored-to link-group 200 interface e0/8</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="生成树STP配置"><a href="#生成树STP配置" class="headerlink" title="生成树STP配置"></a>生成树STP配置</h2><p>内容<br>『配置环境参数』</p>
+<ol>
+<li>交换机SwitchA、SwitchB和SwitchC都通过GE接口互连</li>
+<li>SwitchB和SwitchC交换机是核心交换机，要求主备</li>
+</ol>
+<p>『组网要求』要求整个网络运行STP协议 数据配置步骤</p>
+<p>解析</p>
+<ol>
+<li><p>【SwitchA交换机配置】启动生成树协议：</p>
+<blockquote>
+<p>[SwitchA]stp enable</p>
+</blockquote>
+</li>
+<li><p>【SwitchB交换机配置】启动生成树协议：</p>
+<blockquote>
+<p>[SwitchB]stp enable</p>
+</blockquote>
+</li>
+<li><p>配置本桥为根桥</p>
+<blockquote>
+<p>[SwitchB] stp root primary</p>
+</blockquote>
+</li>
+<li><p>【SwitchC交换机配置】<br>a 启动生成树协议</p>
+<blockquote>
+<p>[SwitchC]stp enable</p>
+</blockquote>
+</li>
+</ol>
+<p>b 配置本桥为备份根桥</p>
+<blockquote>
+<p>[SwitchC]stp root secondary</p>
+</blockquote>
+<p>  5.【SwitchD交换机配置】<br>  a 启动生成树协议</p>
+<blockquote>
+<p>[SwitchD]stp enable</p>
+</blockquote>
+<p>【补充说明】</p>
+<ol>
+<li>缺省情况下交换机的优先级都是32768，如果想人为指定某一台交换机为根交换机，也可以通过修改优先级来实现；</li>
+<li>缺省情况下打开生成树后，所有端口都会开启生成树解析，请把接PC的端口改为边缘端口模式；</li>
+<li>如果要控制某条链路的状态可以通过设置端口的cost值来实现</li>
+</ol>
+<p>测试验证</p>
+<ol>
+<li>使用display stp查看交换机STP运行状态</li>
+<li>查看端口STP状态display stp interface Ethernet XX是否正确</li>
+</ol>
+<h2 id="Quidway交换机维护"><a href="#Quidway交换机维护" class="headerlink" title="Quidway交换机维护"></a>Quidway交换机维护</h2><p>内容<br>显示系统版本信息: <code>display version</code><br>显示诊断信息: <code>display diagnostic-information</code><br>显示系统当前配置: <code>display current-configuration</code><br>显示系统保存配置: <code>display saved-configuration</code><br>显示接口信息: <code>display interface</code><br>显示路由信息: <code>display ip routing-table</code><br>显示VLAN信息: <code>display vlan</code><br>显示生成树信息: <code>display stp</code><br>显示MAC地址表: <code>display mac-address</code><br>显示ARP表信息: <code>display arp</code><br>显示系统CPU使用率: <code>display memory</code><br>显示系统日志: <code>display log</code><br>显示系统时钟: <code>display clock</code><br>删除某条命令，一般使用命令<code>undo</code></p>
+<p>解析</p>
+<ul>
+<li><p>【SwitchA交换机配置】启动生成树协议:</p>
+<blockquote>
+<p>[SwitchA]stp enable</p>
+</blockquote>
+</li>
+<li><p>【SwitchB交换机配置】启动生成树协议:</p>
+<blockquote>
+<p>[SwitchB]stp enable</p>
+</blockquote>
+</li>
+<li><p>配置本桥为根桥</p>
+<blockquote>
+<p>[SwitchB]stp root primary</p>
+</blockquote>
+</li>
+<li><p>【SwitchC交换机配置】<br> a. 启动生成树协议:</p>
+<blockquote>
+<p>[SwitchC]stp enable</p>
+</blockquote>
+</li>
+</ul>
+<pre><code>b. 配置本桥为备份根桥
+</code></pre><blockquote>
+<p>[SwitchC]stp root secondary</p>
+</blockquote>
+<ul>
+<li>【SwitchD交换机配置】<br> a. 启动生成树协议:<blockquote>
+<p>[SwitchD]stp enable</p>
+</blockquote>
+</li>
+</ul>
+<p>【补充说明】</p>
+<ul>
+<li>缺省情况下交换机的优先级都是32768，如果想认为指定某一台交换机为根交换机，也可以通过修改优先级来实现；</li>
+<li>缺省情况下打开生成树后，所有端口都会开启生成树协议，请把接PC的端口改为边缘端口模式；</li>
+<li>如果要控制某条链路的状态可以通过设置的cost值来实现。</li>
+</ul>
+<p>测试验证</p>
+<ol>
+<li>使用display stp查看交换机STP运行状态</li>
+<li>查看端口STP状态display stp interface Ethernet XX是否正确</li>
+</ol>
+<p><strong>以上就是对华为命令配置专题的小小见解。</strong></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;学习网络的同学都能明白，思科视乎一家独大，但是在发展的潮流中华为也紧跟不舍，所以对于我们学习华为命令的配置也变得重要了。&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="网络攻防" scheme="http://www.jb-hacker.top/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2/"/>
+    
+    
+      <category term="网络技术" scheme="http://www.jb-hacker.top/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>策略路由</title>
+    <link href="http://www.jb-hacker.top/24.html/"/>
+    <id>http://www.jb-hacker.top/24.html/</id>
+    <published>2017-10-27T16:00:00.000Z</published>
+    <updated>2018-01-07T04:50:45.785Z</updated>
+    
+    <content type="html"><![CDATA[<p>在我认为策略路由是一种强化控制方式，就默认而言直接路由、静态路由、默认路由和各种动态协议所生成的路由条目，路由器远可以将数据分组从其源地址转发到目的地址。<br>但是人们的强权意识觉得这远远是不够的，因此策略路由(Policy Based Routing,PBR)就用来对分组的转发和路由的传播进行精准控制。<br><a id="more"></a><br>在此呢笔者仅仅介绍涉及路由映射表的命令。当然书中的实例对于理解大有帮助。</p>
+<h2 id="1-route-map命令"><a href="#1-route-map命令" class="headerlink" title="1. route-map命令"></a>1. route-map命令</h2><p>创建一个路由映射表(定义路由图)</p>
+<blockquote>
+<p>route-map 映射表名称 [permit | deny] 路由映射表的序列号</p>
+</blockquote>
+<p>使用<code>no route-map 映射表名称 [permit | deny] 路由映射表的序列号</code>删除指定的路由映射表</p>
+<h2 id="2-match命令"><a href="#2-match命令" class="headerlink" title="2. match命令"></a>2. match命令</h2><p>用于指定分组所需要匹配的条件(定义匹配条件)<br>1) match ip address</p>
+<blockquote>
+<p>match ip address {acl编号 | 名称}</p>
+</blockquote>
+<p>2) match length </p>
+<blockquote>
+<p>match length 最小长度 最大长度</p>
+</blockquote>
+<h2 id="3-set命令"><a href="#3-set命令" class="headerlink" title="3. set命令"></a>3. set命令</h2><p>指定对匹配的分组进行转发的方式和规则(定义转发规则)<br>1) set ip next-hop</p>
+<blockquote>
+<p>set ip next-hop 下一跳地址</p>
+</blockquote>
+<p>2) set interface</p>
+<blockquote>
+<p>set interface 指定接口</p>
+</blockquote>
+<p>3) set ip default next-hop</p>
+<blockquote>
+<p>set interface 默认下一跳转发地址</p>
+</blockquote>
+<p>4) set default interface</p>
+<blockquote>
+<p>set default interface 指定接口</p>
+</blockquote>
+<h2 id="4-在接口上应用策略路由命令"><a href="#4-在接口上应用策略路由命令" class="headerlink" title="4. 在接口上应用策略路由命令"></a>4. 在接口上应用策略路由命令</h2><p>(应用于接口上)<br>ip policy route-map</p>
+<blockquote>
+<p>ip policy route-map 映射表名称/标记</p>
+</blockquote>
+<p>对本地路由器产生的分组应用策略路由，需要使用:</p>
+<blockquote>
+<p>ip local policy route-map 映射表名称/标记</p>
+</blockquote>
+<h2 id="5-查看路由策略命令"><a href="#5-查看路由策略命令" class="headerlink" title="5. 查看路由策略命令"></a>5. 查看路由策略命令</h2><p>(验证策略路由)<br>1) show route-map</p>
+<blockquote>
+<p>show route-map [映射表名称 | all]</p>
+</blockquote>
+<p>2) show ip policy</p>
+<blockquote>
+<p>show ip policy 地图名称</p>
+</blockquote>
+<p>3) debug ip policy</p>
+<blockquote>
+<p>debug ip policy</p>
+</blockquote>
+<p>实例在此省略，详细见课本。</p>
+<p><strong>以上就是对策略路由的小小见解。</strong></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在我认为策略路由是一种强化控制方式，就默认而言直接路由、静态路由、默认路由和各种动态协议所生成的路由条目，路由器远可以将数据分组从其源地址转发到目的地址。&lt;br&gt;但是人们的强权意识觉得这远远是不够的，因此策略路由(Policy Based Routing,PBR)就用来对分组的转发和路由的传播进行精准控制。&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="网络攻防" scheme="http://www.jb-hacker.top/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2/"/>
+    
+    
+      <category term="网络技术" scheme="http://www.jb-hacker.top/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>配置广域网接入</title>
+    <link href="http://www.jb-hacker.top/20.html/"/>
+    <id>http://www.jb-hacker.top/20.html/</id>
+    <published>2017-10-27T16:00:00.000Z</published>
+    <updated>2018-01-07T04:49:33.302Z</updated>
+    
+    <content type="html"><![CDATA[<p>如果想访问其他远程网络，就必须是个广域网(WAN)接入服务了。<br><a id="more"></a></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>WAN与LAN使用的连接方式和布线标准不大相同。广域网中路由器和交换机的连接方式主要有<code>串行连接</code>、<code>ISDN BRI</code>和<code>DSL</code>连接的。<br>这里主要介绍软考所涉及的<code>ISDN</code>、<code>PPP</code>和<code>DDR</code>、<code>帧中继</code>等相关配置。<br>(针对此配置笔者了解甚少，多看书中实例理解)</p>
+<h2 id="配置ISDN"><a href="#配置ISDN" class="headerlink" title="配置ISDN"></a>配置ISDN</h2><p>相关配置命令</p>
+<p><table><br>    <tr><br>        <th>命令</th><br>        <th>功能</th><br>    </tr><br></table><br>| 命令 | 功能 |<br>|:—–:|:—-:|<br>| isdn switch-type 交换机类型 | 设置交换机类型 |<br>| interface bri 0 | 接口BRI设置 |<br>| encapsulation ppp | 设置PPP封装 |<br>| dialer map protocol 下一跳地址 [name 域名] [broadcast] [拨号串] | 设置协议地址与电话号码的映射 |<br>| ppp multilink   |  启动PPP多连接 |<br>| dialer load-threshold <em>load</em> | 设置启动另一个B通道的阀值 |<br>| show isdn {active | history | memory | services | status [dsl | interface-type number] | }|显示ISDN的有关信息 |</p>
+<p>摘抄书中部分配置信息:<br>配置R1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">R1(config)#isdn switch-tyoe basic-net3</div><div class="line">R1(config)#interface bri 0</div><div class="line">R1(config-if)#ip address 192.168.1.1 255.255.255.0</div><div class="line">R1(config-if)#encapsulation ppp</div><div class="line">R1(config-if)#dialer string 80000002</div><div class="line">R1(config-if)#dialer-group 1</div><div class="line">R1(config-if)#no shutdown exit</div><div class="line">R1(config)#exit</div><div class="line">R1(config)#dialer-list l protocol ip permit</div><div class="line">R1(config)#end</div><div class="line">R1#</div></pre></td></tr></table></figure></p>
+<h2 id="PPP和DDR"><a href="#PPP和DDR" class="headerlink" title="PPP和DDR"></a>PPP和DDR</h2><p>PPP(点对点协议)、DDR(按需拨号路由)，DDR技术和PPP技术一样对于ISDN的配置是非常重要的，在实际应用中ISDN、PPP和DDR这三项技术经常综合使用。<br>(针对此配置笔者了解甚少，多看书中实例理解)<br>相关配置命令<br>| 命令 | 功能 |<br>|:—–:|:—-:|<br>| encapsulation ppp | 设置PPP封装 |<br>| ppp authentication {chap | chap pap | pap chap | pap} [if-needed] [list-name | default] [callin]| 设置认证方法 |<br>| username <em>name</em> password secret | 指定口令|<br>| clockrate speed | 设置DCE段线路速度|<br>| ppp multilink | 启动PPP多连接 |<br>| dialer load-thresold load| 设置启动另一个B通道的阀值|<br>| show isdn {active | history | memory | services | status [dsl | interface-type number] | }|显示ISDN的有关信息 |<br>摘抄书中部分配置信息:<br>配置R1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">username R2 password 0 cisco</div><div class="line">isdn switch-type basic-net3</div><div class="line">!</div><div class="line">encapsulation ppp</div><div class="line">dialer idle-timeout 300</div><div class="line">dialer map ip 192.168.1.2 name R2 broadcast 80000002</div><div class="line">dialer load-threshold 128</div><div class="line">dialer-group 1</div><div class="line">no cdp enable</div><div class="line">ppp authentication chap </div><div class="line">ppp multilink</div><div class="line">！</div><div class="line">ip route 10.1.2.0 255.255.255.0 192.168.1.2</div><div class="line">!</div><div class="line">dialer-list 1 protocol ip permit</div><div class="line">...</div><div class="line">end</div></pre></td></tr></table></figure></p>
+<h2 id="配置帧中继"><a href="#配置帧中继" class="headerlink" title="配置帧中继"></a>配置帧中继</h2><p>帧中继是一种高性能的WAN协议，运行在物理层和数据链路层，它是X.25的简化版本。<br>至于帧中继为何重要，从历年的软考真题就能明白一二了。<br>帧中继的相关配置命令<br>| 命令 | 功能 |<br>|:—–:|:—-:|<br>| encapsulation frame-relay [ietf] | 设置Frame Relay封装 |<br>| frame-relay lmi-type {ansi |cisco | q9330a}| 设置Frame Relay LMI类型 |<br>| interface interface-type interface-number subinterface-number [ frame-relay map protocol protocol-address dlci [broadcast] | 映射协议地址与DLCI |<br>| frame-relay interface-dlci dlci [broadcast] | 设置FR DLCI编号|<br>摘抄书中部分配置信息:<br>配置R1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">encapsulation frame-relay (简写encap frame-reply)</div><div class="line">clockrate 64000</div><div class="line">frame-relay lmi-type cisco</div><div class="line">no frame-replay inverse-arp (关闭帧中继逆向ARP)</div></pre></td></tr></table></figure></p>
+<p><strong>以上就是对广域网接入的小小见解。</strong></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;如果想访问其他远程网络，就必须是个广域网(WAN)接入服务了。&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="网络攻防" scheme="http://www.jb-hacker.top/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2/"/>
+    
+    
+      <category term="网络技术" scheme="http://www.jb-hacker.top/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>路由器的基本配置</title>
+    <link href="http://www.jb-hacker.top/18.html/"/>
+    <id>http://www.jb-hacker.top/18.html/</id>
+    <published>2017-10-27T16:00:00.000Z</published>
+    <updated>2018-01-07T04:49:03.045Z</updated>
+    
+    <content type="html"><![CDATA[<p>路由器是网络异种网络互联与多个子网互联的重要设备。简单来说，路由器可以将不同的局域网进行互联和通信。<br><a id="more"></a></p>
+<h3 id="路由器疑点"><a href="#路由器疑点" class="headerlink" title="路由器疑点"></a>路由器疑点</h3><p>相比大家都路由器设备并不陌生，日常生活随处可见。<br>明明处于三层的路由器设备为何运用会比交换机普遍呢？<br>家庭日常使用的路由器为何需要连接不同子网呢？<br>当我们使用路由器上网时我们应当处于同一个局域网中？<br>这些疑惑笔者日后定会前来解答。</p>
+<h3 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h3><h5 id="配置IP地址"><a href="#配置IP地址" class="headerlink" title="配置IP地址"></a>配置IP地址</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Rouer&gt;enable</div><div class="line">Router#config t</div><div class="line">Router(config)#interface fastethernet0/1</div><div class="line">Router(config-if)#ip address 192.168.1.11 255.255.255.0</div><div class="line">Router(config-if)no shutdown</div><div class="line">Router(config-if)#end</div><div class="line">Router#show running-config</div></pre></td></tr></table></figure>
+<h5 id="配置终端服务器"><a href="#配置终端服务器" class="headerlink" title="配置终端服务器"></a>配置终端服务器</h5><p>对于大型网络需要使用多个路由器和交换设备，如果对于每一个设备进行一一通过控制台端口配置是很麻烦的，所以产生终端服务器(路由器功能的一种)来实现用一台PC同时访问多个网络设备。<br>在此呢笔者不进行阐述了，无非是通过切换对每一个设备进行配置罢了。</p>
+<h5 id="配置静态路由"><a href="#配置静态路由" class="headerlink" title="配置静态路由"></a>配置静态路由</h5><p>我们可以理解路由器不是直连的网络不能相互连通，但是我们可以人为的指定一条路径告诉路由器如何访问。<br>笔者疑惑的是静态路由是否只能间隔一个路由设备才能使用，由于实验的欠缺，在此立个flag。</p>
+<h6 id="IPv4静态路由"><a href="#IPv4静态路由" class="headerlink" title="IPv4静态路由"></a>IPv4静态路由</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">R2#config t</div><div class="line">R2(config)#ip route 192.168.1.0 255.255.255.0 10.1.1.1</div><div class="line">R2(config)#end</div></pre></td></tr></table></figure>
+<h6 id="IPv6静态路由"><a href="#IPv6静态路由" class="headerlink" title="IPv6静态路由"></a>IPv6静态路由</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">R2#config t</div><div class="line">R2(config)#ip 2005:CCCC::/64 Serial0/2/0</div><div class="line">R2(config)#end</div></pre></td></tr></table></figure>
+<h3 id="路由协议"><a href="#路由协议" class="headerlink" title="路由协议"></a>路由协议</h3><p>我们仔细想想，为什么需要路由协议？无非是告诉路由器如何选择路由线路，因此产生了<code>距离矢量</code>、<code>链路状态</code>、<code>平衡混合</code>等选择方式的协议了。<br>原本根据路由选择协议的应用范围，可划分为内部网关协议、外部网关协议和核心网关协议(软考未涉及)三大类。</p>
+<h4 id="内部网关协议"><a href="#内部网关协议" class="headerlink" title="内部网关协议"></a>内部网关协议</h4><p>我们可以理解在自治系统内部进行选择的路由协议。</p>
+<h5 id="RIP协议"><a href="#RIP协议" class="headerlink" title="RIP协议"></a>RIP协议</h5><p>用跳数来作为唯一的度量值。</p>
+<table><br>        <tr><br>            <th>命令</th><br>            <th>功能</th><br>        </tr><br>        <tr><br>            <th>router rip</th><br>            <th>指定使用RIP协议</th><br>        </tr><br>        <tr><br>            <th>network 网络地址</th><br>            <th>指定相连的网段</th><br>        </tr><br>        <tr><br>            <th>show ip route</th><br>            <th>查看路由表信息</th><br>        </tr><br>        <tr><br>            <th>show ip route igrp</th><br>            <th>查看IGRP协议的路由信息</th><br>        </tr><br></table>
+
+
+<p>至于配置案例在此就不叙述了。</p>
+<h5 id="IGRP协议"><a href="#IGRP协议" class="headerlink" title="IGRP协议"></a>IGRP协议</h5><p>与RIP协议配置不同的是，IGRP需要配置链路的带宽，毕竟带宽也是IGRP协议的度量值之一。</p>
+<table><br>    <tr><br>        <th>命令</th><br>        <th>功能</th><br>    </tr><br>    <tr><br>        <th>route igrp 自治系统号</th><br>        <th>指定使用IGRP协议</th><br>    </tr><br>    <tr><br>        <th>network 网络地址</th><br>        <th>指定相连的网段</th><br>    </tr><br>    <tr><br>        <th>show ip route</th><br>        <th>查看路由表信息</th><br>    </tr><br>    <tr><br>        <th>show ip route igrp</th><br>        <th>查看IGRP协议的路由信息</th><br>    </tr><br></table>
+
+<p>至于配置案例在此就不叙述了。<br>需要注意的是:使用IGRP协议，所涉及的路由器的自治系统号必须相同，否则彼此的路由信息将不被互相传递和学习。(自治系统号使用数字即可)</p>
+<h5 id="OSPF协议"><a href="#OSPF协议" class="headerlink" title="OSPF协议"></a>OSPF协议</h5><p>通过链路状态(接口状态)来建立路由关系，适合大型网络使用。</p>
+<p><table><br>    <tr><br>        <th>命令</th><br>        <th>功能</th><br>    </tr><br>    <tr><br>        <th>route ospf 进程ID</th><br>        <th>指定使用OSPF协议</th><br>    </tr><br>    <tr><br>        <th>network 网络地址 反掩码 area 区域号</th><br>        <th>指定相连的网段</th><br>    </tr><br>    <tr><br>        <th>show ip route</th><br>        <th>查看路由器信息</th><br>    </tr><br>    <tr><br>        <th>show ip route ospf</th><br>        <th>查看OSPF协议的路由信息</th><br>    </tr><br></table><br>至于配置案例在此就不叙述了。<br>需要注意的是:使用OSPF协议，每台路由器的OSPF所使用的进程号并不需要一致。(进程号使用数字即可)</p>
+<h5 id="EIGRP协议"><a href="#EIGRP协议" class="headerlink" title="EIGRP协议"></a>EIGRP协议</h5><p>EIGRP是增强版的IGRP协议，它属于平衡混合协议。它的相关命令与IFGRP类似。(软考对于EIPGRP知识点涉及较少)</p>
+<p><table><br>    <tr><br>        <th>命令</th><br>        <th>功能</th><br>    </tr><br>    <tr><br>        <th>router eigrp 自治系统号</th><br>        <th>指定使用OSPF协议</th><br>    </tr><br>    <tr><br>        <th>network 网络地址 [反掩码]</th><br>        <th>指定相连的网段</th><br>    </tr><br>    <tr><br>        <th>no auto-summay</th><br>        <th>关闭自动汇总功能</th><br>    </tr><br>    <tr><br>        <th>show ip route eigrp</th><br>        <th>查看EIGRP协议的路由信息</th><br>    </tr><br></table><br>至于配置案例在此就不叙述了。<br>需要注意的是:<br>    使用EIGRP协议，一般都需要关闭自动汇总功能。<br>    在这EIGRP使用的是反掩码，如果使用的是主网地址(A、B、C类的网络，就是掩码为8、16、24位的)可以省略反掩码。<br>(涉及反掩码的协议:OSPF、EIGRP、ACL)</p>
+<h4 id="外部网关协议"><a href="#外部网关协议" class="headerlink" title="外部网关协议"></a>外部网关协议</h4><p>BGP:路径向量协议，在BGP路径选择信息中都带有AS号码的序列，它指出一个路由已通过的路径。<br>BGP把TCP当作它的传送协议，端口号179，这样就能给个保证它所有的传送是可靠的。<br>它本身是属于网路层协议。</p>
+<p><strong>以上就是对路由器协议的小小见解。</strong></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;路由器是网络异种网络互联与多个子网互联的重要设备。简单来说，路由器可以将不同的局域网进行互联和通信。&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="网络攻防" scheme="http://www.jb-hacker.top/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2/"/>
+    
+    
+      <category term="网络技术" scheme="http://www.jb-hacker.top/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>IPSec的相关配置</title>
+    <link href="http://www.jb-hacker.top/21.html/"/>
+    <id>http://www.jb-hacker.top/21.html/</id>
+    <published>2017-10-27T16:00:00.000Z</published>
+    <updated>2018-01-07T04:49:53.008Z</updated>
+    
+    <content type="html"><![CDATA[<p>我们能够理解IPSec(IP   Security)是用于增强IP网络的安全性，因此请务必重视它。同时历年的考点也说明了这一点。<br><a id="more"></a></p>
+<h2 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h2><h3 id="为IPSec做准备"><a href="#为IPSec做准备" class="headerlink" title="为IPSec做准备"></a>为IPSec做准备</h3><p>确定策略，选择方法。</p>
+<h3 id="配置IKE"><a href="#配置IKE" class="headerlink" title="配置IKE"></a>配置IKE</h3><ol>
+<li>用isakmp enable命令启动或关闭IKE。</li>
+<li>用isakmp policy命令创建IKE策略。</li>
+<li>用isakmp key命令和相关配置预共享密钥。</li>
+<li>用show isakmp [policy]命令验证IKE的配置</li>
+</ol>
+<h3 id="配置IPSec"><a href="#配置IPSec" class="headerlink" title="配置IPSec"></a>配置IPSec</h3><ol>
+<li>用access-list命令配置加密用访问控制列表。</li>
+<li>用crypto ipsec transform-set命令配置交换集。</li>
+<li>(任选)用crypto ipsec security-association lifetime明亮配置全局性的IPSec安全关联的生存期。</li>
+<li>用crypto map命令配置加密图。</li>
+<li>用interface命令和crypto map-name interface把配置应用到接口上。</li>
+<li>用各种可用的show命令验证IPSec的配置。</li>
+</ol>
+<h3 id="测试和验证IPSec"><a href="#测试和验证IPSec" class="headerlink" title="测试和验证IPSec"></a>测试和验证IPSec</h3><p>使用show、debug和相关的命令测试和验证IPSec加密是否正常。</p>
+<h2 id="代码实例"><a href="#代码实例" class="headerlink" title="代码实例"></a>代码实例</h2><p>总部端路由器部分配置:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">crypto isakmp policy 1</div><div class="line">authentication pre-share</div><div class="line">group 2</div><div class="line">crypto isakmp key test123 address 202.96.1.2</div><div class="line">crypto ipsec transform-set VPNtag ah-md5-hmac esp-des</div><div class="line">crypto map VPNdemo 10 ipsec-isakmp</div><div class="line">set peer 202.96.1.2</div><div class="line">set transform-set VPNtag</div><div class="line">match address 101</div><div class="line">interface Tunnel0</div><div class="line">ip address 68.1.1 255.255.255.0</div><div class="line">no ip directed-broadcast</div><div class="line">tunnel source 202.96.1.2</div><div class="line">crypto map VPNdemo</div><div class="line">ip route 0.0.0.0 0.0.0.0 202.96.1.2</div><div class="line">ip route 172.22.2.0 255.255.0.0 192.168.1.2</div><div class="line">access-list 101 permit gre host 202.96.1.1 host 202.96.1.2</div></pre></td></tr></table></figure></p>
+<p>关注三对应：</p>
+<ol>
+<li>转换集名称5-8(VPNtag)</li>
+<li>加密图名称6-15(VPNdemo)</li>
+<li>ACL编号9-18(101)</li>
+</ol>
+<p><strong>以上就是对IPSec的小小见解。</strong></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;我们能够理解IPSec(IP   Security)是用于增强IP网络的安全性，因此请务必重视它。同时历年的考点也说明了这一点。&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="网络攻防" scheme="http://www.jb-hacker.top/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2/"/>
+    
+    
+      <category term="网络技术" scheme="http://www.jb-hacker.top/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>访问控制列表ACL</title>
+    <link href="http://www.jb-hacker.top/23.html/"/>
+    <id>http://www.jb-hacker.top/23.html/</id>
+    <published>2017-10-27T16:00:00.000Z</published>
+    <updated>2018-01-07T04:50:29.522Z</updated>
+    
+    <content type="html"><![CDATA[<p>为什么需要ACL，无非是进行访问控制罢了。这种技术从路由器逐步推广到交换机上进行使用。<br><a id="more"></a><br>ACL对入站或出站的通信进行过滤。ACL的局限性是不能对路由器本身发出的通信进行过滤，因此在路由器上执行ping或trace、route命令，或者通过路由器远程连接(telnet)另外一个网络设备，应用于路由器端口的ACL命令不能过滤这些通信。<br>ACL基本原则:</p>
+<ul>
+<li>先匹配原则</li>
+<li>排序原则</li>
+<li>默认丢弃原则<br>我们知道ACL分为标准ACL和扩展ACL。</li>
+</ul>
+<h2 id="标准ACL"><a href="#标准ACL" class="headerlink" title="标准ACL"></a>标准ACL</h2><p>标准编号范围:1~99,1300~1999。<br>命令格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Router(config)#access-list 编号 permit|deny 单个IP|&#123;网络地址 反掩码&#125;</div></pre></td></tr></table></figure></p>
+<p>激活ACL命令(进入端口应用ACL)<br>in表示进入端口的分组(入站)，out表示端口输出的分组(出站)。<br>我们可以这样理解，在针对配置的设备来说，该端口经过该设备传送即为入站，反之端口远离该设备即为出站。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Router(config)#interface 端口号</div><div class="line">Router(config-if)#ip access-group acl编号 in|out</div></pre></td></tr></table></figure></p>
+<p>通配符掩码的例子</p>
+<table><br>        <tr><br>            <th>IP地址</th><br>            <th>通配符掩码</th><br>            <th>匹配</th><br>        </tr><br>        <tr><br>            <th>0.0.0.0</th><br>            <th>255.255.255.255</th><br>            <th>匹配任何地址(关键字any)</th><br>        </tr><br>        <tr><br>            <th>172.16.1.1</th><br>            <th>0.0.0.0    </th><br>            <th>匹配host 172.16.1.1(匹配单个主机)</th><br>        </tr><br>    </table>
+
+
+
+
+<p>标准ACL默认配置<br><code>access-list 编号 deny any</code></p>
+<h2 id="扩展ACL"><a href="#扩展ACL" class="headerlink" title="扩展ACL"></a>扩展ACL</h2><p>标准编号范围:1~99,1300~1999。<br>命令格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Router(config)#access-list 编号 permit|deny 协议类型 源网络地址 反掩码 [控制信息]目的地址 反掩码 [控制信息] [log]</div></pre></td></tr></table></figure></p>
+<p>协议类型:tcp、udp、icmp、ip<br>对于TCP和UDP协议如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Router(config)#access-list 编号 permit|deny tcp|udp 源网络地址 反掩码 目的地址 反掩码 [操作符 端口|关键字] [established] [log]</div></pre></td></tr></table></figure></p>
+<p>激活ACL命令同标准ACL一致<br>实例配置:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Router#conf t</div><div class="line">Router(config)#access-list 100 permit tcp any 172.16.0.0 0.0.255.255 established log</div><div class="line">Router(config)#access-list 100 permit udp host 172.16.1.1 eq dns log</div><div class="line">Router(config)#access-list 100 permit tcp 172.17.0.0 0.0.255.255 host 172.16.1.2 eq telnet log</div><div class="line">Router(config)#access-list 100 permit icmp any 172.16.0.0 0.255.255.255 echo-reply log</div><div class="line">Router(config)#access-list 100 deny ip any any log</div><div class="line">Router(config)#interface ethernet0</div><div class="line">Router(config-if)#ip access-group 100 in</div></pre></td></tr></table></figure></p>
+<p>标准ACL默认配置<br><code>access-list 编号 deny ip any any</code></p>
+<p><strong>以上就是我对ACL的小小见解。</strong></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;为什么需要ACL，无非是进行访问控制罢了。这种技术从路由器逐步推广到交换机上进行使用。&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="网络攻防" scheme="http://www.jb-hacker.top/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2/"/>
+    
+    
+      <category term="网络技术" scheme="http://www.jb-hacker.top/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/"/>
+    
+  </entry>
   
   <entry>
     <title>网络常用设备及介绍</title>
@@ -79,6 +775,35 @@
     <summary type="html">
     
       &lt;p&gt;什么是交换机？交换机的作用是什么？以及交换机的基本配置有哪些？这些是我需要思考的。(注意:我们这里所说的是二层交换机)&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="网络攻防" scheme="http://www.jb-hacker.top/categories/%E7%BD%91%E7%BB%9C%E6%94%BB%E9%98%B2/"/>
+    
+    
+      <category term="网络技术" scheme="http://www.jb-hacker.top/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>IPv6配置与部署</title>
+    <link href="http://www.jb-hacker.top/22.html/"/>
+    <id>http://www.jb-hacker.top/22.html/</id>
+    <published>2017-10-27T16:00:00.000Z</published>
+    <updated>2018-01-07T04:50:11.589Z</updated>
+    
+    <content type="html"><![CDATA[<p>由于从IPv4向IPv6过渡是大势所趋，因此就目前学习IPv6来说可谓明智之举。<br><a id="more"></a><br>就目前而言从IPv4向IPv6过渡的技术，主要分为<code>双栈</code>、<code>隧道</code>和<code>翻译</code>三种。</p>
+<h2 id="IPv6-over-IPv4-GRE隧道配置"><a href="#IPv6-over-IPv4-GRE隧道配置" class="headerlink" title="IPv6-over-IPv4 GRE隧道配置"></a>IPv6-over-IPv4 GRE隧道配置</h2><p>IPv6-over-IPv4 GRE隧道是将IPv6报文封装在IPv4报文中，让IPv6数据包穿过IPv4网络进行通信。对于采用隧道技术的设备涞水，在隧道的入口出，将IPv6的数据报封装进IPv4,IPv4报文的源地址和目前地址分贝是隧道入库和隧道出口IPv4地址。<br>GRE隧道的相关配置命令<br>|命令|功能|<br>|::|::|<br>| interface 隧道接口号 | 启用隧道<em>隧道接口号</em> |<br>| ipv6 address ipv6地址/前缀长度 | 为tunnel配置IPv6地址|<br>| tunnel source ipv4地址 | 指定tunnel的源地址(也可是端口号) |<br>| tunnel destination ipv4地址 | 指定tunnel的目的地址 |<br>| tunnel mode gre ipv6 | tunnel模式为IPv6的GRE隧道|<br>配置隧道:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">R1(config)#interface tunnel 0</div><div class="line">R1(config-if)#tunnel source s1/0</div><div class="line">R1(config-if)#tunnel destination 202.100.2.2</div><div class="line">R1(config-if)#ipv6 address 2005:AAAA::1/64</div><div class="line">R1(config-if)#tunnel mode gre ipv6</div></pre></td></tr></table></figure></p>
+<h2 id="ISATAP隧道配置"><a href="#ISATAP隧道配置" class="headerlink" title="ISATAP隧道配置"></a>ISATAP隧道配置</h2><p>站内自动隧道寻找寻址协议(ISATAP)过渡技术采用了双栈和隧道技术实现从IPv4向IPv6的过渡。<br>采用IASATAP地址，格式为Prefix(64bit):0:5EFE:IPv4地址，其中0:5EFE是IANA规定的格式。<br>ISATAP隧道协议使用于IPv4网络中IPv6主机的通信或IPv4网络中IPv4主机接入到IPv6网络的通信。<br>|命令|功能|<br>|::|::|<br>| tunnel mode ipv6 ip isatap | tunnel模式为IPv6的ISATAP隧道|<br>| no ipv6 nd suppress-ra | 启动隧道口的路由器广播 |<br>配置代码略</p>
+<h2 id="NAT—PT"><a href="#NAT—PT" class="headerlink" title="NAT—PT"></a>NAT—PT</h2><p>网络地址转换协议转换(NAT-PT)是一种纯IPv6节点和IPv4节点的互通方式，所有包括地址、协议在内的转换工作都有网络设备来完成。</p>
+<h3 id="静态NAT-PT"><a href="#静态NAT-PT" class="headerlink" title="静态NAT-PT"></a>静态NAT-PT</h3><p>(静态一对一)<br>|命令|功能|<br>|::|::|<br>| ipv6 nat | 启用NAT-PT机制 |<br>| ipv6 nat prefix ipv6地址/前缀长度 | 说明NAT-PT使用的IPv6前缀|<br>| ipv6 nat v6v4 source ipv6地址 | 强制将IPv6地址的输出IPv6数据包转换成IPv4数据包 |<br>| ipv6 nat v4v6 source ipv4地址 | 强制将IPv4地址的输出IPv4数据包转换成IPv6数据包 |</p>
+<h3 id="动态NAT-PT"><a href="#动态NAT-PT" class="headerlink" title="动态NAT-PT"></a>动态NAT-PT</h3><p>(动态一对一)需要一个IPv4地址池。<br>|命令|功能|<br>|::|::|<br>| ipv6 <strong>access-list</strong> name <strong>permit</strong> ipv6地址/前缀|     定义运行被转换的ipv6地址范围 |<br>| ipv6 nat v6v4 <strong>pool</strong>ipv4-pool  开始ipv4地址 结束ipv4地址 prefix-length 前缀长度 | 规定转换过程中的源IPv4地址池 |<br>| ipv6 nat v6v4 source {list | route-map} {acl列表名 | 地图名 | 地址池名}  | 配置动态NAT-NT映射 |</p>
+<h3 id="NAPT-PT"><a href="#NAPT-PT" class="headerlink" title="NAPT-PT"></a>NAPT-PT</h3><p>(动态多对一)<br>NAPT-PT配置与动态NAT-PT转换类似，只需要在映射时添加overload参数即可。<br>|命令|功能|<br>|::|::|<br>| ipv6 nat v6v4 source {list | route-map} {acl列表名 | 地图名 | 地址池名} overload  | 配置NAPT-NT映射 |<br><strong>以上就是我对IPv6配置与部署的小小见解。</strong></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;由于从IPv4向IPv6过渡是大势所趋，因此就目前学习IPv6来说可谓明智之举。&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -557,266 +1282,6 @@
       <category term="Python" scheme="http://www.jb-hacker.top/tags/Python/"/>
     
       <category term="人工智能" scheme="http://www.jb-hacker.top/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>web网站从linux移植到windows server 2008</title>
-    <link href="http://www.jb-hacker.top/5.html/"/>
-    <id>http://www.jb-hacker.top/5.html/</id>
-    <published>2017-05-15T16:00:00.000Z</published>
-    <updated>2017-05-16T07:38:46.470Z</updated>
-    
-    <content type="html"><![CDATA[<p>其实对于web服务器配置并没有多难，但是比较繁琐，很多问题需要经验，所有记之。<br><a id="more"></a><br>最终项目还是从空间到centos选择了windows 的怀抱，原因很简单，蛋疼的空间不是尔等凡夫俗子所能够征服的。linux也不是一天能够玩转的。<br>对于网站的移植无非做几件事:</p>
-<ul>
-<li>搭建windows server 2008服务器PHP运行环境</li>
-<li>备份linux下的web程序源码和数据库数据</li>
-<li>导入web程序源码和数据库配置</li>
-<li>设置域名解析</li>
-</ul>
-<h4 id="搭建windows-server-2008服务器PHP运行环境"><a href="#搭建windows-server-2008服务器PHP运行环境" class="headerlink" title="搭建windows server 2008服务器PHP运行环境"></a>搭建windows server 2008服务器PHP运行环境</h4><p>Windows下面的IIS加phpStudy就是简单，呵呵。<br><a href="http://www.jb51.net/article/49865.htm" target="_blank" rel="external">借鉴</a><br>当然对于上面的网址我有以下几点补充:</p>
-<ul>
-<li>IIS配置时”应用程序开发”最好全选</li>
-<li>更改IIS的默认文档设置</li>
-<li>添加web程序文件夹权限为<code>everyone</code>，所有权限</li>
-<li>phpStudy设置为管理员权限启动<br>在IIS里面添加网站内容，挺简单的操作。<h4 id="备份linux下的web程序源码和数据库数据"><a href="#备份linux下的web程序源码和数据库数据" class="headerlink" title="备份linux下的web程序源码和数据库数据"></a>备份linux下的web程序源码和数据库数据</h4><h5 id="备份linux下的web程序源码"><a href="#备份linux下的web程序源码" class="headerlink" title="备份linux下的web程序源码"></a>备份linux下的web程序源码</h5>备份web程序源码，首先使用<code>Xshell</code>远程连接工具连接远程服务器，然后压缩web网站程序，但是竟然告诉我不能运行zip压缩命令。<br>没办法:<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install zip unzip</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>然后成功安装zip命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">zip  -r kjl.zip  kjl</div></pre></td></tr></table></figure></p>
-<p>然后就可以压缩web程序了。</p>
-<p>对于web程序的下载我没有用linux命令，我使用了我喜欢的<code>FileZilla</code>服务器连接工具，嘿嘿，反正我觉得这个工具比较强大。<br>下载web程序的压缩包到本地。</p>
-<h5 id="备份数据库数据"><a href="#备份数据库数据" class="headerlink" title="备份数据库数据"></a>备份数据库数据</h5><p>对于空间数据库的坑爹我已不想多说，幸好得到了<code>Navicat for MySQL</code>程序的眷恋，远程连接数据库备份数据库没问题而言。<br>登录后选中数据库，右键<code>转储SQL</code>即可，这样数据库备份就没有任何问题而言了。</p>
-<h4 id="导入web程序源码和数据库配置"><a href="#导入web程序源码和数据库配置" class="headerlink" title="导入web程序源码和数据库配置"></a>导入web程序源码和数据库配置</h4><p>对于windows服务器，当然还是windows内部的<code>远程桌面连接</code>给力，通过与远程共享文件夹与本地进行数据的传输。<br>将web程序源码放到www网站目录里面即可。sql文件通过phpStudy里面的<code>MySQL-Front</code>先建立数据库，然后导入即可。需要注意的是文件所有编码必须保持一致吧！小编一致使用<code>utf8</code>。</p>
-<h4 id="设置域名解析"><a href="#设置域名解析" class="headerlink" title="设置域名解析"></a>设置域名解析</h4><p>对于域名解析，当初二话不说上阿里云进行域名解析，谁知道它的域名来着<code>网易中国</code>，没办法，直接上网易中国进行域名解析。域名解析之前可能觉得高大上，但是解析多了才发现操作并没有想象中的那么简单。</p>
-<h4 id="小小教训"><a href="#小小教训" class="headerlink" title="小小教训"></a>小小教训</h4><p>说实话，我真的不能够明白的是基于thinkcmf的二次开发网站时，所有东西布置完毕。但是为何就是不能显示正确呢？反而显示<code>404</code>，虽然表示无奈，但是打开<code>thinkphp</code>的调试模式,网站立即访问正确。<br>然后关闭调试模式，网站正确显示。</p>
-<p><strong>以上就是我将web网站从linux移植到windows server 2008的整个过程了。</strong></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;其实对于web服务器配置并没有多难，但是比较繁琐，很多问题需要经验，所有记之。&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="PHP" scheme="http://www.jb-hacker.top/categories/PHP/"/>
-    
-    
-      <category term="linux" scheme="http://www.jb-hacker.top/tags/linux/"/>
-    
-      <category term="php" scheme="http://www.jb-hacker.top/tags/php/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>mysql常用命令简介</title>
-    <link href="http://www.jb-hacker.top/4.html/"/>
-    <id>http://www.jb-hacker.top/4.html/</id>
-    <published>2017-05-12T16:00:00.000Z</published>
-    <updated>2017-05-14T09:22:40.754Z</updated>
-    
-    <content type="html"><![CDATA[<p>mysql是一个关系型数据库管理系统，由于其开源免费，在web开发方面占有重要地位。<br><a id="more"></a><br>今天我们所说的是mysql的命令行模式，不同于常规的视图操作界面。</p>
-<h4 id="mysql服务相关"><a href="#mysql服务相关" class="headerlink" title="mysql服务相关"></a>mysql服务相关</h4><p>　　我们可以这样理解，mysql的正常运行离不开mysql服务的正常启动。所有对于这些我们必须掌握。</p>
-<ul>
-<li>启动mysql服务<br>可以使用命令:<ul>
-<li>mysql脚本启动: <code>/etc/init.d/mysqld start</code></li>
-<li>service服务启动:<code>service mysqld start</code></li>
-<li>使用safe_mysqld启动:<code>safe_mysqld&amp;</code></li>
-</ul>
-</li>
-<li>停止服务<ul>
-<li>使用service停止:<code>service mysqld stop</code></li>
-<li>使用mysqld脚本停止:<code>/etc/init.d/mysqld stop</code></li>
-</ul>
-</li>
-<li>重启<ul>
-<li>使用service重启:<code>service mysqld restart</code></li>
-<li>使用mysqld脚本重启:<code>/etc/init.d/mysqld restart</code><br>备注:查看mysql端口是否已经使用，使用netstat -anp命令查询服务器端口使用情况。</li>
-</ul>
-</li>
-</ul>
-<h4 id="进入mysql"><a href="#进入mysql" class="headerlink" title="进入mysql"></a>进入mysql</h4><ul>
-<li><p>连接本地(在安装目录下操作)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd /mysql/bin#与具体安全目录有关</div><div class="line">mysql -u root -p #回车后输入密码</div><div class="line">mysql&gt; #成功后显示</div></pre></td></tr></table></figure>
-</li>
-<li><p>连接远程</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql -h 110.110.110.110 -u root -p 123;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>注:其实各参数与数据可以不用加空格。</p>
-<h4 id="退出mysql"><a href="#退出mysql" class="headerlink" title="退出mysql"></a>退出mysql</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">exit(回车)</div></pre></td></tr></table></figure>
-<h4 id="修改密码"><a href="#修改密码" class="headerlink" title="修改密码"></a>修改密码</h4><ul>
-<li>给root加个密码abcd1234<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqladmin -u root -password abcd1234</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>注:之前root没有密码，所有-p旧密码可以省略。</p>
-<ul>
-<li>修改root密码为1234abcd<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqladmin -u root -p abcd1234 password 1234abcd</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="新增用户"><a href="#新增用户" class="headerlink" title="新增用户"></a>新增用户</h4><p>格式：grant select on 数据库.* to 用户名@登录主机 identified by “密码”<br>注：个人觉得有些繁琐，且大部分时间不会新增，特此google即可。</p>
-<h4 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h4><p>命令:<code>create database &lt;数据库名&gt;</code></p>
-<h4 id="显示数据库"><a href="#显示数据库" class="headerlink" title="显示数据库"></a>显示数据库</h4><p>命令：<code>show databases;</code></p>
-<h4 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h4><p>命令:<code>drop database &lt;数据库名&gt;；</code></p>
-<h4 id="选择数据库"><a href="#选择数据库" class="headerlink" title="选择数据库"></a>选择数据库</h4><p>命令:<code>use &lt;数据库名&gt;；<code></code></code></p>
-<h4 id="显示数据表"><a href="#显示数据表" class="headerlink" title="显示数据表"></a>显示数据表</h4><p>命令:<code>show tables;</code></p>
-<h4 id="增加数据记录"><a href="#增加数据记录" class="headerlink" title="增加数据记录"></a>增加数据记录</h4><p> 命令:<code>insert into &lt;表名&gt;(字段名1,字段名2,…,字段名n) values(值1,值2,…,值n);</code></p>
-<h4 id="删除数据记录"><a href="#删除数据记录" class="headerlink" title="删除数据记录"></a>删除数据记录</h4><p> 命令:<code>delete from 表名 where 表达式;</code></p>
-<h4 id="修改数据记录"><a href="#修改数据记录" class="headerlink" title="修改数据记录"></a>修改数据记录</h4><p> 命令:<code>update from 表名 set 字段 = ‘新值’ where 表达式;</code></p>
-<h4 id="查询数据记录"><a href="#查询数据记录" class="headerlink" title="查询数据记录"></a>查询数据记录</h4><p> 命令:<code>select * from 表名 (where 表达式) ;</code></p>
-<p> 注：对于字段、索引和实例等其他复杂操作在此就不一一介绍了，以上就是在liunx操作mysql常用的命令了。</p>
-<p><a href="http://www.cnblogs.com/zhangzhu/archive/2013/07/04/3172486.html" target="_blank" rel="external">其他操作可借鉴</a>  </p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;mysql是一个关系型数据库管理系统，由于其开源免费，在web开发方面占有重要地位。&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="PHP" scheme="http://www.jb-hacker.top/categories/PHP/"/>
-    
-    
-      <category term="php" scheme="http://www.jb-hacker.top/tags/php/"/>
-    
-      <category term="mysql" scheme="http://www.jb-hacker.top/tags/mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>vim的简单使用</title>
-    <link href="http://www.jb-hacker.top/3.html/"/>
-    <id>http://www.jb-hacker.top/3.html/</id>
-    <published>2017-05-09T16:00:00.000Z</published>
-    <updated>2017-07-08T06:18:01.540Z</updated>
-    
-    <content type="html"><![CDATA[<p>vim是一个类似于vi的著名的功能强大、高度可定制的文本编辑器，在vi的基础上改进和增加了很多特性。vim是自由软件。<br><a id="more"></a><br>其实vim有着很强悍的操作语法，但是在这我只是介绍一些常用能解决文章的基本操作，原因很简单：适合新手！</p>
-<h4 id="vi的基本概念"><a href="#vi的基本概念" class="headerlink" title="vi的基本概念"></a>vi的基本概念</h4><p>　　基本上vi可以分为三种状态，分别是命令模式、插入模式和底行模式，各模式的功能区分如下：</p>
-<ul>
-<li>命令行模式</li>
-</ul>
-<p>　　控制屏幕光标的移动，字符、字或行的删除，移动复制某区段及进入插入模式下，<br>或者到底行模式。</p>
-<ul>
-<li><p>插入模式<br>　　只有在插入模式下，才可以做文字输入，按「ESC」键可回到命令行模式。</p>
-</li>
-<li><p>底行模式</p>
-</li>
-</ul>
-<p>将文件保存或退出vi，也可以设置编辑环境，如寻找字符串、列出行号……等。<br>不过一般我们在使用时把vi简化成两个模式，就是将底行模式也算入命令行模式。</p>
-<ul>
-<li><p>进命令行模式<br>在进入插入模式后，你只要按[Esc]就可以从插入模式进入命令行模型了。</p>
-</li>
-<li><p>进入插入模式<br>刚开始打开vim，你必须按i才能进入插入模式。</p>
-</li>
-<li><p>进入底行模式<br>在使用底行模式之前，请记住先按「ESC」键确定您已经处于命令行模式下后，再按「：」冒号即可进入底行模式。</p>
-</li>
-</ul>
-<h4 id="vim的常规操作"><a href="#vim的常规操作" class="headerlink" title="vim的常规操作"></a>vim的常规操作</h4><ul>
-<li>列出行号</li>
-</ul>
-<p>　「set nu」：输入「set nu」后，会在文件中的每一行前面列出行号。</p>
-<ul>
-<li>跳到文件中的某一行</li>
-</ul>
-<p>　「#」：「#」号表示一个数字，在冒号后输入一个数字，再按回车键就会跳到该行了，<br>如输入数字15，再回车，就会跳到文章的第15行。</p>
-<ul>
-<li>查找字符</li>
-</ul>
-<p>　「/关键字」：先按「/」键，再输入您想寻找的字符，如果第一次找的关键字不是您想<br>要的，可以一直按「n」会往后寻找到您要的关键字为止。</p>
-<p>　「?关键字」：先按「?」键，再输入您想寻找的字符，如果第一次找的关键字不是您想<br>要的，可以一直按「n」会往前寻找到您要的关键字为止。</p>
-<ul>
-<li>保存文件</li>
-</ul>
-<p>　「w」：在冒号输入字母「w」就可以将文件保存起来。</p>
-<ul>
-<li><p>保存并退出<br>　按ESC键 跳到命令模式，然后：<br>　:w   保存文件但不退出vi<br>　:w file 将修改另外保存到file中，不退出vi<br>　:w!   强制保存，不推出vi<br>　:wq  保存文件并退出vi（常用）<br>　:wq! 强制保存文件，并退出vi（常用）<br>　q:  不保存文件，退出vi<br>　:q! 不保存文件，强制退出vi<br>　:e! 放弃所有修改，从上次保存文件开始再编辑</p>
-</li>
-<li><p>离开vi</p>
-</li>
-</ul>
-<p>　「q」：按「q」就是退出，如果无法离开vi，可以在「q」后跟一个「!」强制离开vi。</p>
-<p>　「wq」：一般建议离开时，搭配「w」一起使用，这样在退出的时候还可以保存文件。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;vim是一个类似于vi的著名的功能强大、高度可定制的文本编辑器，在vi的基础上改进和增加了很多特性。vim是自由软件。&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://www.jb-hacker.top/categories/Linux/"/>
-    
-    
-      <category term="vim" scheme="http://www.jb-hacker.top/tags/vim/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>git的常规使用</title>
-    <link href="http://www.jb-hacker.top/2.html/"/>
-    <id>http://www.jb-hacker.top/2.html/</id>
-    <published>2017-05-08T16:00:00.000Z</published>
-    <updated>2017-07-07T08:41:52.367Z</updated>
-    
-    <content type="html"><![CDATA[<p>首先需要本地git与远程github相连接。采取SSH连接方式。<br>此次教程对于git的使用做一个常规使用的总结，更多高级使用并未涉及。<br><a id="more"></a></p>
-<h3 id="配置git"><a href="#配置git" class="headerlink" title="配置git"></a>配置git</h3><h4 id="创建ssh-key"><a href="#创建ssh-key" class="headerlink" title="创建ssh key"></a>创建ssh key</h4><p>为了让github能够识别是我们自己上传文件，需要创建ssh key<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ssh-keygen -t rsa -C &quot;your_email@youreamil.com&quot;</div></pre></td></tr></table></figure></p>
-<p>这里的your_email@youremail.com是你的邮箱地址，在输入后会询问你是否保存创建的ssh key，点回车就好，然后要求输入你要设置的密码，如果直接回车表示不设密码。然后会提示你ssh key已经创建好。</p>
-<h4 id="将ssh写入github"><a href="#将ssh写入github" class="headerlink" title="将ssh写入github"></a>将ssh写入github</h4><p>在windows中生成的id_rsa.pub文件一般在C:\Users\windows用户名\.ssh目录下，打开隐藏文件即可看到。<br>复制出来，在github在点击头像，然后点击setting，在找到SSH and GPG keys，创建一个new ssh key，然后将刚刚复制的ssh key填入即可。</p>
-<h4 id="验证是否连接成功"><a href="#验证是否连接成功" class="headerlink" title="验证是否连接成功"></a>验证是否连接成功</h4><p>在终端输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh -T git@github.com</div></pre></td></tr></table></figure></p>
-<p>如果回车看到：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">You’ve successfully authenticated, but GitHub does not provide shell access 。</div></pre></td></tr></table></figure></p>
-<p>表示已成功连上github。</p>
-<h4 id="设置username和email"><a href="#设置username和email" class="headerlink" title="设置username和email"></a>设置username和email</h4><p>在把本项目上传到github之前还需要分别输入设置username和email，因为github每次commit都会记录他们。所以分别输入如下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git config --global user.name &quot;your name&quot;</div><div class="line">$ git config --global user.email &quot;your_email@youremail.com&quot;</div></pre></td></tr></table></figure></p>
-<h3 id="以下为后期常用命令"><a href="#以下为后期常用命令" class="headerlink" title="以下为后期常用命令"></a>以下为后期常用命令</h3><h4 id="进入项目，在终端运行"><a href="#进入项目，在终端运行" class="headerlink" title="进入项目，在终端运行"></a>进入项目，在终端运行</h4><p>这是初始化git项目的必须命令，在此路径下会生成一个.git的隐藏文件夹，下面记录着git的一系列相关文件；这是第一步操作。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git init</div></pre></td></tr></table></figure></p>
-<h4 id="添加远程地址"><a href="#添加远程地址" class="headerlink" title="添加远程地址"></a>添加远程地址</h4><p>在与github连接成功后，如何才能让相应的项目上传到对应的仓库呢？这里就需要添加远程地址，从而让我们的本地项目顺利到达对应的仓库。实现远程与本地相连接。</p>
-<p>打开终端，输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git remote add origin git@github.com:yourName/yourRepo.git</div></pre></td></tr></table></figure></p>
-<h3 id="上传项目"><a href="#上传项目" class="headerlink" title="上传项目"></a>上传项目</h3><h4 id="将远程库与本地库合并"><a href="#将远程库与本地库合并" class="headerlink" title="将远程库与本地库合并"></a>将远程库与本地库合并</h4><p>(注:pull=fetch +merge )：(刚刚添加时本地没有说明文件)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git pull --rebase origin master</div></pre></td></tr></table></figure></p>
-<h4 id="然后上传所有"><a href="#然后上传所有" class="headerlink" title="然后上传所有"></a>然后上传所有</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git add .</div></pre></td></tr></table></figure>
-<h4 id="添加注释并上传到缓存区"><a href="#添加注释并上传到缓存区" class="headerlink" title="添加注释并上传到缓存区"></a>添加注释并上传到缓存区</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git commit -m  &apos;本次提交注释&apos;</div></pre></td></tr></table></figure>
-<p>提交并上传代码，第一次提交加上’-u’,后面提交可以省略。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push -u origin master</div></pre></td></tr></table></figure></p>
-<h3 id="以后提交"><a href="#以后提交" class="headerlink" title="以后提交"></a>以后提交</h3><ul>
-<li><p>上传所有</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git add .</div></pre></td></tr></table></figure>
-</li>
-<li><p>添加注释并上传到缓存区</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git commit -m  &apos;本次提交注释&apos;</div></pre></td></tr></table></figure>
-</li>
-<li><p>提交并上传代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin master</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>如此往复即可。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;首先需要本地git与远程github相连接。采取SSH连接方式。&lt;br&gt;此次教程对于git的使用做一个常规使用的总结，更多高级使用并未涉及。&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="PHP" scheme="http://www.jb-hacker.top/categories/PHP/"/>
-    
-    
-      <category term="git" scheme="http://www.jb-hacker.top/tags/git/"/>
-    
-      <category term="github" scheme="http://www.jb-hacker.top/tags/github/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>建立博客</title>
-    <link href="http://www.jb-hacker.top/1.html/"/>
-    <id>http://www.jb-hacker.top/1.html/</id>
-    <published>2017-05-05T16:00:00.000Z</published>
-    <updated>2017-05-13T08:50:33.751Z</updated>
-    
-    <content type="html"><![CDATA[<p>由于诸多原因，我最终选择了hexo+github搭建博客，原因嘛有很多。但是markdown的编写方式和纯命令的编辑方式是我所喜爱的。<br><a id="more"></a><br>我不知道在其他人眼里git意味着什么，但是不知不觉中我觉得我思想发生了一些改变。喜欢上了一些高大上的程序员方式。<br>之前打算用yii2.0搭建博客，但是markdown插件弄了好久都没有弄出来，然后按照yii2.0博客程序也存在弊端；node.js搭建博客弄了弄，使用了Ghost博客程序也不太喜欢，发现英文大多不太喜欢，而且服务器的配置太繁琐，不想hexo几行命令即可搞定。<br>不过我从头到尾都没有想过使用WordPress，原因很简单，没有轻量级的书写方式，不够简洁，我觉得博客的本质应该是写作。<br>专注于写作和学习，这才是我建立博客的主旨。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;由于诸多原因，我最终选择了hexo+github搭建博客，原因嘛有很多。但是markdown的编写方式和纯命令的编辑方式是我所喜爱的。&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
     
   </entry>
   

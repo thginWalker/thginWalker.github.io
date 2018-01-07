@@ -3,6 +3,690 @@
   
     
     <entry>
+      <title><![CDATA[华为命令配置专题]]></title>
+      <url>/%E5%8D%8E%E4%B8%BA%E5%91%BD%E4%BB%A4%E9%85%8D%E7%BD%AE%E4%B8%93%E9%A2%98.html/</url>
+      <content type="html"><![CDATA[<p>学习网络的同学都能明白，思科视乎一家独大，但是在发展的潮流中华为也紧跟不舍，所以对于我们学习华为命令的配置也变得重要了。<br><a id="more"></a></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>华为虽然对于交换机、路由器的配置和思科不大相同，但是我们能够理解的是不同的只是形式，其内部协议、原理也不过尔尔而已。<br>(针对此配置笔者了解甚少，多看书中实例理解)</p>
+<h2 id="命令视图"><a href="#命令视图" class="headerlink" title="命令视图"></a>命令视图</h2><ol>
+<li><p>用户视图(查看交换机简单运行状态和统计信息)</p>
+<blockquote>
+<p><quidway>:        与交换机建立连接即进入</quidway></p>
+</blockquote>
+</li>
+<li><p>系统视图(配置系统参数)</p>
+<blockquote>
+<p>[Quidway]:       在用户视图下键入system-view</p>
+</blockquote>
+</li>
+<li><p>以太网视图(配置以太网端口参数)</p>
+<blockquote>
+<p>[Quidway-Ethernet0/1]:       在系统视图下键入interface ethernet 0/1</p>
+</blockquote>
+</li>
+</ol>
+<ol>
+<li><p>VLAN视图(配置VLAN参数)</p>
+<blockquote>
+<p>[Quidway-Vlan1]:       在系统视图下键入vlan 123</p>
+</blockquote>
+</li>
+<li><p>VLAN接口视图(配置VLAN和VLAN汇聚对应的IP接口参数)</p>
+<blockquote>
+<p>[Quidway-Vlan1-interface]:       在系统视图下键入interface vlan-interface 123</p>
+</blockquote>
+</li>
+<li><p>本地用户视图(配置本地用户参数)</p>
+<blockquote>
+<p>[Quidway-luser-user1]:       在系统视图下键入local-user-user1</p>
+</blockquote>
+</li>
+<li><p>用户界面视图(配置用户界面参数)</p>
+<blockquote>
+<p>[Quidway-ui0]:       在系统视图下键入user-interface</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="VLAN配置方法"><a href="#VLAN配置方法" class="headerlink" title="VLAN配置方法"></a>VLAN配置方法</h2><p>『配置环境参数』<br>SwitchA端口E0/1属于VLAN2、E0/2属于VLAN3<br>『组网需求』<br>把交换机端口E0/1就让到VLAN2、E0/2加入到VLAN3<br>数据配置步骤<br>『VLAN配置流程』</p>
+<ol>
+<li>缺省情况下所有端口都属于VLAN1，并且端口是access端口，一个access端口智能属于一个vlan;</li>
+<li>如果端口是access端口，则把端口加入到另外一个vlan的同时，系统自动把该端口从原来的vlan中删除掉；</li>
+<li>除了VLAN1，如果VLAN XX不存在，在系统视图下键入VLAN XX，则创建VLAN XX并进入VLAN XX视图；如果VLAN XX已经参照，则进入VLAN视图。</li>
+</ol>
+<p>解析<br>【SwitchA相关配置】</p>
+<ul>
+<li><p>方法一:</p>
+<ol>
+<li><p>创建(进入)vlan 2</p>
+<blockquote>
+<p> [SwitchA]vlan 2</p>
+</blockquote>
+</li>
+<li><p>将端口E0/1加入到vlan 2</p>
+<blockquote>
+<p> [SwitchA-vlan2]port ethernet 0/1</p>
+</blockquote>
+</li>
+<li><p>创建(进入)vlan 3</p>
+<blockquote>
+<p>[SwitchA-vlan2]vlan 3</p>
+</blockquote>
+</li>
+<li><p>将端口E0/2加入到vlan3</p>
+<blockquote>
+<p>[SwitchA-vlan3]port ethernet 0/2</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><p>方法二</p>
+<ol>
+<li><p>创建(进入)vlan 2</p>
+<blockquote>
+<p> [SwitchA]vlan 2</p>
+</blockquote>
+</li>
+<li><p>进入端口E0/1视图</p>
+<blockquote>
+<p> [SwitchA]interface ethernet 0/1</p>
+</blockquote>
+</li>
+<li><p>指定端口E0/1属于vlan2</p>
+<blockquote>
+<p>[SwitchA-ethernet]port access vlan 2</p>
+</blockquote>
+</li>
+<li><p>创建(进入)vlan 3</p>
+<blockquote>
+<p> [SwitchA]vlan 3</p>
+</blockquote>
+</li>
+<li><p>进入端口E0/1视图</p>
+<blockquote>
+<p> [SwitchA]interface ethernet 0/2</p>
+</blockquote>
+</li>
+<li><p>指定端口E0/1属于vlan3</p>
+<blockquote>
+<p>[SwitchA-ethernet]port access vlan 3</p>
+</blockquote>
+</li>
+</ol>
+<p>测试验证</p>
+</li>
+<li><p>使用命令<code>disp cur</code>可以看到端口E0/1属于vlan2、E0/2属于vlan3；</p>
+</li>
+<li>使用<code>display interface Ethernet 0/1</code>可以看到端口为access端口、PVID为2；</li>
+<li>使用<code>display interface Ethernet 0/2</code>可以看到端口为access端口、PVID为3</li>
+</ul>
+<h2 id="交换机IP地址配置"><a href="#交换机IP地址配置" class="headerlink" title="交换机IP地址配置"></a>交换机IP地址配置</h2><p>功能需求及组网说明<br>『配置环境参数』<br>三层交换机SwitchA有两个端口ethernet0/1、ethernet0/2，分别属于vlan 2、vlan 3；<br>以vlan 2的三层接口地址分别是1.0.0.1/24作为PC1的网关；<br>以vlan 3的三层接口地址分别是2.0.0.1/24作为PC1的网关；<br>『组网需求』(此部分为本实验重点联系内容)<br>PC1和PC2通过三层接口互通</p>
+<p>解析<br>『SwitchA相关配置』</p>
+<ol>
+<li><p>创建(进入)vlan2</p>
+<blockquote>
+<p>[Quidway]vlan 2</p>
+</blockquote>
+</li>
+<li><p>将端口E0/1加入到vlan2</p>
+<blockquote>
+<p>[Quidway-vlan2]port ethernet 0/1</p>
+</blockquote>
+</li>
+<li><p>进入vlan2的虚接口</p>
+<blockquote>
+<p>[Quidway-vlan2]interface vlan 2</p>
+</blockquote>
+</li>
+<li><p>在vlan2的虚接口上配置</p>
+<blockquote>
+<p>[Quidway-Vlan-interface2]ip address 1.0.0.1 255.255.255.0</p>
+</blockquote>
+</li>
+<li><p>创建(进入)vlan3</p>
+<blockquote>
+<p>[Quidway]vlan 3</p>
+</blockquote>
+</li>
+<li><p>将E0/2加入到vlan3</p>
+<blockquote>
+<p>[QUidway-Vlan3]port ethernet 0/2</p>
+</blockquote>
+</li>
+<li><p>进入vlan3的虚接口</p>
+<blockquote>
+<p>[QUidway-Vlan3]interface vlan 3</p>
+</blockquote>
+</li>
+<li><p>在vlan3的虚接口上配置IP地址</p>
+<blockquote>
+<p>[QUidway-Vlan-interface3]ip address 2.0.0.1 255.255.255.0</p>
+</blockquote>
+</li>
+</ol>
+<p>测试验证</p>
+<ul>
+<li>PC1和PC2都可以ping同自己的网关</li>
+<li>PC1和PC2都可以相互ping通</li>
+</ul>
+<h2 id="端口trunk配置"><a href="#端口trunk配置" class="headerlink" title="端口trunk配置"></a>端口trunk配置</h2><p>内容<br>『配置环境参数』</p>
+<ul>
+<li>SwitchA端口E0/1属于vlan10，E0/2属于van20，E0/3与SwitchB端口E0/3互连</li>
+<li>SwitchB端口E0/1属于vlan10，E0/2属于van20，E0/3与SwitchA端口E0/3互连<br>『组网需求』</li>
+<li>要求SwitchA的vlan10的PC与SwitchB的vlan10的PC互通</li>
+<li>要求SwitchA的vlan20的PC与SwitchB的vlan20的PC互通</li>
+</ul>
+<p>解析<br>数据配置步骤<br>『SwitchA相关配置』</p>
+<ol>
+<li><p>创建(进入)vlan10</p>
+<blockquote>
+<p>[SwitchA]vlan 10</p>
+</blockquote>
+</li>
+<li><p>将E0/1加入到vlan10</p>
+<blockquote>
+<p>[SwitchA-vlan10]port Ethernet 0/1</p>
+</blockquote>
+</li>
+<li><p>创建(进入)vlan20</p>
+<blockquote>
+<p>[SwitchA]vlan 20</p>
+</blockquote>
+</li>
+<li><p>将E0/2加入到vlan20</p>
+<blockquote>
+<p>[SwitchA-vlan20]port Ethernet 0/2</p>
+</blockquote>
+</li>
+<li><p>实际当中一般将上行端口设置成trunk属性，允许vlan透传</p>
+<blockquote>
+<p>[SwitchA-Ethernet0/3]port link-type trunk</p>
+</blockquote>
+</li>
+<li><p>允许所有的vlan从E0/3端口透传通过，也可以指定具体的vlan值</p>
+<blockquote>
+<p>[SwitchA-Ethernet0/3]port trunk permit vlan all</p>
+</blockquote>
+</li>
+</ol>
+<p>『SwitchB相关配置』</p>
+<ol>
+<li><p>创建(进入)vlan10</p>
+<blockquote>
+<p>[SwitchB]vlan 10</p>
+</blockquote>
+</li>
+<li><p>将E0/1加入到vlan10</p>
+<blockquote>
+<p>[SwitchB-vlan10]port Ethernet 0/1</p>
+</blockquote>
+</li>
+<li><p>创建(进入)vlan20</p>
+<blockquote>
+<p>[SwitchB]vlan 20</p>
+</blockquote>
+</li>
+<li><p>将E0/2加入到vlan20</p>
+<blockquote>
+<p>[SwitchB-vlan20]port Ethernet 0/2</p>
+</blockquote>
+</li>
+<li><p>实际当中一般将上行端口设置成trunk属性，允许vlan透传</p>
+<blockquote>
+<p>[SwitchB-Ethernet0/3]port link-type trunk</p>
+</blockquote>
+</li>
+<li><p>允许所有的vlan从E0/3端口透传通过，也可以指定具体的vlan值</p>
+<blockquote>
+<p>[SwitchB-Ethernet0/3]port trunk permit vlan all</p>
+</blockquote>
+</li>
+</ol>
+<p>【补充说明】</p>
+<ul>
+<li>如果一个端口是trunk端口，则该端口可以属于多个vlan；</li>
+<li>缺省情况下trunk端口的PVID为1，可以在端口模式下通过命令port trunk vlan vlanid 来修改端口的PVID；</li>
+<li>如果从trunk转发出去的数据报文的vlan id和端口的PVID一致，则该报文的VLAN会被剥去，这点在配置trunk端口时需要注意；</li>
+<li>一台交换机上如果已经设置了某个端口为hybrid端口，则不可以再把另外的端口设置为trunk端口；</li>
+<li>一般情况下最好指定端口允许通过哪些具体的VLAN，不要设置允许所有的VLAN通过。</li>
+</ul>
+<p>测试验证</p>
+<ol>
+<li>SwitchA vlan10内的PC可以与SwitchB vlan10内的PC互通</li>
+<li>SwitchA vlan20内的PC可以与SwitchB vlan20内的PC互通</li>
+<li>SwitchA vlan10内的PC不能与SwitchB vlan20内的PC互通</li>
+<li>SwitchA vlan20内的PC不能与SwitchB vlan10内的PC互通</li>
+</ol>
+<h2 id="端口汇聚配置"><a href="#端口汇聚配置" class="headerlink" title="端口汇聚配置"></a>端口汇聚配置</h2><p> 内容<br>『配置环境参数』</p>
+<ol>
+<li>交换机SwitchA和SwitchB通过以太网口实现互连。</li>
+<li>SwitchA用于互连的端口为e0/1和e0/2，SwitchB用于互连的端口为e0/1和e/2。</li>
+</ol>
+<p>『组网需求』<br>增加SwitchA的SwitchB的互连链路的带宽，并且能够实现链路备份，使用端口汇聚 数据配置步骤<br>解析<br>【SwitchA交换机配置】</p>
+<ol>
+<li><p>进入端口E0/1</p>
+<blockquote>
+<p>[SwitchA]interface Ethernet 0/1</p>
+</blockquote>
+</li>
+<li><p>汇聚端口必须关注在全双工模式</p>
+<blockquote>
+<p>[SwitchA-Ethernet0/1]duplex full</p>
+</blockquote>
+</li>
+<li><p>汇聚的端口速率要求相同，但不能是自适应</p>
+<blockquote>
+<p>[SwitchA-Ethernet0/2]speed 100</p>
+</blockquote>
+</li>
+<li><p>进入端口E0/2</p>
+<blockquote>
+<p>[SwitchA]interface Ethernet 0/2</p>
+</blockquote>
+</li>
+<li><p>汇聚端口必须关注在全双工模式</p>
+<blockquote>
+<p>[SwitchA-Ethernet0/2]duplex full</p>
+</blockquote>
+</li>
+<li><p>汇聚的端口速率要求相同，但不能是自适应</p>
+<blockquote>
+<p>[SwitchA-Ethernet0/2]speed 100</p>
+</blockquote>
+</li>
+<li><p>根据源和目的MAC进行端口选择汇聚</p>
+<blockquote>
+<p>[SwitchA]link-aggergation Ethernet 0/1 to Ethernet 0/2 both</p>
+</blockquote>
+</li>
+</ol>
+<p>【SwitchB交换机配置】</p>
+<blockquote>
+<p>[SwitchB]interface Ethernet 0/1<br>[SwitchB-Ethernet0/1]duplex full<br>[SwitchB-Ethernet0/2]speed 100<br>[SwitchB]interface Ethernet 0/2<br>[SwitchB-Ethernet0/2]duplex full<br>[SwitchB-Ethernet0/2]speed 100<br>[SwitchB]link-aggergation Ethernet 0/1 to Ethernet 0/2 both</p>
+</blockquote>
+<p>【补充说明】</p>
+<ul>
+<li>同一个汇聚组中成员端口的链接类型与注端口的链路类型保存一致，即如果主端口为Trunk端口，则成员端口也为Trunk端口；<br>如主端口的链路类型改为Access端口，则成员端口的链路类型也变为Access端口。</li>
+<li>不同的产品对端口汇聚是的起始端口号要去各有不同，请对照《操作手册》进行配置。</li>
+</ul>
+<h2 id="端口镜像配置"><a href="#端口镜像配置" class="headerlink" title="端口镜像配置"></a>端口镜像配置</h2><p>内容<br>『环境配置参数』</p>
+<ol>
+<li>PC1接在交换机E0/1端口，IP地址1.1.1.1/24</li>
+<li>PC2接在交换机E0/2端口，IP地址2.2.2.2/24</li>
+<li>E0/24为交换机上行端口</li>
+<li>Server接在交换机E0/8端口，盖端口作为镜像端口</li>
+</ol>
+<p>『组网需求』</p>
+<ol>
+<li>通过交换机端口镜像的功能使用server对两台pc的业务报文进行监控。<br>根据Qidway交换机不同型号，镜像有不同方式进行配置:基于端口的进行 基于断句的镜像十八辈镜像端口的进出数据报文完全拷贝一份到镜像端口，这样来进行流量观测或者故障定位。</li>
+</ol>
+<p>基于流的镜像 基于流镜像的交换机针对某些流进行镜像，每个连接都有两个方向的数据流，对于交换机来说这两个数据流是要分开镜像的。</p>
+<p>S2008/S2016/S2026/S2403H/S3026等交换机支持的都是基于端口的镜像<br>8016交换机支持基于端口的镜像<br>3500/3026E/3026F/2050支持基于流的镜像<br>5516/6505/6503/6506R支持对入端口流量进行镜像</p>
+<p>解析<br>数据配置步骤<br>以Quidway S3026C为例，通过基于二层流的镜像进行配置：</p>
+<ol>
+<li><p>定义一个ACL</p>
+<blockquote>
+<p>[SwitchA]acl num 200</p>
+</blockquote>
+</li>
+<li><p>定义一个规则从E0/1发送至其它所有端口的数据包</p>
+<blockquote>
+<p>[SwitchA]rule 0 permir ingress interface Ethernet0/1 egress interface Ethernet 0/2</p>
+</blockquote>
+</li>
+<li><p>定义一个规则从其它所有端口到E0/1端口的数据包</p>
+<blockquote>
+<p>[SwitchA]rule 1 permir ingress interface Ethernet0/2 egress interface Ethernet 0/1</p>
+</blockquote>
+</li>
+</ol>
+<ol>
+<li>将符合上述ACL的数据包镜像到E0/8<blockquote>
+<p>[SwitchA]mirrored-to link-group 200 interface e0/8</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="生成树STP配置"><a href="#生成树STP配置" class="headerlink" title="生成树STP配置"></a>生成树STP配置</h2><p>内容<br>『配置环境参数』</p>
+<ol>
+<li>交换机SwitchA、SwitchB和SwitchC都通过GE接口互连</li>
+<li>SwitchB和SwitchC交换机是核心交换机，要求主备</li>
+</ol>
+<p>『组网要求』要求整个网络运行STP协议 数据配置步骤</p>
+<p>解析</p>
+<ol>
+<li><p>【SwitchA交换机配置】启动生成树协议：</p>
+<blockquote>
+<p>[SwitchA]stp enable</p>
+</blockquote>
+</li>
+<li><p>【SwitchB交换机配置】启动生成树协议：</p>
+<blockquote>
+<p>[SwitchB]stp enable</p>
+</blockquote>
+</li>
+<li><p>配置本桥为根桥</p>
+<blockquote>
+<p>[SwitchB] stp root primary</p>
+</blockquote>
+</li>
+<li><p>【SwitchC交换机配置】<br>a 启动生成树协议</p>
+<blockquote>
+<p>[SwitchC]stp enable</p>
+</blockquote>
+</li>
+</ol>
+<p>b 配置本桥为备份根桥</p>
+<blockquote>
+<p>[SwitchC]stp root secondary</p>
+</blockquote>
+<p>  5.【SwitchD交换机配置】<br>  a 启动生成树协议</p>
+<blockquote>
+<p>[SwitchD]stp enable</p>
+</blockquote>
+<p>【补充说明】</p>
+<ol>
+<li>缺省情况下交换机的优先级都是32768，如果想人为指定某一台交换机为根交换机，也可以通过修改优先级来实现；</li>
+<li>缺省情况下打开生成树后，所有端口都会开启生成树解析，请把接PC的端口改为边缘端口模式；</li>
+<li>如果要控制某条链路的状态可以通过设置端口的cost值来实现</li>
+</ol>
+<p>测试验证</p>
+<ol>
+<li>使用display stp查看交换机STP运行状态</li>
+<li>查看端口STP状态display stp interface Ethernet XX是否正确</li>
+</ol>
+<h2 id="Quidway交换机维护"><a href="#Quidway交换机维护" class="headerlink" title="Quidway交换机维护"></a>Quidway交换机维护</h2><p>内容<br>显示系统版本信息: <code>display version</code><br>显示诊断信息: <code>display diagnostic-information</code><br>显示系统当前配置: <code>display current-configuration</code><br>显示系统保存配置: <code>display saved-configuration</code><br>显示接口信息: <code>display interface</code><br>显示路由信息: <code>display ip routing-table</code><br>显示VLAN信息: <code>display vlan</code><br>显示生成树信息: <code>display stp</code><br>显示MAC地址表: <code>display mac-address</code><br>显示ARP表信息: <code>display arp</code><br>显示系统CPU使用率: <code>display memory</code><br>显示系统日志: <code>display log</code><br>显示系统时钟: <code>display clock</code><br>删除某条命令，一般使用命令<code>undo</code></p>
+<p>解析</p>
+<ul>
+<li><p>【SwitchA交换机配置】启动生成树协议:</p>
+<blockquote>
+<p>[SwitchA]stp enable</p>
+</blockquote>
+</li>
+<li><p>【SwitchB交换机配置】启动生成树协议:</p>
+<blockquote>
+<p>[SwitchB]stp enable</p>
+</blockquote>
+</li>
+<li><p>配置本桥为根桥</p>
+<blockquote>
+<p>[SwitchB]stp root primary</p>
+</blockquote>
+</li>
+<li><p>【SwitchC交换机配置】<br> a. 启动生成树协议:</p>
+<blockquote>
+<p>[SwitchC]stp enable</p>
+</blockquote>
+</li>
+</ul>
+<pre><code>b. 配置本桥为备份根桥
+</code></pre><blockquote>
+<p>[SwitchC]stp root secondary</p>
+</blockquote>
+<ul>
+<li>【SwitchD交换机配置】<br> a. 启动生成树协议:<blockquote>
+<p>[SwitchD]stp enable</p>
+</blockquote>
+</li>
+</ul>
+<p>【补充说明】</p>
+<ul>
+<li>缺省情况下交换机的优先级都是32768，如果想认为指定某一台交换机为根交换机，也可以通过修改优先级来实现；</li>
+<li>缺省情况下打开生成树后，所有端口都会开启生成树协议，请把接PC的端口改为边缘端口模式；</li>
+<li>如果要控制某条链路的状态可以通过设置的cost值来实现。</li>
+</ul>
+<p>测试验证</p>
+<ol>
+<li>使用display stp查看交换机STP运行状态</li>
+<li>查看端口STP状态display stp interface Ethernet XX是否正确</li>
+</ol>
+<p><strong>以上就是对华为命令配置专题的小小见解。</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 网络攻防 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 网络技术 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[策略路由]]></title>
+      <url>/24.html/</url>
+      <content type="html"><![CDATA[<p>在我认为策略路由是一种强化控制方式，就默认而言直接路由、静态路由、默认路由和各种动态协议所生成的路由条目，路由器远可以将数据分组从其源地址转发到目的地址。<br>但是人们的强权意识觉得这远远是不够的，因此策略路由(Policy Based Routing,PBR)就用来对分组的转发和路由的传播进行精准控制。<br><a id="more"></a><br>在此呢笔者仅仅介绍涉及路由映射表的命令。当然书中的实例对于理解大有帮助。</p>
+<h2 id="1-route-map命令"><a href="#1-route-map命令" class="headerlink" title="1. route-map命令"></a>1. route-map命令</h2><p>创建一个路由映射表(定义路由图)</p>
+<blockquote>
+<p>route-map 映射表名称 [permit | deny] 路由映射表的序列号</p>
+</blockquote>
+<p>使用<code>no route-map 映射表名称 [permit | deny] 路由映射表的序列号</code>删除指定的路由映射表</p>
+<h2 id="2-match命令"><a href="#2-match命令" class="headerlink" title="2. match命令"></a>2. match命令</h2><p>用于指定分组所需要匹配的条件(定义匹配条件)<br>1) match ip address</p>
+<blockquote>
+<p>match ip address {acl编号 | 名称}</p>
+</blockquote>
+<p>2) match length </p>
+<blockquote>
+<p>match length 最小长度 最大长度</p>
+</blockquote>
+<h2 id="3-set命令"><a href="#3-set命令" class="headerlink" title="3. set命令"></a>3. set命令</h2><p>指定对匹配的分组进行转发的方式和规则(定义转发规则)<br>1) set ip next-hop</p>
+<blockquote>
+<p>set ip next-hop 下一跳地址</p>
+</blockquote>
+<p>2) set interface</p>
+<blockquote>
+<p>set interface 指定接口</p>
+</blockquote>
+<p>3) set ip default next-hop</p>
+<blockquote>
+<p>set interface 默认下一跳转发地址</p>
+</blockquote>
+<p>4) set default interface</p>
+<blockquote>
+<p>set default interface 指定接口</p>
+</blockquote>
+<h2 id="4-在接口上应用策略路由命令"><a href="#4-在接口上应用策略路由命令" class="headerlink" title="4. 在接口上应用策略路由命令"></a>4. 在接口上应用策略路由命令</h2><p>(应用于接口上)<br>ip policy route-map</p>
+<blockquote>
+<p>ip policy route-map 映射表名称/标记</p>
+</blockquote>
+<p>对本地路由器产生的分组应用策略路由，需要使用:</p>
+<blockquote>
+<p>ip local policy route-map 映射表名称/标记</p>
+</blockquote>
+<h2 id="5-查看路由策略命令"><a href="#5-查看路由策略命令" class="headerlink" title="5. 查看路由策略命令"></a>5. 查看路由策略命令</h2><p>(验证策略路由)<br>1) show route-map</p>
+<blockquote>
+<p>show route-map [映射表名称 | all]</p>
+</blockquote>
+<p>2) show ip policy</p>
+<blockquote>
+<p>show ip policy 地图名称</p>
+</blockquote>
+<p>3) debug ip policy</p>
+<blockquote>
+<p>debug ip policy</p>
+</blockquote>
+<p>实例在此省略，详细见课本。</p>
+<p><strong>以上就是对策略路由的小小见解。</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 网络攻防 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 网络技术 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[配置广域网接入]]></title>
+      <url>/20.html/</url>
+      <content type="html"><![CDATA[<p>如果想访问其他远程网络，就必须是个广域网(WAN)接入服务了。<br><a id="more"></a></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>WAN与LAN使用的连接方式和布线标准不大相同。广域网中路由器和交换机的连接方式主要有<code>串行连接</code>、<code>ISDN BRI</code>和<code>DSL</code>连接的。<br>这里主要介绍软考所涉及的<code>ISDN</code>、<code>PPP</code>和<code>DDR</code>、<code>帧中继</code>等相关配置。<br>(针对此配置笔者了解甚少，多看书中实例理解)</p>
+<h2 id="配置ISDN"><a href="#配置ISDN" class="headerlink" title="配置ISDN"></a>配置ISDN</h2><p>相关配置命令</p>
+<p><table><br>    <tr><br>        <th>命令</th><br>        <th>功能</th><br>    </tr><br></table><br>| 命令 | 功能 |<br>|:—–:|:—-:|<br>| isdn switch-type 交换机类型 | 设置交换机类型 |<br>| interface bri 0 | 接口BRI设置 |<br>| encapsulation ppp | 设置PPP封装 |<br>| dialer map protocol 下一跳地址 [name 域名] [broadcast] [拨号串] | 设置协议地址与电话号码的映射 |<br>| ppp multilink   |  启动PPP多连接 |<br>| dialer load-threshold <em>load</em> | 设置启动另一个B通道的阀值 |<br>| show isdn {active | history | memory | services | status [dsl | interface-type number] | }|显示ISDN的有关信息 |</p>
+<p>摘抄书中部分配置信息:<br>配置R1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">R1(config)#isdn switch-tyoe basic-net3</div><div class="line">R1(config)#interface bri 0</div><div class="line">R1(config-if)#ip address 192.168.1.1 255.255.255.0</div><div class="line">R1(config-if)#encapsulation ppp</div><div class="line">R1(config-if)#dialer string 80000002</div><div class="line">R1(config-if)#dialer-group 1</div><div class="line">R1(config-if)#no shutdown exit</div><div class="line">R1(config)#exit</div><div class="line">R1(config)#dialer-list l protocol ip permit</div><div class="line">R1(config)#end</div><div class="line">R1#</div></pre></td></tr></table></figure></p>
+<h2 id="PPP和DDR"><a href="#PPP和DDR" class="headerlink" title="PPP和DDR"></a>PPP和DDR</h2><p>PPP(点对点协议)、DDR(按需拨号路由)，DDR技术和PPP技术一样对于ISDN的配置是非常重要的，在实际应用中ISDN、PPP和DDR这三项技术经常综合使用。<br>(针对此配置笔者了解甚少，多看书中实例理解)<br>相关配置命令<br>| 命令 | 功能 |<br>|:—–:|:—-:|<br>| encapsulation ppp | 设置PPP封装 |<br>| ppp authentication {chap | chap pap | pap chap | pap} [if-needed] [list-name | default] [callin]| 设置认证方法 |<br>| username <em>name</em> password secret | 指定口令|<br>| clockrate speed | 设置DCE段线路速度|<br>| ppp multilink | 启动PPP多连接 |<br>| dialer load-thresold load| 设置启动另一个B通道的阀值|<br>| show isdn {active | history | memory | services | status [dsl | interface-type number] | }|显示ISDN的有关信息 |<br>摘抄书中部分配置信息:<br>配置R1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">username R2 password 0 cisco</div><div class="line">isdn switch-type basic-net3</div><div class="line">!</div><div class="line">encapsulation ppp</div><div class="line">dialer idle-timeout 300</div><div class="line">dialer map ip 192.168.1.2 name R2 broadcast 80000002</div><div class="line">dialer load-threshold 128</div><div class="line">dialer-group 1</div><div class="line">no cdp enable</div><div class="line">ppp authentication chap </div><div class="line">ppp multilink</div><div class="line">！</div><div class="line">ip route 10.1.2.0 255.255.255.0 192.168.1.2</div><div class="line">!</div><div class="line">dialer-list 1 protocol ip permit</div><div class="line">...</div><div class="line">end</div></pre></td></tr></table></figure></p>
+<h2 id="配置帧中继"><a href="#配置帧中继" class="headerlink" title="配置帧中继"></a>配置帧中继</h2><p>帧中继是一种高性能的WAN协议，运行在物理层和数据链路层，它是X.25的简化版本。<br>至于帧中继为何重要，从历年的软考真题就能明白一二了。<br>帧中继的相关配置命令<br>| 命令 | 功能 |<br>|:—–:|:—-:|<br>| encapsulation frame-relay [ietf] | 设置Frame Relay封装 |<br>| frame-relay lmi-type {ansi |cisco | q9330a}| 设置Frame Relay LMI类型 |<br>| interface interface-type interface-number subinterface-number [ frame-relay map protocol protocol-address dlci [broadcast] | 映射协议地址与DLCI |<br>| frame-relay interface-dlci dlci [broadcast] | 设置FR DLCI编号|<br>摘抄书中部分配置信息:<br>配置R1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">encapsulation frame-relay (简写encap frame-reply)</div><div class="line">clockrate 64000</div><div class="line">frame-relay lmi-type cisco</div><div class="line">no frame-replay inverse-arp (关闭帧中继逆向ARP)</div></pre></td></tr></table></figure></p>
+<p><strong>以上就是对广域网接入的小小见解。</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 网络攻防 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 网络技术 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[路由器的基本配置]]></title>
+      <url>/18.html/</url>
+      <content type="html"><![CDATA[<p>路由器是网络异种网络互联与多个子网互联的重要设备。简单来说，路由器可以将不同的局域网进行互联和通信。<br><a id="more"></a></p>
+<h3 id="路由器疑点"><a href="#路由器疑点" class="headerlink" title="路由器疑点"></a>路由器疑点</h3><p>相比大家都路由器设备并不陌生，日常生活随处可见。<br>明明处于三层的路由器设备为何运用会比交换机普遍呢？<br>家庭日常使用的路由器为何需要连接不同子网呢？<br>当我们使用路由器上网时我们应当处于同一个局域网中？<br>这些疑惑笔者日后定会前来解答。</p>
+<h3 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h3><h5 id="配置IP地址"><a href="#配置IP地址" class="headerlink" title="配置IP地址"></a>配置IP地址</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Rouer&gt;enable</div><div class="line">Router#config t</div><div class="line">Router(config)#interface fastethernet0/1</div><div class="line">Router(config-if)#ip address 192.168.1.11 255.255.255.0</div><div class="line">Router(config-if)no shutdown</div><div class="line">Router(config-if)#end</div><div class="line">Router#show running-config</div></pre></td></tr></table></figure>
+<h5 id="配置终端服务器"><a href="#配置终端服务器" class="headerlink" title="配置终端服务器"></a>配置终端服务器</h5><p>对于大型网络需要使用多个路由器和交换设备，如果对于每一个设备进行一一通过控制台端口配置是很麻烦的，所以产生终端服务器(路由器功能的一种)来实现用一台PC同时访问多个网络设备。<br>在此呢笔者不进行阐述了，无非是通过切换对每一个设备进行配置罢了。</p>
+<h5 id="配置静态路由"><a href="#配置静态路由" class="headerlink" title="配置静态路由"></a>配置静态路由</h5><p>我们可以理解路由器不是直连的网络不能相互连通，但是我们可以人为的指定一条路径告诉路由器如何访问。<br>笔者疑惑的是静态路由是否只能间隔一个路由设备才能使用，由于实验的欠缺，在此立个flag。</p>
+<h6 id="IPv4静态路由"><a href="#IPv4静态路由" class="headerlink" title="IPv4静态路由"></a>IPv4静态路由</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">R2#config t</div><div class="line">R2(config)#ip route 192.168.1.0 255.255.255.0 10.1.1.1</div><div class="line">R2(config)#end</div></pre></td></tr></table></figure>
+<h6 id="IPv6静态路由"><a href="#IPv6静态路由" class="headerlink" title="IPv6静态路由"></a>IPv6静态路由</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">R2#config t</div><div class="line">R2(config)#ip 2005:CCCC::/64 Serial0/2/0</div><div class="line">R2(config)#end</div></pre></td></tr></table></figure>
+<h3 id="路由协议"><a href="#路由协议" class="headerlink" title="路由协议"></a>路由协议</h3><p>我们仔细想想，为什么需要路由协议？无非是告诉路由器如何选择路由线路，因此产生了<code>距离矢量</code>、<code>链路状态</code>、<code>平衡混合</code>等选择方式的协议了。<br>原本根据路由选择协议的应用范围，可划分为内部网关协议、外部网关协议和核心网关协议(软考未涉及)三大类。</p>
+<h4 id="内部网关协议"><a href="#内部网关协议" class="headerlink" title="内部网关协议"></a>内部网关协议</h4><p>我们可以理解在自治系统内部进行选择的路由协议。</p>
+<h5 id="RIP协议"><a href="#RIP协议" class="headerlink" title="RIP协议"></a>RIP协议</h5><p>用跳数来作为唯一的度量值。</p>
+<table><br>        <tr><br>            <th>命令</th><br>            <th>功能</th><br>        </tr><br>        <tr><br>            <th>router rip</th><br>            <th>指定使用RIP协议</th><br>        </tr><br>        <tr><br>            <th>network 网络地址</th><br>            <th>指定相连的网段</th><br>        </tr><br>        <tr><br>            <th>show ip route</th><br>            <th>查看路由表信息</th><br>        </tr><br>        <tr><br>            <th>show ip route igrp</th><br>            <th>查看IGRP协议的路由信息</th><br>        </tr><br></table>
+
+
+<p>至于配置案例在此就不叙述了。</p>
+<h5 id="IGRP协议"><a href="#IGRP协议" class="headerlink" title="IGRP协议"></a>IGRP协议</h5><p>与RIP协议配置不同的是，IGRP需要配置链路的带宽，毕竟带宽也是IGRP协议的度量值之一。</p>
+<table><br>    <tr><br>        <th>命令</th><br>        <th>功能</th><br>    </tr><br>    <tr><br>        <th>route igrp 自治系统号</th><br>        <th>指定使用IGRP协议</th><br>    </tr><br>    <tr><br>        <th>network 网络地址</th><br>        <th>指定相连的网段</th><br>    </tr><br>    <tr><br>        <th>show ip route</th><br>        <th>查看路由表信息</th><br>    </tr><br>    <tr><br>        <th>show ip route igrp</th><br>        <th>查看IGRP协议的路由信息</th><br>    </tr><br></table>
+
+<p>至于配置案例在此就不叙述了。<br>需要注意的是:使用IGRP协议，所涉及的路由器的自治系统号必须相同，否则彼此的路由信息将不被互相传递和学习。(自治系统号使用数字即可)</p>
+<h5 id="OSPF协议"><a href="#OSPF协议" class="headerlink" title="OSPF协议"></a>OSPF协议</h5><p>通过链路状态(接口状态)来建立路由关系，适合大型网络使用。</p>
+<p><table><br>    <tr><br>        <th>命令</th><br>        <th>功能</th><br>    </tr><br>    <tr><br>        <th>route ospf 进程ID</th><br>        <th>指定使用OSPF协议</th><br>    </tr><br>    <tr><br>        <th>network 网络地址 反掩码 area 区域号</th><br>        <th>指定相连的网段</th><br>    </tr><br>    <tr><br>        <th>show ip route</th><br>        <th>查看路由器信息</th><br>    </tr><br>    <tr><br>        <th>show ip route ospf</th><br>        <th>查看OSPF协议的路由信息</th><br>    </tr><br></table><br>至于配置案例在此就不叙述了。<br>需要注意的是:使用OSPF协议，每台路由器的OSPF所使用的进程号并不需要一致。(进程号使用数字即可)</p>
+<h5 id="EIGRP协议"><a href="#EIGRP协议" class="headerlink" title="EIGRP协议"></a>EIGRP协议</h5><p>EIGRP是增强版的IGRP协议，它属于平衡混合协议。它的相关命令与IFGRP类似。(软考对于EIPGRP知识点涉及较少)</p>
+<p><table><br>    <tr><br>        <th>命令</th><br>        <th>功能</th><br>    </tr><br>    <tr><br>        <th>router eigrp 自治系统号</th><br>        <th>指定使用OSPF协议</th><br>    </tr><br>    <tr><br>        <th>network 网络地址 [反掩码]</th><br>        <th>指定相连的网段</th><br>    </tr><br>    <tr><br>        <th>no auto-summay</th><br>        <th>关闭自动汇总功能</th><br>    </tr><br>    <tr><br>        <th>show ip route eigrp</th><br>        <th>查看EIGRP协议的路由信息</th><br>    </tr><br></table><br>至于配置案例在此就不叙述了。<br>需要注意的是:<br>    使用EIGRP协议，一般都需要关闭自动汇总功能。<br>    在这EIGRP使用的是反掩码，如果使用的是主网地址(A、B、C类的网络，就是掩码为8、16、24位的)可以省略反掩码。<br>(涉及反掩码的协议:OSPF、EIGRP、ACL)</p>
+<h4 id="外部网关协议"><a href="#外部网关协议" class="headerlink" title="外部网关协议"></a>外部网关协议</h4><p>BGP:路径向量协议，在BGP路径选择信息中都带有AS号码的序列，它指出一个路由已通过的路径。<br>BGP把TCP当作它的传送协议，端口号179，这样就能给个保证它所有的传送是可靠的。<br>它本身是属于网路层协议。</p>
+<p><strong>以上就是对路由器协议的小小见解。</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 网络攻防 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 网络技术 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[IPSec的相关配置]]></title>
+      <url>/21.html/</url>
+      <content type="html"><![CDATA[<p>我们能够理解IPSec(IP   Security)是用于增强IP网络的安全性，因此请务必重视它。同时历年的考点也说明了这一点。<br><a id="more"></a></p>
+<h2 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h2><h3 id="为IPSec做准备"><a href="#为IPSec做准备" class="headerlink" title="为IPSec做准备"></a>为IPSec做准备</h3><p>确定策略，选择方法。</p>
+<h3 id="配置IKE"><a href="#配置IKE" class="headerlink" title="配置IKE"></a>配置IKE</h3><ol>
+<li>用isakmp enable命令启动或关闭IKE。</li>
+<li>用isakmp policy命令创建IKE策略。</li>
+<li>用isakmp key命令和相关配置预共享密钥。</li>
+<li>用show isakmp [policy]命令验证IKE的配置</li>
+</ol>
+<h3 id="配置IPSec"><a href="#配置IPSec" class="headerlink" title="配置IPSec"></a>配置IPSec</h3><ol>
+<li>用access-list命令配置加密用访问控制列表。</li>
+<li>用crypto ipsec transform-set命令配置交换集。</li>
+<li>(任选)用crypto ipsec security-association lifetime明亮配置全局性的IPSec安全关联的生存期。</li>
+<li>用crypto map命令配置加密图。</li>
+<li>用interface命令和crypto map-name interface把配置应用到接口上。</li>
+<li>用各种可用的show命令验证IPSec的配置。</li>
+</ol>
+<h3 id="测试和验证IPSec"><a href="#测试和验证IPSec" class="headerlink" title="测试和验证IPSec"></a>测试和验证IPSec</h3><p>使用show、debug和相关的命令测试和验证IPSec加密是否正常。</p>
+<h2 id="代码实例"><a href="#代码实例" class="headerlink" title="代码实例"></a>代码实例</h2><p>总部端路由器部分配置:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">crypto isakmp policy 1</div><div class="line">authentication pre-share</div><div class="line">group 2</div><div class="line">crypto isakmp key test123 address 202.96.1.2</div><div class="line">crypto ipsec transform-set VPNtag ah-md5-hmac esp-des</div><div class="line">crypto map VPNdemo 10 ipsec-isakmp</div><div class="line">set peer 202.96.1.2</div><div class="line">set transform-set VPNtag</div><div class="line">match address 101</div><div class="line">interface Tunnel0</div><div class="line">ip address 68.1.1 255.255.255.0</div><div class="line">no ip directed-broadcast</div><div class="line">tunnel source 202.96.1.2</div><div class="line">crypto map VPNdemo</div><div class="line">ip route 0.0.0.0 0.0.0.0 202.96.1.2</div><div class="line">ip route 172.22.2.0 255.255.0.0 192.168.1.2</div><div class="line">access-list 101 permit gre host 202.96.1.1 host 202.96.1.2</div></pre></td></tr></table></figure></p>
+<p>关注三对应：</p>
+<ol>
+<li>转换集名称5-8(VPNtag)</li>
+<li>加密图名称6-15(VPNdemo)</li>
+<li>ACL编号9-18(101)</li>
+</ol>
+<p><strong>以上就是对IPSec的小小见解。</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 网络攻防 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 网络技术 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[访问控制列表ACL]]></title>
+      <url>/23.html/</url>
+      <content type="html"><![CDATA[<p>为什么需要ACL，无非是进行访问控制罢了。这种技术从路由器逐步推广到交换机上进行使用。<br><a id="more"></a><br>ACL对入站或出站的通信进行过滤。ACL的局限性是不能对路由器本身发出的通信进行过滤，因此在路由器上执行ping或trace、route命令，或者通过路由器远程连接(telnet)另外一个网络设备，应用于路由器端口的ACL命令不能过滤这些通信。<br>ACL基本原则:</p>
+<ul>
+<li>先匹配原则</li>
+<li>排序原则</li>
+<li>默认丢弃原则<br>我们知道ACL分为标准ACL和扩展ACL。</li>
+</ul>
+<h2 id="标准ACL"><a href="#标准ACL" class="headerlink" title="标准ACL"></a>标准ACL</h2><p>标准编号范围:1~99,1300~1999。<br>命令格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Router(config)#access-list 编号 permit|deny 单个IP|&#123;网络地址 反掩码&#125;</div></pre></td></tr></table></figure></p>
+<p>激活ACL命令(进入端口应用ACL)<br>in表示进入端口的分组(入站)，out表示端口输出的分组(出站)。<br>我们可以这样理解，在针对配置的设备来说，该端口经过该设备传送即为入站，反之端口远离该设备即为出站。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Router(config)#interface 端口号</div><div class="line">Router(config-if)#ip access-group acl编号 in|out</div></pre></td></tr></table></figure></p>
+<p>通配符掩码的例子</p>
+<table><br>        <tr><br>            <th>IP地址</th><br>            <th>通配符掩码</th><br>            <th>匹配</th><br>        </tr><br>        <tr><br>            <th>0.0.0.0</th><br>            <th>255.255.255.255</th><br>            <th>匹配任何地址(关键字any)</th><br>        </tr><br>        <tr><br>            <th>172.16.1.1</th><br>            <th>0.0.0.0    </th><br>            <th>匹配host 172.16.1.1(匹配单个主机)</th><br>        </tr><br>    </table>
+
+
+
+
+<p>标准ACL默认配置<br><code>access-list 编号 deny any</code></p>
+<h2 id="扩展ACL"><a href="#扩展ACL" class="headerlink" title="扩展ACL"></a>扩展ACL</h2><p>标准编号范围:1~99,1300~1999。<br>命令格式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Router(config)#access-list 编号 permit|deny 协议类型 源网络地址 反掩码 [控制信息]目的地址 反掩码 [控制信息] [log]</div></pre></td></tr></table></figure></p>
+<p>协议类型:tcp、udp、icmp、ip<br>对于TCP和UDP协议如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Router(config)#access-list 编号 permit|deny tcp|udp 源网络地址 反掩码 目的地址 反掩码 [操作符 端口|关键字] [established] [log]</div></pre></td></tr></table></figure></p>
+<p>激活ACL命令同标准ACL一致<br>实例配置:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Router#conf t</div><div class="line">Router(config)#access-list 100 permit tcp any 172.16.0.0 0.0.255.255 established log</div><div class="line">Router(config)#access-list 100 permit udp host 172.16.1.1 eq dns log</div><div class="line">Router(config)#access-list 100 permit tcp 172.17.0.0 0.0.255.255 host 172.16.1.2 eq telnet log</div><div class="line">Router(config)#access-list 100 permit icmp any 172.16.0.0 0.255.255.255 echo-reply log</div><div class="line">Router(config)#access-list 100 deny ip any any log</div><div class="line">Router(config)#interface ethernet0</div><div class="line">Router(config-if)#ip access-group 100 in</div></pre></td></tr></table></figure></p>
+<p>标准ACL默认配置<br><code>access-list 编号 deny ip any any</code></p>
+<p><strong>以上就是我对ACL的小小见解。</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 网络攻防 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 网络技术 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[网络常用设备及介绍]]></title>
       <url>/19.html/</url>
       <content type="html"><![CDATA[<p>我们能够理解即使虚拟的网络也需要底层的物理设备作为承载！<br><a id="more"></a></p>
@@ -55,6 +739,33 @@
 <h5 id="端口权值-port-priority"><a href="#端口权值-port-priority" class="headerlink" title="端口权值(port-priority)"></a>端口权值(port-priority)</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Switch#config terminal</div><div class="line">Switch(config)#interface f0/9</div><div class="line">Switch(config-if)#spanning-tree vlan 1 port-priority 10</div><div class="line">Switch(config-if)#spanning-tree vlan 2 port-priority 10</div><div class="line">Switch(config-if)#end</div><div class="line">Switch#copy running-config startup-config</div></pre></td></tr></table></figure>
 <h5 id="路径值-cost"><a href="#路径值-cost" class="headerlink" title="路径值(cost)"></a>路径值(cost)</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Switch#config terminal</div><div class="line">Switch(config)#interface f0/9</div><div class="line">Switch(config-if)#spanning-tree vlan 1 cost 30</div><div class="line">Switch(config-if)#spanning-tree vlan 1 cost 30</div><div class="line">Switch(config-if)#exit</div><div class="line">Switch#</div></pre></td></tr></table></figure>
 <p><strong>以上就是对交换机配置的小小见解。</strong></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 网络攻防 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 网络技术 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[IPv6配置与部署]]></title>
+      <url>/22.html/</url>
+      <content type="html"><![CDATA[<p>由于从IPv4向IPv6过渡是大势所趋，因此就目前学习IPv6来说可谓明智之举。<br><a id="more"></a><br>就目前而言从IPv4向IPv6过渡的技术，主要分为<code>双栈</code>、<code>隧道</code>和<code>翻译</code>三种。</p>
+<h2 id="IPv6-over-IPv4-GRE隧道配置"><a href="#IPv6-over-IPv4-GRE隧道配置" class="headerlink" title="IPv6-over-IPv4 GRE隧道配置"></a>IPv6-over-IPv4 GRE隧道配置</h2><p>IPv6-over-IPv4 GRE隧道是将IPv6报文封装在IPv4报文中，让IPv6数据包穿过IPv4网络进行通信。对于采用隧道技术的设备涞水，在隧道的入口出，将IPv6的数据报封装进IPv4,IPv4报文的源地址和目前地址分贝是隧道入库和隧道出口IPv4地址。<br>GRE隧道的相关配置命令<br>|命令|功能|<br>|::|::|<br>| interface 隧道接口号 | 启用隧道<em>隧道接口号</em> |<br>| ipv6 address ipv6地址/前缀长度 | 为tunnel配置IPv6地址|<br>| tunnel source ipv4地址 | 指定tunnel的源地址(也可是端口号) |<br>| tunnel destination ipv4地址 | 指定tunnel的目的地址 |<br>| tunnel mode gre ipv6 | tunnel模式为IPv6的GRE隧道|<br>配置隧道:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">R1(config)#interface tunnel 0</div><div class="line">R1(config-if)#tunnel source s1/0</div><div class="line">R1(config-if)#tunnel destination 202.100.2.2</div><div class="line">R1(config-if)#ipv6 address 2005:AAAA::1/64</div><div class="line">R1(config-if)#tunnel mode gre ipv6</div></pre></td></tr></table></figure></p>
+<h2 id="ISATAP隧道配置"><a href="#ISATAP隧道配置" class="headerlink" title="ISATAP隧道配置"></a>ISATAP隧道配置</h2><p>站内自动隧道寻找寻址协议(ISATAP)过渡技术采用了双栈和隧道技术实现从IPv4向IPv6的过渡。<br>采用IASATAP地址，格式为Prefix(64bit):0:5EFE:IPv4地址，其中0:5EFE是IANA规定的格式。<br>ISATAP隧道协议使用于IPv4网络中IPv6主机的通信或IPv4网络中IPv4主机接入到IPv6网络的通信。<br>|命令|功能|<br>|::|::|<br>| tunnel mode ipv6 ip isatap | tunnel模式为IPv6的ISATAP隧道|<br>| no ipv6 nd suppress-ra | 启动隧道口的路由器广播 |<br>配置代码略</p>
+<h2 id="NAT—PT"><a href="#NAT—PT" class="headerlink" title="NAT—PT"></a>NAT—PT</h2><p>网络地址转换协议转换(NAT-PT)是一种纯IPv6节点和IPv4节点的互通方式，所有包括地址、协议在内的转换工作都有网络设备来完成。</p>
+<h3 id="静态NAT-PT"><a href="#静态NAT-PT" class="headerlink" title="静态NAT-PT"></a>静态NAT-PT</h3><p>(静态一对一)<br>|命令|功能|<br>|::|::|<br>| ipv6 nat | 启用NAT-PT机制 |<br>| ipv6 nat prefix ipv6地址/前缀长度 | 说明NAT-PT使用的IPv6前缀|<br>| ipv6 nat v6v4 source ipv6地址 | 强制将IPv6地址的输出IPv6数据包转换成IPv4数据包 |<br>| ipv6 nat v4v6 source ipv4地址 | 强制将IPv4地址的输出IPv4数据包转换成IPv6数据包 |</p>
+<h3 id="动态NAT-PT"><a href="#动态NAT-PT" class="headerlink" title="动态NAT-PT"></a>动态NAT-PT</h3><p>(动态一对一)需要一个IPv4地址池。<br>|命令|功能|<br>|::|::|<br>| ipv6 <strong>access-list</strong> name <strong>permit</strong> ipv6地址/前缀|     定义运行被转换的ipv6地址范围 |<br>| ipv6 nat v6v4 <strong>pool</strong>ipv4-pool  开始ipv4地址 结束ipv4地址 prefix-length 前缀长度 | 规定转换过程中的源IPv4地址池 |<br>| ipv6 nat v6v4 source {list | route-map} {acl列表名 | 地图名 | 地址池名}  | 配置动态NAT-NT映射 |</p>
+<h3 id="NAPT-PT"><a href="#NAPT-PT" class="headerlink" title="NAPT-PT"></a>NAPT-PT</h3><p>(动态多对一)<br>NAPT-PT配置与动态NAT-PT转换类似，只需要在映射时添加overload参数即可。<br>|命令|功能|<br>|::|::|<br>| ipv6 nat v6v4 source {list | route-map} {acl列表名 | 地图名 | 地址池名} overload  | 配置NAPT-NT映射 |<br><strong>以上就是我对IPv6配置与部署的小小见解。</strong></p>
 ]]></content>
       
         <categories>
