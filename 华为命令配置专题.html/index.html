@@ -1,0 +1,436 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="Web倒是可以给梦想者一个启示，你能够拥有梦想，而且梦想能够实现，网络是离你梦想最近的地方!"><title>华为命令配置专题 | 小小博客</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/6.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.2/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><link rel="alternate" type="application/atom+xml" href="/atom.xml"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">华为命令配置专题</h1><a id="logo" href="/.">小小博客</a><p class="description">每天进步一点点。</p></div><div id="nav-menu"><a href="/"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/life/"><i class="fa fa-video-camera"> 生活</i></a><a href="/special/"><i class="fa fa-file-pdf-o"> 专题</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">华为命令配置专题</h1><div class="post-meta">Nov 4, 2017<span> | </span><span class="category"><a href="/categories/网络攻防/">网络攻防</a></span><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> 阅读</span></span></div><div class="clear"><div id="toc" class="toc-article"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#命令视图"><span class="toc-number">2.</span> <span class="toc-text">命令视图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#VLAN配置方法"><span class="toc-number">3.</span> <span class="toc-text">VLAN配置方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#交换机IP地址配置"><span class="toc-number">4.</span> <span class="toc-text">交换机IP地址配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#端口trunk配置"><span class="toc-number">5.</span> <span class="toc-text">端口trunk配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#端口汇聚配置"><span class="toc-number">6.</span> <span class="toc-text">端口汇聚配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#端口镜像配置"><span class="toc-number">7.</span> <span class="toc-text">端口镜像配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生成树STP配置"><span class="toc-number">8.</span> <span class="toc-text">生成树STP配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Quidway交换机维护"><span class="toc-number">9.</span> <span class="toc-text">Quidway交换机维护</span></a></li></ol></div></div><div class="post-content"><p>学习网络的同学都能明白，思科视乎一家独大，但是在发展的潮流中华为也紧跟不舍，所以对于我们学习华为命令的配置也变得重要了。<br><a id="more"></a></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>华为虽然对于交换机、路由器的配置和思科不大相同，但是我们能够理解的是不同的只是形式，其内部协议、原理也不过尔尔而已。<br>(针对此配置笔者了解甚少，多看书中实例理解)</p>
+<h2 id="命令视图"><a href="#命令视图" class="headerlink" title="命令视图"></a>命令视图</h2><ol>
+<li><p>用户视图(查看交换机简单运行状态和统计信息)</p>
+<blockquote>
+<p><quidway>:        与交换机建立连接即进入</quidway></p>
+</blockquote>
+</li>
+<li><p>系统视图(配置系统参数)</p>
+<blockquote>
+<p>[Quidway]:       在用户视图下键入system-view</p>
+</blockquote>
+</li>
+<li><p>以太网视图(配置以太网端口参数)</p>
+<blockquote>
+<p>[Quidway-Ethernet0/1]:       在系统视图下键入interface ethernet 0/1</p>
+</blockquote>
+</li>
+</ol>
+<ol>
+<li><p>VLAN视图(配置VLAN参数)</p>
+<blockquote>
+<p>[Quidway-Vlan1]:       在系统视图下键入vlan 123</p>
+</blockquote>
+</li>
+<li><p>VLAN接口视图(配置VLAN和VLAN汇聚对应的IP接口参数)</p>
+<blockquote>
+<p>[Quidway-Vlan1-interface]:       在系统视图下键入interface vlan-interface 123</p>
+</blockquote>
+</li>
+<li><p>本地用户视图(配置本地用户参数)</p>
+<blockquote>
+<p>[Quidway-luser-user1]:       在系统视图下键入local-user-user1</p>
+</blockquote>
+</li>
+<li><p>用户界面视图(配置用户界面参数)</p>
+<blockquote>
+<p>[Quidway-ui0]:       在系统视图下键入user-interface</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="VLAN配置方法"><a href="#VLAN配置方法" class="headerlink" title="VLAN配置方法"></a>VLAN配置方法</h2><p>『配置环境参数』<br>SwitchA端口E0/1属于VLAN2、E0/2属于VLAN3<br>『组网需求』<br>把交换机端口E0/1就让到VLAN2、E0/2加入到VLAN3<br>数据配置步骤<br>『VLAN配置流程』</p>
+<ol>
+<li>缺省情况下所有端口都属于VLAN1，并且端口是access端口，一个access端口智能属于一个vlan;</li>
+<li>如果端口是access端口，则把端口加入到另外一个vlan的同时，系统自动把该端口从原来的vlan中删除掉；</li>
+<li>除了VLAN1，如果VLAN XX不存在，在系统视图下键入VLAN XX，则创建VLAN XX并进入VLAN XX视图；如果VLAN XX已经参照，则进入VLAN视图。</li>
+</ol>
+<p>解析<br>【SwitchA相关配置】</p>
+<ul>
+<li><p>方法一:</p>
+<ol>
+<li><p>创建(进入)vlan 2</p>
+<blockquote>
+<p> [SwitchA]vlan 2</p>
+</blockquote>
+</li>
+<li><p>将端口E0/1加入到vlan 2</p>
+<blockquote>
+<p> [SwitchA-vlan2]port ethernet 0/1</p>
+</blockquote>
+</li>
+<li><p>创建(进入)vlan 3</p>
+<blockquote>
+<p>[SwitchA-vlan2]vlan 3</p>
+</blockquote>
+</li>
+<li><p>将端口E0/2加入到vlan3</p>
+<blockquote>
+<p>[SwitchA-vlan3]port ethernet 0/2</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<ul>
+<li><p>方法二</p>
+<ol>
+<li><p>创建(进入)vlan 2</p>
+<blockquote>
+<p> [SwitchA]vlan 2</p>
+</blockquote>
+</li>
+<li><p>进入端口E0/1视图</p>
+<blockquote>
+<p> [SwitchA]interface ethernet 0/1</p>
+</blockquote>
+</li>
+<li><p>指定端口E0/1属于vlan2</p>
+<blockquote>
+<p>[SwitchA-ethernet]port access vlan 2</p>
+</blockquote>
+</li>
+<li><p>创建(进入)vlan 3</p>
+<blockquote>
+<p> [SwitchA]vlan 3</p>
+</blockquote>
+</li>
+<li><p>进入端口E0/1视图</p>
+<blockquote>
+<p> [SwitchA]interface ethernet 0/2</p>
+</blockquote>
+</li>
+<li><p>指定端口E0/1属于vlan3</p>
+<blockquote>
+<p>[SwitchA-ethernet]port access vlan 3</p>
+</blockquote>
+</li>
+</ol>
+<p>测试验证</p>
+</li>
+<li><p>使用命令<code>disp cur</code>可以看到端口E0/1属于vlan2、E0/2属于vlan3；</p>
+</li>
+<li>使用<code>display interface Ethernet 0/1</code>可以看到端口为access端口、PVID为2；</li>
+<li>使用<code>display interface Ethernet 0/2</code>可以看到端口为access端口、PVID为3</li>
+</ul>
+<h2 id="交换机IP地址配置"><a href="#交换机IP地址配置" class="headerlink" title="交换机IP地址配置"></a>交换机IP地址配置</h2><p>功能需求及组网说明<br>『配置环境参数』<br>三层交换机SwitchA有两个端口ethernet0/1、ethernet0/2，分别属于vlan 2、vlan 3；<br>以vlan 2的三层接口地址分别是1.0.0.1/24作为PC1的网关；<br>以vlan 3的三层接口地址分别是2.0.0.1/24作为PC1的网关；<br>『组网需求』(此部分为本实验重点联系内容)<br>PC1和PC2通过三层接口互通</p>
+<p>解析<br>『SwitchA相关配置』</p>
+<ol>
+<li><p>创建(进入)vlan2</p>
+<blockquote>
+<p>[Quidway]vlan 2</p>
+</blockquote>
+</li>
+<li><p>将端口E0/1加入到vlan2</p>
+<blockquote>
+<p>[Quidway-vlan2]port ethernet 0/1</p>
+</blockquote>
+</li>
+<li><p>进入vlan2的虚接口</p>
+<blockquote>
+<p>[Quidway-vlan2]interface vlan 2</p>
+</blockquote>
+</li>
+<li><p>在vlan2的虚接口上配置</p>
+<blockquote>
+<p>[Quidway-Vlan-interface2]ip address 1.0.0.1 255.255.255.0</p>
+</blockquote>
+</li>
+<li><p>创建(进入)vlan3</p>
+<blockquote>
+<p>[Quidway]vlan 3</p>
+</blockquote>
+</li>
+<li><p>将E0/2加入到vlan3</p>
+<blockquote>
+<p>[QUidway-Vlan3]port ethernet 0/2</p>
+</blockquote>
+</li>
+<li><p>进入vlan3的虚接口</p>
+<blockquote>
+<p>[QUidway-Vlan3]interface vlan 3</p>
+</blockquote>
+</li>
+<li><p>在vlan3的虚接口上配置IP地址</p>
+<blockquote>
+<p>[QUidway-Vlan-interface3]ip address 2.0.0.1 255.255.255.0</p>
+</blockquote>
+</li>
+</ol>
+<p>测试验证</p>
+<ul>
+<li>PC1和PC2都可以ping同自己的网关</li>
+<li>PC1和PC2都可以相互ping通</li>
+</ul>
+<h2 id="端口trunk配置"><a href="#端口trunk配置" class="headerlink" title="端口trunk配置"></a>端口trunk配置</h2><p>内容<br>『配置环境参数』</p>
+<ul>
+<li>SwitchA端口E0/1属于vlan10，E0/2属于van20，E0/3与SwitchB端口E0/3互连</li>
+<li>SwitchB端口E0/1属于vlan10，E0/2属于van20，E0/3与SwitchA端口E0/3互连<br>『组网需求』</li>
+<li>要求SwitchA的vlan10的PC与SwitchB的vlan10的PC互通</li>
+<li>要求SwitchA的vlan20的PC与SwitchB的vlan20的PC互通</li>
+</ul>
+<p>解析<br>数据配置步骤<br>『SwitchA相关配置』</p>
+<ol>
+<li><p>创建(进入)vlan10</p>
+<blockquote>
+<p>[SwitchA]vlan 10</p>
+</blockquote>
+</li>
+<li><p>将E0/1加入到vlan10</p>
+<blockquote>
+<p>[SwitchA-vlan10]port Ethernet 0/1</p>
+</blockquote>
+</li>
+<li><p>创建(进入)vlan20</p>
+<blockquote>
+<p>[SwitchA]vlan 20</p>
+</blockquote>
+</li>
+<li><p>将E0/2加入到vlan20</p>
+<blockquote>
+<p>[SwitchA-vlan20]port Ethernet 0/2</p>
+</blockquote>
+</li>
+<li><p>实际当中一般将上行端口设置成trunk属性，允许vlan透传</p>
+<blockquote>
+<p>[SwitchA-Ethernet0/3]port link-type trunk</p>
+</blockquote>
+</li>
+<li><p>允许所有的vlan从E0/3端口透传通过，也可以指定具体的vlan值</p>
+<blockquote>
+<p>[SwitchA-Ethernet0/3]port trunk permit vlan all</p>
+</blockquote>
+</li>
+</ol>
+<p>『SwitchB相关配置』</p>
+<ol>
+<li><p>创建(进入)vlan10</p>
+<blockquote>
+<p>[SwitchB]vlan 10</p>
+</blockquote>
+</li>
+<li><p>将E0/1加入到vlan10</p>
+<blockquote>
+<p>[SwitchB-vlan10]port Ethernet 0/1</p>
+</blockquote>
+</li>
+<li><p>创建(进入)vlan20</p>
+<blockquote>
+<p>[SwitchB]vlan 20</p>
+</blockquote>
+</li>
+<li><p>将E0/2加入到vlan20</p>
+<blockquote>
+<p>[SwitchB-vlan20]port Ethernet 0/2</p>
+</blockquote>
+</li>
+<li><p>实际当中一般将上行端口设置成trunk属性，允许vlan透传</p>
+<blockquote>
+<p>[SwitchB-Ethernet0/3]port link-type trunk</p>
+</blockquote>
+</li>
+<li><p>允许所有的vlan从E0/3端口透传通过，也可以指定具体的vlan值</p>
+<blockquote>
+<p>[SwitchB-Ethernet0/3]port trunk permit vlan all</p>
+</blockquote>
+</li>
+</ol>
+<p>【补充说明】</p>
+<ul>
+<li>如果一个端口是trunk端口，则该端口可以属于多个vlan；</li>
+<li>缺省情况下trunk端口的PVID为1，可以在端口模式下通过命令port trunk vlan vlanid 来修改端口的PVID；</li>
+<li>如果从trunk转发出去的数据报文的vlan id和端口的PVID一致，则该报文的VLAN会被剥去，这点在配置trunk端口时需要注意；</li>
+<li>一台交换机上如果已经设置了某个端口为hybrid端口，则不可以再把另外的端口设置为trunk端口；</li>
+<li>一般情况下最好指定端口允许通过哪些具体的VLAN，不要设置允许所有的VLAN通过。</li>
+</ul>
+<p>测试验证</p>
+<ol>
+<li>SwitchA vlan10内的PC可以与SwitchB vlan10内的PC互通</li>
+<li>SwitchA vlan20内的PC可以与SwitchB vlan20内的PC互通</li>
+<li>SwitchA vlan10内的PC不能与SwitchB vlan20内的PC互通</li>
+<li>SwitchA vlan20内的PC不能与SwitchB vlan10内的PC互通</li>
+</ol>
+<h2 id="端口汇聚配置"><a href="#端口汇聚配置" class="headerlink" title="端口汇聚配置"></a>端口汇聚配置</h2><p> 内容<br>『配置环境参数』</p>
+<ol>
+<li>交换机SwitchA和SwitchB通过以太网口实现互连。</li>
+<li>SwitchA用于互连的端口为e0/1和e0/2，SwitchB用于互连的端口为e0/1和e/2。</li>
+</ol>
+<p>『组网需求』<br>增加SwitchA的SwitchB的互连链路的带宽，并且能够实现链路备份，使用端口汇聚 数据配置步骤<br>解析<br>【SwitchA交换机配置】</p>
+<ol>
+<li><p>进入端口E0/1</p>
+<blockquote>
+<p>[SwitchA]interface Ethernet 0/1</p>
+</blockquote>
+</li>
+<li><p>汇聚端口必须关注在全双工模式</p>
+<blockquote>
+<p>[SwitchA-Ethernet0/1]duplex full</p>
+</blockquote>
+</li>
+<li><p>汇聚的端口速率要求相同，但不能是自适应</p>
+<blockquote>
+<p>[SwitchA-Ethernet0/2]speed 100</p>
+</blockquote>
+</li>
+<li><p>进入端口E0/2</p>
+<blockquote>
+<p>[SwitchA]interface Ethernet 0/2</p>
+</blockquote>
+</li>
+<li><p>汇聚端口必须关注在全双工模式</p>
+<blockquote>
+<p>[SwitchA-Ethernet0/2]duplex full</p>
+</blockquote>
+</li>
+<li><p>汇聚的端口速率要求相同，但不能是自适应</p>
+<blockquote>
+<p>[SwitchA-Ethernet0/2]speed 100</p>
+</blockquote>
+</li>
+<li><p>根据源和目的MAC进行端口选择汇聚</p>
+<blockquote>
+<p>[SwitchA]link-aggergation Ethernet 0/1 to Ethernet 0/2 both</p>
+</blockquote>
+</li>
+</ol>
+<p>【SwitchB交换机配置】</p>
+<blockquote>
+<p>[SwitchB]interface Ethernet 0/1<br>[SwitchB-Ethernet0/1]duplex full<br>[SwitchB-Ethernet0/2]speed 100<br>[SwitchB]interface Ethernet 0/2<br>[SwitchB-Ethernet0/2]duplex full<br>[SwitchB-Ethernet0/2]speed 100<br>[SwitchB]link-aggergation Ethernet 0/1 to Ethernet 0/2 both</p>
+</blockquote>
+<p>【补充说明】</p>
+<ul>
+<li>同一个汇聚组中成员端口的链接类型与注端口的链路类型保存一致，即如果主端口为Trunk端口，则成员端口也为Trunk端口；<br>如主端口的链路类型改为Access端口，则成员端口的链路类型也变为Access端口。</li>
+<li>不同的产品对端口汇聚是的起始端口号要去各有不同，请对照《操作手册》进行配置。</li>
+</ul>
+<h2 id="端口镜像配置"><a href="#端口镜像配置" class="headerlink" title="端口镜像配置"></a>端口镜像配置</h2><p>内容<br>『环境配置参数』</p>
+<ol>
+<li>PC1接在交换机E0/1端口，IP地址1.1.1.1/24</li>
+<li>PC2接在交换机E0/2端口，IP地址2.2.2.2/24</li>
+<li>E0/24为交换机上行端口</li>
+<li>Server接在交换机E0/8端口，盖端口作为镜像端口</li>
+</ol>
+<p>『组网需求』</p>
+<ol>
+<li>通过交换机端口镜像的功能使用server对两台pc的业务报文进行监控。<br>根据Qidway交换机不同型号，镜像有不同方式进行配置:基于端口的进行 基于断句的镜像十八辈镜像端口的进出数据报文完全拷贝一份到镜像端口，这样来进行流量观测或者故障定位。</li>
+</ol>
+<p>基于流的镜像 基于流镜像的交换机针对某些流进行镜像，每个连接都有两个方向的数据流，对于交换机来说这两个数据流是要分开镜像的。</p>
+<p>S2008/S2016/S2026/S2403H/S3026等交换机支持的都是基于端口的镜像<br>8016交换机支持基于端口的镜像<br>3500/3026E/3026F/2050支持基于流的镜像<br>5516/6505/6503/6506R支持对入端口流量进行镜像</p>
+<p>解析<br>数据配置步骤<br>以Quidway S3026C为例，通过基于二层流的镜像进行配置：</p>
+<ol>
+<li><p>定义一个ACL</p>
+<blockquote>
+<p>[SwitchA]acl num 200</p>
+</blockquote>
+</li>
+<li><p>定义一个规则从E0/1发送至其它所有端口的数据包</p>
+<blockquote>
+<p>[SwitchA]rule 0 permir ingress interface Ethernet0/1 egress interface Ethernet 0/2</p>
+</blockquote>
+</li>
+<li><p>定义一个规则从其它所有端口到E0/1端口的数据包</p>
+<blockquote>
+<p>[SwitchA]rule 1 permir ingress interface Ethernet0/2 egress interface Ethernet 0/1</p>
+</blockquote>
+</li>
+</ol>
+<ol>
+<li>将符合上述ACL的数据包镜像到E0/8<blockquote>
+<p>[SwitchA]mirrored-to link-group 200 interface e0/8</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="生成树STP配置"><a href="#生成树STP配置" class="headerlink" title="生成树STP配置"></a>生成树STP配置</h2><p>内容<br>『配置环境参数』</p>
+<ol>
+<li>交换机SwitchA、SwitchB和SwitchC都通过GE接口互连</li>
+<li>SwitchB和SwitchC交换机是核心交换机，要求主备</li>
+</ol>
+<p>『组网要求』要求整个网络运行STP协议 数据配置步骤</p>
+<p>解析</p>
+<ol>
+<li><p>【SwitchA交换机配置】启动生成树协议：</p>
+<blockquote>
+<p>[SwitchA]stp enable</p>
+</blockquote>
+</li>
+<li><p>【SwitchB交换机配置】启动生成树协议：</p>
+<blockquote>
+<p>[SwitchB]stp enable</p>
+</blockquote>
+</li>
+<li><p>配置本桥为根桥</p>
+<blockquote>
+<p>[SwitchB] stp root primary</p>
+</blockquote>
+</li>
+<li><p>【SwitchC交换机配置】<br>a 启动生成树协议</p>
+<blockquote>
+<p>[SwitchC]stp enable</p>
+</blockquote>
+</li>
+</ol>
+<p>b 配置本桥为备份根桥</p>
+<blockquote>
+<p>[SwitchC]stp root secondary</p>
+</blockquote>
+<p>  5.【SwitchD交换机配置】<br>  a 启动生成树协议</p>
+<blockquote>
+<p>[SwitchD]stp enable</p>
+</blockquote>
+<p>【补充说明】</p>
+<ol>
+<li>缺省情况下交换机的优先级都是32768，如果想人为指定某一台交换机为根交换机，也可以通过修改优先级来实现；</li>
+<li>缺省情况下打开生成树后，所有端口都会开启生成树解析，请把接PC的端口改为边缘端口模式；</li>
+<li>如果要控制某条链路的状态可以通过设置端口的cost值来实现</li>
+</ol>
+<p>测试验证</p>
+<ol>
+<li>使用display stp查看交换机STP运行状态</li>
+<li>查看端口STP状态display stp interface Ethernet XX是否正确</li>
+</ol>
+<h2 id="Quidway交换机维护"><a href="#Quidway交换机维护" class="headerlink" title="Quidway交换机维护"></a>Quidway交换机维护</h2><p>内容<br>显示系统版本信息: <code>display version</code><br>显示诊断信息: <code>display diagnostic-information</code><br>显示系统当前配置: <code>display current-configuration</code><br>显示系统保存配置: <code>display saved-configuration</code><br>显示接口信息: <code>display interface</code><br>显示路由信息: <code>display ip routing-table</code><br>显示VLAN信息: <code>display vlan</code><br>显示生成树信息: <code>display stp</code><br>显示MAC地址表: <code>display mac-address</code><br>显示ARP表信息: <code>display arp</code><br>显示系统CPU使用率: <code>display memory</code><br>显示系统日志: <code>display log</code><br>显示系统时钟: <code>display clock</code><br>删除某条命令，一般使用命令<code>undo</code></p>
+<p>解析</p>
+<ul>
+<li><p>【SwitchA交换机配置】启动生成树协议:</p>
+<blockquote>
+<p>[SwitchA]stp enable</p>
+</blockquote>
+</li>
+<li><p>【SwitchB交换机配置】启动生成树协议:</p>
+<blockquote>
+<p>[SwitchB]stp enable</p>
+</blockquote>
+</li>
+<li><p>配置本桥为根桥</p>
+<blockquote>
+<p>[SwitchB]stp root primary</p>
+</blockquote>
+</li>
+<li><p>【SwitchC交换机配置】<br> a. 启动生成树协议:</p>
+<blockquote>
+<p>[SwitchC]stp enable</p>
+</blockquote>
+</li>
+</ul>
+<pre><code>b. 配置本桥为备份根桥
+</code></pre><blockquote>
+<p>[SwitchC]stp root secondary</p>
+</blockquote>
+<ul>
+<li>【SwitchD交换机配置】<br> a. 启动生成树协议:<blockquote>
+<p>[SwitchD]stp enable</p>
+</blockquote>
+</li>
+</ul>
+<p>【补充说明】</p>
+<ul>
+<li>缺省情况下交换机的优先级都是32768，如果想认为指定某一台交换机为根交换机，也可以通过修改优先级来实现；</li>
+<li>缺省情况下打开生成树后，所有端口都会开启生成树协议，请把接PC的端口改为边缘端口模式；</li>
+<li>如果要控制某条链路的状态可以通过设置的cost值来实现。</li>
+</ul>
+<p>测试验证</p>
+<ol>
+<li>使用display stp查看交换机STP运行状态</li>
+<li>查看端口STP状态display stp interface Ethernet XX是否正确</li>
+</ol>
+<p><strong>以上就是对华为命令配置专题的小小见解。</strong></p>
+</div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://www.jb-hacker.top/华为命令配置专题.html/" data-id="cjd75ymcx0015fcno732uhofx" class="article-share-link">分享</a><div class="tags"><a href="/tags/网络技术/">网络技术</a></div><div class="post-nav"><a href="/《风之影》.html/" class="pre">《风之影》</a><a href="/访问控制列表ACL.html/" class="next">访问控制列表ACL</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C语言/">C语言</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/PHP/">PHP</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/网络攻防/">网络攻防</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/php/" style="font-size: 15px;">php</a> <a href="/tags/网络技术/" style="font-size: 15px;">网络技术</a> <a href="/tags/git/" style="font-size: 15px;">git</a> <a href="/tags/github/" style="font-size: 15px;">github</a> <a href="/tags/linux/" style="font-size: 15px;">linux</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/Python，语音/" style="font-size: 15px;">Python，语音</a> <a href="/tags/vim/" style="font-size: 15px;">vim</a> <a href="/tags/百书计划/" style="font-size: 15px;">百书计划</a> <a href="/tags/JavaScript/" style="font-size: 15px;">JavaScript</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/人工智能/" style="font-size: 15px;">人工智能</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/《乌合之众》.html/">《乌合之众》</a></li><li class="post-list-item"><a class="post-list-link" href="/《百书计划》简述.html/">《百书计划》简述</a></li><li class="post-list-item"><a class="post-list-link" href="/《风之影》.html/">《风之影》</a></li><li class="post-list-item"><a class="post-list-link" href="/华为命令配置专题.html/">华为命令配置专题</a></li><li class="post-list-item"><a class="post-list-link" href="/访问控制列表ACL.html/">访问控制列表ACL</a></li><li class="post-list-item"><a class="post-list-link" href="/网络常用设备及介绍.html/">网络常用设备及介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/IPv6配置与部署.html/">IPv6配置与部署</a></li><li class="post-list-item"><a class="post-list-link" href="/IPSec的相关配置.html/">IPSec的相关配置</a></li><li class="post-list-item"><a class="post-list-link" href="/配置广域网接入.html/">配置广域网接入</a></li><li class="post-list-item"><a class="post-list-link" href="/路由器的基本配置.html/">路由器的基本配置</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://github.com/thginWalker" title="github" target="_blank">github</a><ul></ul><a href="http://blog.csdn.net/xz2585458279" title="CSDN" target="_blank">CSDN</a><ul></ul><a href="https://stoneqi.github.io/" title="石头杨的小站" target="_blank">石头杨的小站</a><ul></ul><a href="http://sunxiaoning.me/" title="小宁博客" target="_blank">小宁博客</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2018 <a href="/." rel="nofollow">小小博客.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/fancybox/3.0.47/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
